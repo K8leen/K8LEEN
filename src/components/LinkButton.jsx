@@ -1,0 +1,118 @@
+import { Link } from "react-router-dom";
+
+const toneByVariant = {
+  default: {
+    default: "text-structure-text",
+    hover: "text-dark-accent",
+    pressed: "text-primary-accent",
+    disabled: "text-technical-line",
+  },
+  inline: {
+    default: "text-primary-accent",
+    hover: "text-dark-accent",
+    pressed: "text-primary-accent/80",
+    disabled: "text-technical-line",
+  },
+  jump: {
+    default: "text-structure-text",
+    hover: "text-dark-accent",
+    pressed: "text-primary-accent",
+    disabled: "text-technical-line",
+  },
+};
+
+function LinkContent({ variant, children }) {
+  if (variant === "jump") {
+    return (
+      <span className="follow-link-shell">
+        <span className="text-body-small follow-link-text">{children}</span>
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 17 17"
+          className="follow-link-icon"
+          fill="none"
+          shapeRendering="geometricPrecision"
+        >
+          <path
+            d="M0.5 16.5L16 1M11 1H16V6"
+            stroke="currentColor"
+            strokeWidth="0.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+      </span>
+    );
+  }
+
+  return <span className="text-body-small">{children}</span>;
+}
+
+function LinkButton({
+  children,
+  variant = "default",
+  state,
+  href,
+  to,
+  disabled = false,
+  download,
+  target,
+  rel,
+  className = "",
+  ...props
+}) {
+  const isDisabled = disabled || state === "disabled";
+  const isStaticPreview = state !== undefined;
+  const content = <LinkContent variant={variant}>{children}</LinkContent>;
+
+  if (isStaticPreview) {
+    const colorClass = toneByVariant[variant][isDisabled ? "disabled" : state];
+    const baseClass =
+      `link-btn-base ${colorClass} ${isDisabled ? "link-btn-disabled" : ""} ${className}`.trim();
+
+    return (
+      <button type="button" className={baseClass} disabled={isDisabled} {...props}>
+        {content}
+      </button>
+    );
+  }
+
+  const interactiveClass =
+    `link-btn-base link-btn--${variant} ${isDisabled ? "link-btn-disabled" : ""} ${className}`.trim();
+
+  if (to) {
+    return (
+      <Link to={to} className={interactiveClass} aria-disabled={isDisabled} {...props}>
+        {content}
+      </Link>
+    );
+  }
+
+  if (href) {
+    const isExternal = /^https?:\/\//.test(href);
+    const isMailto = href.startsWith("mailto:");
+
+    return (
+      <a
+        href={isDisabled ? undefined : href}
+        className={interactiveClass}
+        download={download}
+        target={target ?? (isExternal ? "_blank" : undefined)}
+        rel={rel ?? (isExternal ? "noopener noreferrer" : undefined)}
+        aria-disabled={isDisabled}
+        {...props}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <button type="button" className={interactiveClass} disabled={isDisabled} {...props}>
+      {content}
+    </button>
+  );
+}
+
+export default LinkButton;
