@@ -88,11 +88,9 @@ function DesignSystemPage() {
             <p className="text-hero">Hero / Alumni Sans SC / 56</p>
             <p className="text-subhero mt-4">Subhero / Alumni Sans SC / 32</p>
             <p className="text-block mt-4">Block / Alumni Sans SC / 24</p>
-            <p className="text-body-main mt-4">
-              Body main / Alumni Sans SC / 18
-            </p>
+            <p className="text-body-main mt-4">Body main / Alumni Sans / 18</p>
             <p className="text-body-small mt-3 text-technical-info">
-              Body small / Alumni Sans SC / 16
+              Body small / Alumni Sans / 16
             </p>
             <p className="text-tech mt-3 text-technical-info">
               Tech / GOST Type AU / 14 / 5%
@@ -262,7 +260,7 @@ function DesignSystemPage() {
               tags={["NDA", "NDA"]}
               title="TITLE"
               roleLabel="Моя роль"
-              roleValue="NAME"
+              roleValue="UX/UI дизайнер"
               resultLabel="Ключевой результат"
               resultValue="DESCRIPTION"
             />
@@ -304,11 +302,13 @@ function DesignSystemPage() {
               <div>
                 <p className="text-tech mb-3 text-technical-info">with link</p>
                 <Block title="BLOCK HEADER" linkLabel="Посмотреть все" borders={{ top: true, bottom: true }}>
-                  <BlockSlot>Слот 1</BlockSlot>
-                  <BlockSlot>Слот 2</BlockSlot>
-                  <BlockSlot>Слот 3</BlockSlot>
+                  <BlockSlot className="ds-block-slot--demo">Слот 1</BlockSlot>
+                  <BlockSlot className="ds-block-slot--demo">Слот 2</BlockSlot>
+                  <BlockSlot className="ds-block-slot--demo">Слот 3</BlockSlot>
                   {Array.from({ length: 5 }, (_, index) => (
-                    <BlockSlot key={index}>Слот</BlockSlot>
+                    <BlockSlot key={index} className="ds-block-slot--demo">
+                      Слот
+                    </BlockSlot>
                   ))}
                 </Block>
               </div>
@@ -317,7 +317,9 @@ function DesignSystemPage() {
                 <p className="text-tech mb-3 text-technical-info">without link</p>
                 <Block title="BLOCK HEADER" borders={{ left: true, right: true }}>
                   {Array.from({ length: 8 }, (_, index) => (
-                    <BlockSlot key={index}>Слот</BlockSlot>
+                    <BlockSlot key={index} className="ds-block-slot--demo">
+                      Слот
+                    </BlockSlot>
                   ))}
                 </Block>
               </div>

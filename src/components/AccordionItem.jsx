@@ -22,7 +22,7 @@ function AccordionItem({
   };
 
   return (
-    <article className={className}>
+    <article className={`accordion-item ${className}`.trim()}>
       <button
         type="button"
         className="flex w-full cursor-pointer items-center justify-between gap-4 border-0 bg-transparent p-0 text-left"

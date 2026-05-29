@@ -10,7 +10,7 @@ function TextBlock({
     return (
       <article className={`content-text-block ${className}`.trim()}>
         <section className="content-text-block-section">
-          <h3 className="text-body-main text-structure-text">{title}</h3>
+          <h3 className="text-body-main text-primary-text">{title}</h3>
           <ul className="content-text-block-list">
             {listItems.map((item, index) => (
               <li key={`${item}-${index}`} className="text-body-small text-technical-info">
@@ -27,7 +27,7 @@ function TextBlock({
     return (
       <article className={`content-text-block ${className}`.trim()}>
         <section className="content-text-block-section">
-          <h3 className="text-body-main text-structure-text">{title}</h3>
+          <h3 className="text-body-main text-primary-text">{title}</h3>
           <p className="text-body-small text-technical-info">{description}</p>
         </section>
       </article>
@@ -36,7 +36,7 @@ function TextBlock({
 
   return (
     <article className={`content-text-block ${className}`.trim()}>
-      <p className="text-body-main text-structure-text">{text}</p>
+      <p className="text-body-main text-primary-text">{text}</p>
     </article>
   );
 }

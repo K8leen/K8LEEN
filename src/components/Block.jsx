@@ -3,6 +3,8 @@ import LinkButton from "./LinkButton";
 function Block({
   title = "BLOCK HEADER",
   linkLabel,
+  linkTo,
+  linkHref,
   borders = {},
   children,
   className = "",
@@ -22,7 +24,12 @@ function Block({
       <header className="ds-block-header">
         <h2 className="text-block text-primary-text">{title}</h2>
         {linkLabel ? (
-          <LinkButton variant="jump" state="default">
+          <LinkButton
+            variant="inline"
+            to={linkTo}
+            href={linkHref}
+            state={linkTo || linkHref ? undefined : "default"}
+          >
             {linkLabel}
           </LinkButton>
         ) : null}

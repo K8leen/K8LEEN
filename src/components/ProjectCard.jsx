@@ -1,13 +1,21 @@
 import LinkButton from "./LinkButton";
+import RoleText from "./RoleText";
 import Tag from "./Tag";
+
+function normalizeTag(tag) {
+  if (typeof tag === "object" && tag !== null) {
+    return { label: tag.label, tone: tag.tone ?? "nda" };
+  }
+  return { label: tag, tone: "nda" };
+}
 
 function ProjectCard({
   imageSrc = "/img/pattern.svg",
   imageAlt = "Project illustration",
   tags = ["NDA", "NDA"],
   title = "TITLE",
-  roleLabel = "МОЯ РОЛЬ",
-  roleValue = "NAME",
+  roleLabel = "Роль",
+  roleValue = "UX/UI дизайнер",
   resultLabel = "КЛЮЧЕВОЙ РЕЗУЛЬТАТ",
   resultValue = "DESCRIPTION",
   linkLabel = "Подробнее",
@@ -22,11 +30,14 @@ function ProjectCard({
       <div className="project-card-info">
         <div className="project-card-topline">
           <div className="project-card-tags">
-            {tags.map((tag, index) => (
-              <Tag key={`${tag}-${index}`} tone="nda">
-                {tag}
-              </Tag>
-            ))}
+            {tags.map((tag, index) => {
+              const { label, tone } = normalizeTag(tag);
+              return (
+                <Tag key={`${label}-${index}`} tone={tone}>
+                  {label}
+                </Tag>
+              );
+            })}
           </div>
           <LinkButton variant="jump" state="default">
             {linkLabel}
@@ -40,7 +51,9 @@ function ProjectCard({
             <dt className="text-body-small text-technical-info project-card-meta-key">
               {roleLabel}
             </dt>
-            <dd className="text-body-small text-structure-text">{roleValue}</dd>
+            <dd className="text-body-small text-structure-text">
+              <RoleText>{roleValue}</RoleText>
+            </dd>
           </div>
 
           <div className="project-card-meta-row">

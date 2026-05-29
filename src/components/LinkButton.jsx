@@ -53,6 +53,7 @@ function LinkButton({
   children,
   variant = "default",
   state,
+  active = false,
   href,
   to,
   disabled = false,
@@ -65,6 +66,7 @@ function LinkButton({
   const isDisabled = disabled || state === "disabled";
   const isStaticPreview = state !== undefined;
   const content = <LinkContent variant={variant}>{children}</LinkContent>;
+  const pressedClass = active && !isDisabled ? "link-btn--pressed" : "";
 
   if (isStaticPreview) {
     const colorClass = toneByVariant[variant][isDisabled ? "disabled" : state];
@@ -79,11 +81,17 @@ function LinkButton({
   }
 
   const interactiveClass =
-    `link-btn-base link-btn--${variant} ${isDisabled ? "link-btn-disabled" : ""} ${className}`.trim();
+    `link-btn-base link-btn--${variant} ${pressedClass} ${isDisabled ? "link-btn-disabled" : ""} ${className}`.trim();
 
   if (to) {
     return (
-      <Link to={to} className={interactiveClass} aria-disabled={isDisabled} {...props}>
+      <Link
+        to={to}
+        className={interactiveClass}
+        aria-current={active ? "page" : undefined}
+        aria-disabled={isDisabled}
+        {...props}
+      >
         {content}
       </Link>
     );
@@ -109,7 +117,13 @@ function LinkButton({
   }
 
   return (
-    <button type="button" className={interactiveClass} disabled={isDisabled} {...props}>
+    <button
+      type="button"
+      className={interactiveClass}
+      disabled={isDisabled}
+      aria-current={active ? "page" : undefined}
+      {...props}
+    >
       {content}
     </button>
   );

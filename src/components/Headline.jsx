@@ -5,7 +5,7 @@ function Headline({
 }) {
   return (
     <section className={`headline ${className}`.trim()}>
-      <h1 className="text-hero text-primary-text">{header}</h1>
+      <h1 className="text-hero text-structure-text">{header}</h1>
       <p className="headline-subheader text-subhero text-structure-text">{subheader}</p>
     </section>
   );
