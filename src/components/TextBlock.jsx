@@ -1,16 +1,23 @@
 function TextBlock({
   variant = "plain",
   text = "TEXT LINE",
-  title = "TITLE",
+  textTone = "primary",
+  title,
   listItems = ["LIST"],
   description = "DESCRIPTION",
   className = "",
 }) {
+  const plainTextClass =
+    textTone === "technical-info"
+      ? "text-body-main text-technical-info"
+      : "text-body-main text-primary-text";
   if (variant === "list") {
     return (
       <article className={`content-text-block ${className}`.trim()}>
         <section className="content-text-block-section">
-          <h3 className="text-body-main text-primary-text">{title}</h3>
+          {title ? (
+            <h3 className="text-body-main text-primary-text">{title}</h3>
+          ) : null}
           <ul className="content-text-block-list">
             {listItems.map((item, index) => (
               <li key={`${item}-${index}`} className="text-body-small text-technical-info">
@@ -36,7 +43,7 @@ function TextBlock({
 
   return (
     <article className={`content-text-block ${className}`.trim()}>
-      <p className="text-body-main text-primary-text">{text}</p>
+      <p className={plainTextClass}>{text}</p>
     </article>
   );
 }

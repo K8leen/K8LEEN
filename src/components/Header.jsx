@@ -13,13 +13,13 @@ function Header({ className = "" }) {
 
       <nav className="site-header-nav" aria-label="Основная навигация">
         <LinkButton
-          variant="default"
+          variant="inline"
           to={isAboutActive ? undefined : "/"}
           active={isAboutActive}
         >
           Обо мне
         </LinkButton>
-        <LinkButton variant="default" to="/#projects" active={isProjectsActive}>
+        <LinkButton variant="inline" to="/projects" active={isProjectsActive}>
           Проекты
         </LinkButton>
       </nav>

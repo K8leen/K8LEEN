@@ -158,8 +158,11 @@
   }
 
   .link-btn--inline:active {
-    color: var(--primary-accent);
-    opacity: 0.8;
+    color: var(--technical-info);
+  }
+
+  .link-btn--inline.link-btn--pressed {
+    color: var(--technical-info);
   }
 
   .link-btn--jump {
@@ -253,6 +256,45 @@
   .home-block--projects .ds-block-slot:last-child .project-card {
     border-bottom: none;
   }
+
+  .projects-page-block-row {
+    display: grid;
+    width: 1200px;
+    max-width: 100%;
+    grid-template-columns: 400px 800px;
+    align-items: stretch;
+  }
+
+  .projects-page-col-left {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+  }
+
+  .projects-page-col-left > .ds-block,
+  .projects-page-block-row > .ds-block {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .projects-page-col-left > .projects-block--after-project {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .projects-page-text-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .projects-block--list .ds-block-slots {
+    gap: 0;
+  }
+
+  .projects-block--list .ds-block-slot:last-child .project-card {
+    border-bottom: none;
+  }
 }
 
 @layer components {
@@ -328,16 +370,25 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid;
     height: 20px;
+    border: none;
+    outline: none;
+    box-shadow: none;
     border-radius: 4px;
     padding: 1px 6px;
     white-space: nowrap;
   }
 
+  .project-card-tags .tag-chip {
+    border: none;
+    outline: none;
+    box-shadow: none;
+  }
+
   .project-card {
     display: grid;
     grid-template-columns: 148px 1px minmax(0, 1fr);
+    grid-template-rows: 148px;
     column-gap: 20px;
     align-items: stretch;
     padding-top: 20px;
@@ -364,10 +415,16 @@
     display: flex;
     flex-direction: column;
     height: 148px;
+    min-height: 0;
   }
 
   .project-card-title {
     margin-top: 12px;
+    min-height: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
   }
 
   .project-card-topline {
@@ -570,7 +627,7 @@
   .site-footer {
     width: 1200px;
     max-width: 100%;
-    padding: 60px 0;
+    padding: 80px 0 60px;
     background: var(--surface);
   }
 
@@ -619,7 +676,7 @@
     height: 44px;
     padding: 0 20px;
     background: var(--surface);
-    border: 0.5px solid var(--structure-text);
+    border: 0.5px solid var(--technical-line);
   }
 
   .site-footer-cell--hug {

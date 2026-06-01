@@ -31,6 +31,7 @@ function HomePage() {
               className="home-block--projects"
               title="SEC-04_Проекты"
               linkLabel="Посмотреть все"
+              linkTo="/projects"
               borders={{ bottom: true, left: true }}
             >
               {homeProjects.map((project) => (

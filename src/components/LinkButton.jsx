@@ -10,7 +10,7 @@ const toneByVariant = {
   inline: {
     default: "text-primary-accent",
     hover: "text-dark-accent",
-    pressed: "text-primary-accent/80",
+    pressed: "text-technical-info",
     disabled: "text-technical-line",
   },
   jump: {

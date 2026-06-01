@@ -19,6 +19,7 @@ function ProjectCard({
   resultLabel = "КЛЮЧЕВОЙ РЕЗУЛЬТАТ",
   resultValue = "DESCRIPTION",
   linkLabel = "Подробнее",
+  showDetailLink = true,
   className = "",
 }) {
   return (
@@ -39,9 +40,11 @@ function ProjectCard({
               );
             })}
           </div>
-          <LinkButton variant="jump" state="default">
-            {linkLabel}
-          </LinkButton>
+          {showDetailLink ? (
+            <LinkButton variant="jump" state="default">
+              {linkLabel}
+            </LinkButton>
+          ) : null}
         </div>
 
         <h3 className="project-card-title text-body-main text-primary-text">{title}</h3>

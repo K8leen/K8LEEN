@@ -31,7 +31,7 @@ const homeProjectsRaw = [
   },
 ];
 
-function typographProject(project) {
+export function typographProject(project) {
   return {
     ...project,
     title: typograph(project.title),

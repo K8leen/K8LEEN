@@ -241,7 +241,7 @@ function DesignSystemPage() {
 
         <section className="rounded-2xl border border-structural-line bg-surface p-8">
           <h2 className="text-block mb-5">Tag component</h2>
-          <div className="rounded-xl border border-technical-line bg-base-bg p-6">
+          <div className="rounded-xl bg-base-bg p-6">
             <div className="flex flex-col items-start gap-4">
               <Tag tone="nda">NDA</Tag>
               <Tag tone="web">web</Tag>
