@@ -58,6 +58,25 @@ export function typograph(text) {
   return result;
 }
 
+/** Аббревиатуры в Text block (plain / description) и в заголовках list */
+const TEXT_BLOCK_ABBREVIATIONS = [
+  ["ux/ui", "UX/UI"],
+  ["nda", "NDA"],
+  ["b2b", "B2B"],
+  ["saas", "SaaS"],
+  ["mvp", "MVP"],
+  ["api", "API"],
+  ["ux", "UX"],
+  ["ui", "UI"],
+  ["hr", "HR"],
+  ["it", "IT"],
+  ["pm", "PM"],
+  ["po", "PO"],
+  ["qa", "QA"],
+  ["mui", "MUI"],
+  ["material ui", "Material UI"],
+].sort((a, b) => b[0].length - a[0].length);
+
 /** Аббревиатуры в строке роли — фиксированный регистр (длинные ключи раньше) */
 const ROLE_ABBREVIATIONS = [
   ["ux/ui", "UX/UI"],
@@ -76,6 +95,42 @@ const ROLE_ABBREVIATIONS = [
 
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function applyTextBlockAbbreviations(text) {
+  let result = text;
+  for (const [key, canonical] of TEXT_BLOCK_ABBREVIATIONS) {
+    result = result.replace(new RegExp(escapeRegExp(key), "gi"), canonical);
+  }
+  return result;
+}
+
+/** plain / description: предложение с заглавной буквы, аббревиатуры — капсом */
+export function formatTextBlockPlain(text) {
+  if (!text) return text;
+  let result = text.toLocaleLowerCase("ru");
+  result = result.charAt(0).toLocaleUpperCase("ru") + result.slice(1);
+  result = applyTextBlockAbbreviations(result);
+  return typograph(result);
+}
+
+/** list: заголовок с заглавной буквы (аббревиатуры сохраняются) */
+export function formatTextBlockListTitle(text) {
+  if (!text) return text;
+  let result = text.toLocaleLowerCase("ru");
+  result = result.charAt(0).toLocaleUpperCase("ru") + result.slice(1);
+  result = applyTextBlockAbbreviations(result);
+  return typograph(result);
+}
+
+/** list: пункты с маленькой буквы */
+export function formatTextBlockListItem(text) {
+  if (!text) return text;
+  let result = text.toLocaleLowerCase("ru");
+  if (result.length > 0) {
+    result = result.charAt(0).toLocaleLowerCase("ru") + result.slice(1);
+  }
+  return typograph(result);
 }
 
 /**

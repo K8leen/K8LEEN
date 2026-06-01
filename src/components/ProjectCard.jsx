@@ -19,6 +19,7 @@ function ProjectCard({
   resultLabel = "КЛЮЧЕВОЙ РЕЗУЛЬТАТ",
   resultValue = "DESCRIPTION",
   linkLabel = "Подробнее",
+  detailTo,
   showDetailLink = true,
   className = "",
 }) {
@@ -41,7 +42,7 @@ function ProjectCard({
             })}
           </div>
           {showDetailLink ? (
-            <LinkButton variant="jump" state="default">
+            <LinkButton variant="jump" to={detailTo} state={detailTo ? undefined : "default"}>
               {linkLabel}
             </LinkButton>
           ) : null}

@@ -1,3 +1,9 @@
+import {
+  formatTextBlockListItem,
+  formatTextBlockListTitle,
+  formatTextBlockPlain,
+} from "../utils/typography";
+
 function TextBlock({
   variant = "plain",
   text = "TEXT LINE",
@@ -11,17 +17,20 @@ function TextBlock({
     textTone === "technical-info"
       ? "text-body-main text-technical-info"
       : "text-body-main text-primary-text";
+
   if (variant === "list") {
     return (
       <article className={`content-text-block ${className}`.trim()}>
         <section className="content-text-block-section">
           {title ? (
-            <h3 className="text-body-main text-primary-text">{title}</h3>
+            <h3 className="text-body-main text-primary-text">
+              {formatTextBlockListTitle(title)}
+            </h3>
           ) : null}
           <ul className="content-text-block-list">
             {listItems.map((item, index) => (
               <li key={`${item}-${index}`} className="text-body-small text-technical-info">
-                {item}
+                {formatTextBlockListItem(item)}
               </li>
             ))}
           </ul>
@@ -34,8 +43,12 @@ function TextBlock({
     return (
       <article className={`content-text-block ${className}`.trim()}>
         <section className="content-text-block-section">
-          <h3 className="text-body-main text-primary-text">{title}</h3>
-          <p className="text-body-small text-technical-info">{description}</p>
+          <h3 className="text-body-main text-primary-text">
+            {formatTextBlockListTitle(title)}
+          </h3>
+          <p className="text-body-small text-technical-info">
+            {formatTextBlockPlain(description)}
+          </p>
         </section>
       </article>
     );
@@ -43,7 +56,7 @@ function TextBlock({
 
   return (
     <article className={`content-text-block ${className}`.trim()}>
-      <p className={plainTextClass}>{text}</p>
+      <p className={plainTextClass}>{formatTextBlockPlain(text)}</p>
     </article>
   );
 }

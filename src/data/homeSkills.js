@@ -67,6 +67,7 @@ const homeSkillsAccordionItemsRaw = [
       "MindMeister",
       "Miro",
       "Draw.io",
+      "Cursor",
       "Cinema 4D (Redshift)",
       "Adobe CC (Photoshop, Illustrator, After Effects)",
     ],

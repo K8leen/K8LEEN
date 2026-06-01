@@ -1,3 +1,4 @@
+import { designSystemProjectDetailPath } from "./designSystemProjectPage";
 import { homeProjects, typographProject } from "./homeProjects";
 import { typograph } from "../utils/typography";
 
@@ -13,6 +14,7 @@ const designSystemProjectRaw = {
   roleValue: "UX/UI дизайнер",
   resultLabel: "Ключевой результат",
   resultValue: "Сформирована единая дизайн-система продукта",
+  detailTo: designSystemProjectDetailPath,
 };
 
 const foodTechProjectRaw = {
@@ -52,7 +54,7 @@ const typicalTasksListItemsRaw = [
   "создание дизайн-систем и компонентных библиотек",
 ];
 
-export const projectsPageTypicalTasksListItems = typicalTasksListItemsRaw.map(typograph);
+export const projectsPageTypicalTasksListItems = typicalTasksListItemsRaw;
 
 const afterProjectIntroRaw = "Результатом работы становятся не только интерфейсы.";
 
@@ -64,9 +66,9 @@ const afterProjectListItemsRaw = [
   "основу для дальнейшего масштабирования",
 ];
 
-export const projectsPageAfterProjectIntro = typograph(afterProjectIntroRaw);
-export const projectsPageAfterProjectListTitle = typograph(afterProjectListTitleRaw);
-export const projectsPageAfterProjectListItems = afterProjectListItemsRaw.map(typograph);
+export const projectsPageAfterProjectIntro = afterProjectIntroRaw;
+export const projectsPageAfterProjectListTitle = afterProjectListTitleRaw;
+export const projectsPageAfterProjectListItems = afterProjectListItemsRaw;
 
 /** Карточки SEC-05_Проекты: две с главной + три только на странице проектов */
 export const projectsPageProjects = [
@@ -97,10 +99,10 @@ const scopeListItemsRaw = [
 const scopeClosingRaw =
   "Каждый из этих уровней влияет на остальные, поэтому решения рассматриваются не изолированно, а в контексте всей системы.";
 
-export const projectsPagePrinciples = principlesParagraphsRaw.map(typograph);
-export const projectsPageScopeListTitle = typograph(scopeListTitleRaw);
-export const projectsPageScopeListItems = scopeListItemsRaw.map(typograph);
-export const projectsPageScopeClosing = typograph(scopeClosingRaw);
+export const projectsPagePrinciples = principlesParagraphsRaw;
+export const projectsPageScopeListTitle = scopeListTitleRaw;
+export const projectsPageScopeListItems = scopeListItemsRaw;
+export const projectsPageScopeClosing = scopeClosingRaw;
 
 export const projectsPageHeadline = {
   header: typograph("ОТ ЗАДАЧИ К СИСТЕМЕ"),
