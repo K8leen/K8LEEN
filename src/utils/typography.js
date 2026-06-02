@@ -105,11 +105,13 @@ function applyTextBlockAbbreviations(text) {
   return result;
 }
 
-/** plain / description: предложение с заглавной буквы, аббревиатуры — капсом */
+/** plain / description: каждое предложение с заглавной буквы, аббревиатуры — капсом */
 export function formatTextBlockPlain(text) {
   if (!text) return text;
   let result = text.toLocaleLowerCase("ru");
-  result = result.charAt(0).toLocaleUpperCase("ru") + result.slice(1);
+  result = result.replace(/(^|[.!?]\s+)(\p{L})/gu, (_match, prefix, letter) => {
+    return `${prefix}${letter.toLocaleUpperCase("ru")}`;
+  });
   result = applyTextBlockAbbreviations(result);
   return typograph(result);
 }
@@ -131,6 +133,41 @@ export function formatTextBlockListItem(text) {
     result = result.charAt(0).toLocaleLowerCase("ru") + result.slice(1);
   }
   return typograph(result);
+}
+
+const NB_HYPHEN = "\u2011";
+
+const FEDERAL_LAW_152FZ_PATTERN =
+  /№\s*152\s*-\s*фз\s*«\s*о\s+персональных\s+данных\s*»/giu;
+const FEDERAL_LAW_152FZ_LOOSE = /№152-ФЗ «О персональных данных»/giu;
+/** Неразрывная формулировка: не переносить между строками */
+const FEDERAL_LAW_152FZ_CANONICAL = `№152${NB_HYPHEN}ФЗ${NBSP}«О${NBSP}персональных${NBSP}данных»`;
+const YANDEX_METRIKA_PATTERN = /Яндекс\s+Метрика/giu;
+const YANDEX_METRIKA_CANONICAL = "Яндекс.Метрика";
+
+/** Юридические тексты: фиксированный регистр и официальные названия */
+export function normalizeLegalReferences(text) {
+  if (!text) return text;
+  return text
+    .replace(FEDERAL_LAW_152FZ_PATTERN, FEDERAL_LAW_152FZ_CANONICAL)
+    .replace(FEDERAL_LAW_152FZ_LOOSE, FEDERAL_LAW_152FZ_CANONICAL)
+    .replace(YANDEX_METRIKA_PATTERN, YANDEX_METRIKA_CANONICAL);
+}
+
+/** Правовая страница: typograph без смены регистра абзаца */
+export function formatLegalPlain(text) {
+  if (!text) return text;
+  return normalizeLegalReferences(typograph(text));
+}
+
+export function formatLegalListTitle(text) {
+  if (!text) return text;
+  return normalizeLegalReferences(typograph(text));
+}
+
+export function formatLegalListItem(text) {
+  if (!text) return text;
+  return normalizeLegalReferences(typograph(text));
 }
 
 /**

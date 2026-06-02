@@ -31,12 +31,12 @@ function Footer() {
               <span className="text-body-small text-primary-text">© 2026</span>
             </FooterCell>
             <FooterCell className="site-footer-cell--fill">
-              <LinkButton variant="inline" to="/consent">
+              <LinkButton variant="inline" to="/legal">
                 Согласие на обработку персональных данных
               </LinkButton>
             </FooterCell>
             <FooterCell className="site-footer-cell--fill">
-              <LinkButton variant="inline" to="/privacy">
+              <LinkButton variant="inline" to="/legal">
                 Политика в отношении обработки персональных данных
               </LinkButton>
             </FooterCell>

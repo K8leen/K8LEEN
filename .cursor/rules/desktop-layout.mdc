@@ -37,6 +37,14 @@ alwaysApply: true
 - **тексты** (заголовки, labels, copy)
 - **цвета** через токены палитры
 
+## Вертикальный стек
+
+Между элементами вертикального стека — **12px** (`--stack-gap`).
+
+- Класс: **`.stack`** (`display: flex; flex-direction: column; gap: var(--stack-gap)`)
+- Слоты в `Block` (`.ds-block-slots`) используют тот же `--stack-gap`
+- Не задавать `gap` вручную для стеков TextBlock, Accordion, Experience и т.п. — только `.stack`
+
 ## Стыковка блоков
 
 - Блоки **стыкуем вплотную** — без дополнительных gap, margin или padding между ними
@@ -101,3 +109,4 @@ alwaysApply: true
 | base_bg | `--base-bg` | `bg-base-bg` |
 | surface | `--surface` | `bg-surface` |
 | shadow | `--shadow-soft` | `shadow-soft` |
+| stack gap | `--stack-gap` | класс `.stack` |

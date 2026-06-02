@@ -5,7 +5,7 @@ function AccordionStack({ items = [], defaultOpenIndex = 0, className = "" }) {
   const [openIndex, setOpenIndex] = useState(defaultOpenIndex);
 
   return (
-    <div className={`flex flex-col gap-3 ${className}`.trim()}>
+    <div className={`stack ${className}`.trim()}>
       {items.map((item, index) => (
         <AccordionItem
           key={`${item.label}-${index}`}

@@ -1,30 +1,41 @@
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 
-function ProjectCaseTopRow({ sec00, sec01, sec02, sec03, sec04 }) {
+function ProjectCaseTopRow({
+  sec00,
+  sec01,
+  sec02,
+  sec03,
+  sec04,
+  /** "max" — выше из двух колонок; "column" — только сумма SEC-01…03 */
+  rowHeight = "max",
+}) {
   const [rowMinHeight, setRowMinHeight] = useState(null);
   const sec00MeasureRef = useRef(null);
   const colMeasureRef = useRef(null);
+  const anchorColumn = rowHeight === "column";
 
   const measureRowHeight = useCallback(() => {
     const sec00Height = sec00MeasureRef.current?.offsetHeight ?? 0;
     const colHeight = colMeasureRef.current?.offsetHeight ?? 0;
-    const next = Math.max(sec00Height, colHeight);
+    const next = anchorColumn ? colHeight : Math.max(sec00Height, colHeight);
     setRowMinHeight((prev) => (prev === next ? prev : next));
-  }, []);
+  }, [anchorColumn]);
 
   useLayoutEffect(() => {
     measureRowHeight();
     window.addEventListener("resize", measureRowHeight);
 
     const resizeObserver = new ResizeObserver(measureRowHeight);
-    if (sec00MeasureRef.current) resizeObserver.observe(sec00MeasureRef.current);
+    if (!anchorColumn && sec00MeasureRef.current) {
+      resizeObserver.observe(sec00MeasureRef.current);
+    }
     if (colMeasureRef.current) resizeObserver.observe(colMeasureRef.current);
 
     return () => {
       window.removeEventListener("resize", measureRowHeight);
       resizeObserver.disconnect();
     };
-  }, [measureRowHeight, sec00, sec01, sec02, sec03, sec04]);
+  }, [anchorColumn, measureRowHeight, sec00, sec01, sec02, sec03, sec04]);
 
   const colBlocks = (
     <>
@@ -38,8 +49,14 @@ function ProjectCaseTopRow({ sec00, sec01, sec02, sec03, sec04 }) {
   return (
     <>
       <div
-        className="project-case-row project-case-row--top"
-        style={rowMinHeight != null ? { minHeight: `${rowMinHeight}px` } : undefined}
+        className={`project-case-row project-case-row--top${anchorColumn ? " project-case-row--anchor-column" : ""}`}
+        style={
+          rowMinHeight != null
+            ? anchorColumn
+              ? { height: `${rowMinHeight}px` }
+              : { minHeight: `${rowMinHeight}px` }
+            : undefined
+        }
       >
         <div className="project-case-top-cell project-case-top-cell--800">{sec00}</div>
         <div className="project-case-col-stack">{colBlocks}</div>

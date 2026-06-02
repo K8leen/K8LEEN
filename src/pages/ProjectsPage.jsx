@@ -29,7 +29,7 @@ function ProjectsPage() {
           <div className="projects-page-col-left">
             <Block title="SEC-01_Принципы" borders={{ bottom: true, right: true }}>
               <BlockSlot>
-                <div className="projects-page-text-stack">
+                <div className="stack">
                   {projectsPagePrinciples.map((paragraph, index) => (
                     <TextBlock
                       key={paragraph}
@@ -44,7 +44,7 @@ function ProjectsPage() {
 
             <Block title="SEC-02_Область применения" borders={{ bottom: true, right: true }}>
               <BlockSlot>
-                <div className="projects-page-text-stack">
+                <div className="stack">
                   <TextBlock
                     variant="list"
                     title={projectsPageScopeListTitle}

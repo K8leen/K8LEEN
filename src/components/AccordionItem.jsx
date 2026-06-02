@@ -36,11 +36,17 @@ function AccordionItem({
       {lines.length > 0 && (
         <div className={`accordion-panel ${open ? "is-open" : ""}`}>
           <div className="accordion-panel-inner">
-            {lines.map((line, index) => (
-              <p key={`${line}-${index}`} className="text-body-small text-technical-info">
-                {line}
-              </p>
-            ))}
+            {lines.map((line, index) =>
+              typeof line === "string" ? (
+                <p key={index} className="text-body-small text-technical-info">
+                  {line}
+                </p>
+              ) : (
+                <div key={index} className="text-body-small text-technical-info">
+                  {line}
+                </div>
+              ),
+            )}
           </div>
         </div>
       )}

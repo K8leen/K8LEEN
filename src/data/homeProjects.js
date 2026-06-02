@@ -1,3 +1,5 @@
+import { dashboardsProjectDetailPath } from "./dashboardsProjectPage";
+import { predictionsProjectDetailPath } from "./predictionsProjectPage";
 import { typograph } from "../utils/typography";
 
 const homeProjectsRaw = [
@@ -14,6 +16,7 @@ const homeProjectsRaw = [
     roleValue: "product / UX/UI дизайнер",
     resultLabel: "Ключевой результат",
     resultValue: "Спроектирована конфигурируемая система аналитических дашбордов",
+    detailTo: dashboardsProjectDetailPath,
   },
   {
     imageSrc: "/img/pred_s.svg",
@@ -28,6 +31,7 @@ const homeProjectsRaw = [
     resultLabel: "Ключевой результат",
     resultValue:
       "Сформирована UX-архитектура платформы с циклом постоянного вовлечения",
+    detailTo: predictionsProjectDetailPath,
   },
 ];
 

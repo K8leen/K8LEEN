@@ -5,16 +5,19 @@ const tonesByState = {
 
 function FilledButton({
   children = "BTN",
-  state = "default",
+  state,
   className = "",
   ...props
 }) {
-  const tone = tonesByState[state] ?? tonesByState.default;
+  const isStaticPreview = state !== undefined;
+  const tone = isStaticPreview
+    ? (tonesByState[state] ?? tonesByState.default)
+    : "bg-primary-accent text-surface transition-colors duration-150 hover:bg-primary-text disabled:bg-technical-line";
 
   return (
     <button
       type="button"
-      className={`inline-flex items-center justify-center rounded-[4px] px-4 py-1 text-body-small ${tone} ${className}`.trim()}
+      className={`inline-flex cursor-pointer items-center justify-center rounded-[4px] px-4 py-1 text-body-small disabled:cursor-not-allowed ${tone} ${className}`.trim()}
       {...props}
     >
       <span className="text-body-small">{children}</span>

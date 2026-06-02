@@ -48,7 +48,15 @@ function ProjectCard({
           ) : null}
         </div>
 
-        <h3 className="project-card-title text-body-main text-primary-text">{title}</h3>
+        <h3 className="project-card-title">
+          <LinkButton
+            variant="default"
+            to={detailTo}
+            state={detailTo ? undefined : "default"}
+          >
+            {title}
+          </LinkButton>
+        </h3>
 
         <dl className="project-card-meta">
           <div className="project-card-meta-row">

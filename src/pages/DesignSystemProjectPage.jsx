@@ -25,7 +25,7 @@ import {
 
 function TextStack({ lines }) {
   return (
-    <div className="project-case-text-stack">
+    <div className="stack">
       {lines.map((line) => (
         <TextBlock key={line} variant="plain" text={line} />
       ))}
@@ -73,7 +73,7 @@ function DesignSystemProjectPage() {
               borders={{ bottom: true, left: true }}
             >
               <BlockSlot>
-                <div className="project-case-text-stack">
+                <div className="stack">
                   <TextBlock variant="plain" text={designSystemProjectContextPlain} />
                   <TextBlock
                     variant="list"
@@ -122,7 +122,7 @@ function DesignSystemProjectPage() {
               borders={{ bottom: true, left: true }}
             >
               <BlockSlot>
-                <div className="project-case-text-stack">
+                <div className="stack">
                   {designSystemProjectApproachLists.map((block) => (
                     <TextBlock
                       key={block.title}

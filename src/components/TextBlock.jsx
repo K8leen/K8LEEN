@@ -1,4 +1,7 @@
 import {
+  formatLegalListItem,
+  formatLegalListTitle,
+  formatLegalPlain,
   formatTextBlockListItem,
   formatTextBlockListTitle,
   formatTextBlockPlain,
@@ -11,12 +14,18 @@ function TextBlock({
   title,
   listItems = ["LIST"],
   description = "DESCRIPTION",
+  legal = false,
   className = "",
 }) {
+  const formatPlain = legal ? formatLegalPlain : formatTextBlockPlain;
+  const formatListTitle = legal ? formatLegalListTitle : formatTextBlockListTitle;
+  const formatListItem = legal ? formatLegalListItem : formatTextBlockListItem;
   const plainTextClass =
     textTone === "technical-info"
       ? "text-body-main text-technical-info"
-      : "text-body-main text-primary-text";
+      : textTone === "structure"
+        ? "text-body-main text-structure-text"
+        : "text-body-main text-primary-text";
 
   if (variant === "list") {
     return (
@@ -24,13 +33,13 @@ function TextBlock({
         <section className="content-text-block-section">
           {title ? (
             <h3 className="text-body-main text-primary-text">
-              {formatTextBlockListTitle(title)}
+              {formatListTitle(title)}
             </h3>
           ) : null}
           <ul className="content-text-block-list">
             {listItems.map((item, index) => (
               <li key={`${item}-${index}`} className="text-body-small text-technical-info">
-                {formatTextBlockListItem(item)}
+                {formatListItem(item)}
               </li>
             ))}
           </ul>
@@ -44,10 +53,10 @@ function TextBlock({
       <article className={`content-text-block ${className}`.trim()}>
         <section className="content-text-block-section">
           <h3 className="text-body-main text-primary-text">
-            {formatTextBlockListTitle(title)}
+            {formatListTitle(title)}
           </h3>
           <p className="text-body-small text-technical-info">
-            {formatTextBlockPlain(description)}
+            {formatPlain(description)}
           </p>
         </section>
       </article>
@@ -56,7 +65,7 @@ function TextBlock({
 
   return (
     <article className={`content-text-block ${className}`.trim()}>
-      <p className={plainTextClass}>{formatTextBlockPlain(text)}</p>
+      <p className={plainTextClass}>{formatPlain(text)}</p>
     </article>
   );
 }

@@ -235,7 +235,7 @@ function ComponentShowcasePage() {
         <section className="rounded-2xl border border-structural-line bg-surface p-8">
           <h2 className="text-block mb-5">Cookie banner component</h2>
           <div className="rounded-xl border border-technical-line bg-base-bg p-6">
-            <CookieBanner text="text" />
+            <CookieBanner />
           </div>
         </section>
 

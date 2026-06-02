@@ -42,6 +42,7 @@ function HomeTopRow({ skillsItems }) {
       .map((el) => el?.offsetHeight ?? 0);
     const sec02Max = sec02Heights.length > 0 ? Math.max(...sec02Heights) : 0;
     const next = Math.max(sec01Height, sec02Max);
+    if (next <= 0) return;
     setRowMinHeight((prev) => (prev === next ? prev : next));
   }, [skillsItems.length]);
 
