@@ -1,4 +1,6 @@
 import { designSystemProjectDetailPath } from "./designSystemProjectPage";
+import { foodTechProjectDetailPath } from "./foodTechProjectPage";
+import { smartHomeProjectDetailPath } from "./smartHomeProjectPage";
 import { homeProjects, typographProject } from "./homeProjects";
 import { typograph } from "../utils/typography";
 
@@ -29,6 +31,7 @@ const foodTechProjectRaw = {
   roleValue: "PRODUCT / UX/UI дизайнер",
   resultLabel: "Ключевой результат",
   resultValue: "Сформирована структура цифрового сервиса для локального рынка",
+  detailTo: foodTechProjectDetailPath,
 };
 
 const smartHomeProjectRaw = {
@@ -43,6 +46,7 @@ const smartHomeProjectRaw = {
   roleValue: "PRODUCT / UX/UI дизайнер",
   resultLabel: "Ключевой результат",
   resultValue: "Сформирована единая система управления устройствами и сценариями",
+  detailTo: smartHomeProjectDetailPath,
 };
 
 const typicalTasksListItemsRaw = [

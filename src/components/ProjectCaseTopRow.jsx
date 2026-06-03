@@ -6,36 +6,45 @@ function ProjectCaseTopRow({
   sec02,
   sec03,
   sec04,
-  /** "max" — выше из двух колонок; "column" — только сумма SEC-01…03 */
+  /** "max" — выше из двух колонок; "column" — сумма SEC-01…03; "sec00" — высота SEC-00 */
   rowHeight = "max",
+  /** Фиксированная высота ряда (макет), только с rowHeight="column" */
+  rowHeightPx,
+  rowClassName = "",
 }) {
   const [rowMinHeight, setRowMinHeight] = useState(null);
   const sec00MeasureRef = useRef(null);
   const colMeasureRef = useRef(null);
   const anchorColumn = rowHeight === "column";
+  const anchorSec00 = rowHeight === "sec00";
 
   const measureRowHeight = useCallback(() => {
     const sec00Height = sec00MeasureRef.current?.offsetHeight ?? 0;
     const colHeight = colMeasureRef.current?.offsetHeight ?? 0;
-    const next = anchorColumn ? colHeight : Math.max(sec00Height, colHeight);
+    const next =
+      rowHeightPx != null
+        ? rowHeightPx
+        : anchorSec00
+          ? sec00Height
+          : anchorColumn
+            ? colHeight
+            : Math.max(sec00Height, colHeight);
     setRowMinHeight((prev) => (prev === next ? prev : next));
-  }, [anchorColumn]);
+  }, [anchorColumn, anchorSec00, rowHeightPx]);
 
   useLayoutEffect(() => {
     measureRowHeight();
     window.addEventListener("resize", measureRowHeight);
 
     const resizeObserver = new ResizeObserver(measureRowHeight);
-    if (!anchorColumn && sec00MeasureRef.current) {
-      resizeObserver.observe(sec00MeasureRef.current);
-    }
+    if (sec00MeasureRef.current) resizeObserver.observe(sec00MeasureRef.current);
     if (colMeasureRef.current) resizeObserver.observe(colMeasureRef.current);
 
     return () => {
       window.removeEventListener("resize", measureRowHeight);
       resizeObserver.disconnect();
     };
-  }, [anchorColumn, measureRowHeight, sec00, sec01, sec02, sec03, sec04]);
+  }, [anchorColumn, anchorSec00, measureRowHeight, rowHeightPx, sec00, sec01, sec02, sec03, sec04]);
 
   const colBlocks = (
     <>
@@ -49,10 +58,10 @@ function ProjectCaseTopRow({
   return (
     <>
       <div
-        className={`project-case-row project-case-row--top${anchorColumn ? " project-case-row--anchor-column" : ""}`}
+        className={`project-case-row project-case-row--top${anchorColumn ? " project-case-row--anchor-column" : ""}${anchorSec00 ? " project-case-row--anchor-sec00" : ""} ${rowClassName}`.trim()}
         style={
           rowMinHeight != null
-            ? anchorColumn
+            ? anchorColumn || anchorSec00
               ? { height: `${rowMinHeight}px` }
               : { minHeight: `${rowMinHeight}px` }
             : undefined

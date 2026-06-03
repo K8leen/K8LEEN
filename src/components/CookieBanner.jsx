@@ -20,7 +20,7 @@ function CookieBanner({ fixed = false, className = "" }) {
 
   const banner = (
     <aside
-      className={`cookie-banner-shell ${className}`.trim()}
+      className={`cookie-banner-shell cookie-hatch-bg ${className}`.trim()}
       role="dialog"
       aria-labelledby="cookie-banner-title"
       aria-live="polite"

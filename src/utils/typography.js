@@ -105,10 +105,26 @@ function applyTextBlockAbbreviations(text) {
   return result;
 }
 
+/** Географические имена: после toLowerCase восстанавливаем написание */
+const TEXT_BLOCK_PROPER_NOUNS = [
+  ["казахстане", "Казахстане"],
+  ["казахстана", "Казахстана"],
+  ["казахстан", "Казахстан"],
+].sort((a, b) => b[0].length - a[0].length);
+
+function applyTextBlockProperNouns(text) {
+  let result = text;
+  for (const [key, canonical] of TEXT_BLOCK_PROPER_NOUNS) {
+    result = result.replace(new RegExp(escapeRegExp(key), "gi"), canonical);
+  }
+  return result;
+}
+
 /** plain / description: каждое предложение с заглавной буквы, аббревиатуры — капсом */
 export function formatTextBlockPlain(text) {
   if (!text) return text;
   let result = text.toLocaleLowerCase("ru");
+  result = applyTextBlockProperNouns(result);
   result = result.replace(/(^|[.!?]\s+)(\p{L})/gu, (_match, prefix, letter) => {
     return `${prefix}${letter.toLocaleUpperCase("ru")}`;
   });

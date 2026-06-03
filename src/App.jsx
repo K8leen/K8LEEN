@@ -4,9 +4,12 @@ import ComponentShowcasePage from "./pages/ComponentShowcasePage";
 import DashboardsProjectPage from "./pages/DashboardsProjectPage";
 import DesignSystemProjectPage from "./pages/DesignSystemProjectPage";
 import HomePage from "./pages/HomePage";
+import FoodTechProjectPage from "./pages/FoodTechProjectPage";
 import PredictionsProjectPage from "./pages/PredictionsProjectPage";
+import SmartHomeProjectPage from "./pages/SmartHomeProjectPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import LegalInformationPage from "./pages/LegalInformationPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -21,8 +24,10 @@ function App() {
         <Route path="/projects/dashboards" element={<DashboardsProjectPage />} />
         <Route path="/projects/design-system" element={<DesignSystemProjectPage />} />
         <Route path="/projects/predictions" element={<PredictionsProjectPage />} />
+        <Route path="/projects/food-tech" element={<FoodTechProjectPage />} />
+        <Route path="/projects/smart-home" element={<SmartHomeProjectPage />} />
         <Route path="/design-system" element={<ComponentShowcasePage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   );
