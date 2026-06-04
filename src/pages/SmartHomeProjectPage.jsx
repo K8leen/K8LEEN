@@ -3,6 +3,7 @@ import Block, { BlockSlot } from "../components/Block";
 import Headline from "../components/Headline";
 import ProjectCaseBackButton from "../components/ProjectCaseBackButton";
 import ProjectCaseTopRow from "../components/ProjectCaseTopRow";
+import SmartHomeInterfaceSystemDiagram from "../components/SmartHomeInterfaceSystemDiagram";
 import SiteLayout from "../components/SiteLayout";
 import TextBlock from "../components/TextBlock";
 import {
@@ -177,11 +178,7 @@ function SmartHomeProjectPage() {
             />
           </BlockSlot>
           <BlockSlot>
-            <img
-              src={smartHomeProjectImages.interfaceSystem.src}
-              alt={smartHomeProjectImages.interfaceSystem.alt}
-              className="block h-auto w-full"
-            />
+            <SmartHomeInterfaceSystemDiagram />
           </BlockSlot>
         </Block>
 

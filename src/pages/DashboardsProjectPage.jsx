@@ -2,6 +2,7 @@ import { useRef } from "react";
 import Block, { BlockSlot } from "../components/Block";
 import Headline from "../components/Headline";
 import ProjectCaseBackButton from "../components/ProjectCaseBackButton";
+import DashboardsFlowDiagram from "../components/DashboardsFlowDiagram";
 import ProjectCaseTopRow from "../components/ProjectCaseTopRow";
 import SiteLayout from "../components/SiteLayout";
 import TextBlock from "../components/TextBlock";
@@ -182,11 +183,7 @@ function DashboardsProjectPage() {
             />
           </BlockSlot>
           <BlockSlot>
-            <img
-              src={dashboardsProjectImages.flow.src}
-              alt={dashboardsProjectImages.flow.alt}
-              className="block h-auto w-full"
-            />
+            <DashboardsFlowDiagram />
           </BlockSlot>
         </Block>
 

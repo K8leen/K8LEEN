@@ -4,6 +4,7 @@ import ComponentShowcasePage from "./pages/ComponentShowcasePage";
 import DashboardsProjectPage from "./pages/DashboardsProjectPage";
 import DesignSystemProjectPage from "./pages/DesignSystemProjectPage";
 import HomePage from "./pages/HomePage";
+import RouteErrorBoundary from "./components/RouteErrorBoundary";
 import FoodTechProjectPage from "./pages/FoodTechProjectPage";
 import PredictionsProjectPage from "./pages/PredictionsProjectPage";
 import SmartHomeProjectPage from "./pages/SmartHomeProjectPage";
@@ -24,7 +25,14 @@ function App() {
         <Route path="/projects/dashboards" element={<DashboardsProjectPage />} />
         <Route path="/projects/design-system" element={<DesignSystemProjectPage />} />
         <Route path="/projects/predictions" element={<PredictionsProjectPage />} />
-        <Route path="/projects/food-tech" element={<FoodTechProjectPage />} />
+        <Route
+          path="/projects/food-tech"
+          element={
+            <RouteErrorBoundary>
+              <FoodTechProjectPage />
+            </RouteErrorBoundary>
+          }
+        />
         <Route path="/projects/smart-home" element={<SmartHomeProjectPage />} />
         <Route path="/design-system" element={<ComponentShowcasePage />} />
         <Route path="*" element={<NotFoundPage />} />

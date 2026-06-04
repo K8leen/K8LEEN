@@ -4,6 +4,8 @@ import Headline from "../components/Headline";
 import ProjectCaseBackButton from "../components/ProjectCaseBackButton";
 import ProjectCaseTopRow from "../components/ProjectCaseTopRow";
 import SiteLayout from "../components/SiteLayout";
+import FoodTechArchitectureSection from "../components/FoodTechArchitectureSection";
+import FoodTechInterfaceSystemDiagram from "../components/FoodTechInterfaceSystemDiagram";
 import TextBlock from "../components/TextBlock";
 import {
   foodTechProjectApproachLists,
@@ -155,33 +157,10 @@ function FoodTechProjectPage() {
           borders={{ bottom: true }}
         >
           <BlockSlot>
-            <div className="project-case-architecture-row project-case-architecture-row--760-380">
-              <div className="project-case-architecture-slot-main project-case-architecture-slot-main--760">
-                <div className="stack">
-                  <TextBlock
-                    className="project-case-plain--440"
-                    variant="plain"
-                    text={foodTechProjectArchitectureClientPlain}
-                  />
-                  <img
-                    src={foodTechProjectImages.architectureClient.src}
-                    alt={foodTechProjectImages.architectureClient.alt}
-                    className="block h-auto w-full"
-                  />
-                </div>
-              </div>
-
-              <div className="project-case-architecture-slot-side project-case-architecture-slot-side--380">
-                <div className="stack">
-                  <TextBlock variant="plain" text={foodTechProjectArchitectureRestaurantPlain} />
-                  <img
-                    src={foodTechProjectImages.architectureRestaurant.src}
-                    alt={foodTechProjectImages.architectureRestaurant.alt}
-                    className="block h-auto w-full"
-                  />
-                </div>
-              </div>
-            </div>
+            <FoodTechArchitectureSection
+              clientPlain={foodTechProjectArchitectureClientPlain}
+              restaurantPlain={foodTechProjectArchitectureRestaurantPlain}
+            />
           </BlockSlot>
         </Block>
 
@@ -198,11 +177,7 @@ function FoodTechProjectPage() {
             />
           </BlockSlot>
           <BlockSlot>
-            <img
-              src={foodTechProjectImages.interfaceSystem.src}
-              alt={foodTechProjectImages.interfaceSystem.alt}
-              className="block h-auto w-full"
-            />
+            <FoodTechInterfaceSystemDiagram />
           </BlockSlot>
         </Block>
 

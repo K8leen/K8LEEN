@@ -1,5 +1,6 @@
 import { typograph } from "../utils/typography";
 import predictionsResultImageUrl from "../../public/img/04_02_01.svg?url";
+import predictionsInterfaceSystemImageUrl from "../../public/img/04_02_03.svg?url";
 
 const headlineRaw = {
   header: "Геймифицированный сервис прогнозов",
@@ -188,7 +189,7 @@ export const predictionsProjectImages = {
     alt: "Диаграмма архитектуры сценариев взаимодействия",
   },
   interfaceSystem: {
-    src: "/img/04_02_03.svg",
+    src: predictionsInterfaceSystemImageUrl,
     alt: "Система интерфейса и пользовательские потоки",
   },
 };

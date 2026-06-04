@@ -2,6 +2,7 @@ import { useRef } from "react";
 import Block, { BlockSlot } from "../components/Block";
 import Headline from "../components/Headline";
 import ProjectCaseBackButton from "../components/ProjectCaseBackButton";
+import PredictionsInterfaceSystemDiagram from "../components/PredictionsInterfaceSystemDiagram";
 import ProjectCaseTopRow from "../components/ProjectCaseTopRow";
 import SiteLayout from "../components/SiteLayout";
 import TextBlock from "../components/TextBlock";
@@ -222,11 +223,7 @@ function PredictionsProjectPage() {
             <TextBlock variant="plain" text={predictionsProjectInterfaceSystemPlain} />
           </BlockSlot>
           <BlockSlot>
-            <img
-              src={predictionsProjectImages.interfaceSystem.src}
-              alt={predictionsProjectImages.interfaceSystem.alt}
-              className="block h-auto w-full"
-            />
+            <PredictionsInterfaceSystemDiagram />
           </BlockSlot>
         </Block>
 

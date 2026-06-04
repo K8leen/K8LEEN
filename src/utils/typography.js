@@ -1,6 +1,16 @@
 const NBSP = "\u00A0";
 
-/** Короткие слова, после которых в русской вёрстке ставят неразрывный пробел */
+/** Единое написание: U+0451/U+0401 → е/Е (включая decomposed е + diaeresis). */
+export function normalizeYo(text) {
+  if (!text) return text;
+  return text
+    .replace(/\u0401/g, "\u0415")
+    .replace(/\u0451/g, "\u0435")
+    .replace(/\u0415\u0308/g, "\u0415")
+    .replace(/\u0435\u0308/g, "\u0435");
+}
+
+/** Короткие слова, после которых в русской верстке ставят неразрывный пробел */
 const NBSP_AFTER = [
   "без",
   "в",
@@ -44,7 +54,7 @@ const HYPHEN_AND_PATTERN = /(\p{L}+)- и /giu;
 export function typograph(text) {
   if (!text) return text;
 
-  let result = text
+  let result = normalizeYo(text)
     .replace(/\s*—\s*/g, `${NBSP}—${NBSP}`)
     .replace(/(\d+)\s*-\s*(\d+)/g, "$1–$2")
     .replace(HYPHEN_AND_PATTERN, `$1-${NBSP}и${NBSP}`);
@@ -132,6 +142,15 @@ export function formatTextBlockPlain(text) {
   return typograph(result);
 }
 
+/** modal: абзацы через \\n — каждый блок как plain TextBlock */
+export function formatModalText(text) {
+  if (!text) return text;
+  return text
+    .split("\n")
+    .map((line) => (line.length > 0 ? formatTextBlockPlain(line) : line))
+    .join("\n");
+}
+
 /** list: заголовок с заглавной буквы (аббревиатуры сохраняются) */
 export function formatTextBlockListTitle(text) {
   if (!text) return text;
@@ -193,7 +212,7 @@ export function formatLegalListItem(text) {
 export function formatRoleText(text) {
   if (!text) return text;
 
-  let result = text.toLocaleLowerCase("ru");
+  let result = normalizeYo(text).toLocaleLowerCase("ru");
 
   for (const [key, canonical] of ROLE_ABBREVIATIONS) {
     result = result.replace(new RegExp(escapeRegExp(key), "gi"), canonical);

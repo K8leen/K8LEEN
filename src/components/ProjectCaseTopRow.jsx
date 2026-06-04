@@ -29,19 +29,24 @@ function ProjectCaseTopRow({
           : anchorColumn
             ? colHeight
             : Math.max(sec00Height, colHeight);
+    if (next <= 0) return;
     setRowMinHeight((prev) => (prev === next ? prev : next));
   }, [anchorColumn, anchorSec00, rowHeightPx]);
 
   useLayoutEffect(() => {
     measureRowHeight();
+    const rafId = requestAnimationFrame(measureRowHeight);
     window.addEventListener("resize", measureRowHeight);
+    window.addEventListener("load", measureRowHeight);
 
     const resizeObserver = new ResizeObserver(measureRowHeight);
     if (sec00MeasureRef.current) resizeObserver.observe(sec00MeasureRef.current);
     if (colMeasureRef.current) resizeObserver.observe(colMeasureRef.current);
 
     return () => {
+      cancelAnimationFrame(rafId);
       window.removeEventListener("resize", measureRowHeight);
+      window.removeEventListener("load", measureRowHeight);
       resizeObserver.disconnect();
     };
   }, [anchorColumn, anchorSec00, measureRowHeight, rowHeightPx, sec00, sec01, sec02, sec03, sec04]);
@@ -61,7 +66,7 @@ function ProjectCaseTopRow({
         className={`project-case-row project-case-row--top${anchorColumn ? " project-case-row--anchor-column" : ""}${anchorSec00 ? " project-case-row--anchor-sec00" : ""} ${rowClassName}`.trim()}
         style={
           rowMinHeight != null
-            ? anchorColumn || anchorSec00
+            ? anchorColumn
               ? { height: `${rowMinHeight}px` }
               : { minHeight: `${rowMinHeight}px` }
             : undefined

@@ -1,8 +1,10 @@
+import { useState } from "react";
 import LinkButton from "../components/LinkButton";
 import FloatingButton from "../components/FloatingButton";
 import FilledButton from "../components/FilledButton";
 import AccordionStack from "../components/AccordionStack";
 import CookieBanner from "../components/CookieBanner";
+import Modal from "../components/Modal";
 import Tag from "../components/Tag";
 import ProjectCard from "../components/ProjectCard";
 import TextBlock from "../components/TextBlock";
@@ -24,6 +26,26 @@ const palette = [
   ["technical_info", "#666666"],
   ["technical_line", "#C2C2C2"],
 ];
+
+function ModalShowcaseDemo() {
+  const [open, setOpen] = useState(true);
+
+  return (
+    <div className="flex flex-col items-start gap-4">
+      <Modal
+        open={open}
+        title="title"
+        text="text"
+        onClose={() => setOpen(false)}
+      />
+      {!open ? (
+        <FilledButton type="button" onClick={() => setOpen(true)}>
+          Открыть modal
+        </FilledButton>
+      ) : null}
+    </div>
+  );
+}
 
 function ComponentShowcasePage() {
   const states = ["default", "hover", "pressed", "disabled"];
@@ -93,7 +115,7 @@ function ComponentShowcasePage() {
               Body small / Alumni Sans / 16
             </p>
             <p className="text-tech mt-3 text-technical-info">
-              Tech / GOST Type AU / 14 / 5%
+              Tech / GOST Type AU / 14 / 130% / 5%
             </p>
           </div>
 
@@ -138,6 +160,7 @@ function ComponentShowcasePage() {
                 <img src="/icons/arrow-left.svg" alt="arrow left icon" className="h-6 w-6" />
                 <img src="/icons/minus.svg" alt="minus icon" className="h-6 w-6" />
                 <img src="/icons/plus.svg" alt="plus icon" className="h-6 w-6" />
+                <img src="/icons/x-close.svg" alt="close icon" className="h-[18px] w-[18px]" />
               </div>
               <p className="text-tech mt-3 text-technical-info">/public/icons/*.svg</p>
             </div>
@@ -236,6 +259,13 @@ function ComponentShowcasePage() {
           <h2 className="text-block mb-5">Cookie banner component</h2>
           <div className="rounded-xl border border-technical-line bg-base-bg p-6">
             <CookieBanner />
+          </div>
+        </section>
+
+        <section className="rounded-2xl border border-structural-line bg-surface p-8">
+          <h2 className="text-block mb-5">Modal component</h2>
+          <div className="rounded-xl border border-technical-line bg-base-bg p-6">
+            <ModalShowcaseDemo />
           </div>
         </section>
 

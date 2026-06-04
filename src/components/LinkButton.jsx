@@ -57,6 +57,7 @@ function LinkButton({
   href,
   to,
   disabled = false,
+  type: buttonType = "button",
   download,
   target,
   rel,
@@ -74,7 +75,7 @@ function LinkButton({
       `link-btn-base ${colorClass} ${isDisabled ? "link-btn-disabled" : ""} ${className}`.trim();
 
     return (
-      <button type="button" className={baseClass} disabled={isDisabled} {...props}>
+      <button type={buttonType} className={baseClass} disabled={isDisabled} {...props}>
         {content}
       </button>
     );
@@ -118,7 +119,7 @@ function LinkButton({
 
   return (
     <button
-      type="button"
+      type={buttonType}
       className={interactiveClass}
       disabled={isDisabled}
       aria-current={active ? "page" : undefined}

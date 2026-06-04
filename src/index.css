@@ -103,7 +103,7 @@
   font-family: var(--font-tech);
   font-size: 14px;
   font-weight: 400;
-  line-height: 1;
+  line-height: 1.3;
   letter-spacing: 0.05em;
 }
 
@@ -344,6 +344,124 @@
   /* Нижняя линия секции — только граница Block, не ProjectCard */
   .home-block--projects .ds-block-slot:last-child .project-card {
     border-bottom: none;
+  }
+
+  /* SEC-01: анимация диаграммы при загрузке */
+  .expertise-diagram-wrap {
+    display: block;
+    width: 100%;
+  }
+
+  /* До инициализации JS — ничего из выносок/подписей не светим */
+  .expertise-diagram-wrap--preparing .expertise-diagram__callout-labels,
+  .expertise-diagram-wrap--preparing .expertise-diagram__callout-line,
+  .expertise-diagram-wrap--preparing .expertise-diagram__callout-dot {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+
+  .expertise-diagram-wrap--preparing .expertise-diagram__center-fill {
+    opacity: 0 !important;
+  }
+
+  .expertise-diagram-wrap .expertise-diagram {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Круги: обводка от 180° (слева), по очереди — задержки в ExpertiseDiagram.jsx */
+  .expertise-diagram__circle circle {
+    fill: none;
+    stroke-dasharray: 525;
+    stroke-dashoffset: 525;
+  }
+
+  .expertise-diagram__hatch-pattern path {
+    stroke-dasharray: 1650;
+    stroke-dashoffset: 1650;
+    stroke-linecap: round;
+  }
+
+  .expertise-diagram__center-fill {
+    opacity: 0;
+  }
+
+  .expertise-diagram__center-outline {
+    opacity: 0;
+  }
+
+  .expertise-diagram__callout-line {
+    stroke-dasharray: 900;
+    stroke-dashoffset: 900;
+  }
+
+  .expertise-diagram__callout-dot {
+    opacity: 0;
+    transform: scale(0);
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+
+  .expertise-diagram__callout-labels {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  @keyframes expertise-circle-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes expertise-hatch-stroke {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes expertise-diagram-fade-in {
+    to {
+      opacity: var(--expertise-diagram-fade-target, 1);
+    }
+  }
+
+  @keyframes expertise-diagram-line-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes expertise-diagram-dot-in {
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .expertise-diagram__circle circle,
+    .expertise-diagram__hatch-pattern path,
+    .expertise-diagram__center-outline,
+    .expertise-diagram__callout-line,
+    .expertise-diagram__callout-dot,
+    .expertise-diagram__callout-labels {
+      animation: none !important;
+      stroke-dashoffset: 0;
+      transform: none;
+      clip-path: none !important;
+    }
+
+    .expertise-diagram__center-fill {
+      opacity: 0.6;
+    }
+
+    .expertise-diagram__center-outline,
+    .expertise-diagram__callout-dot,
+    .expertise-diagram__callout-labels {
+      opacity: 0.8;
+      visibility: visible;
+    }
   }
 
   .projects-page-block-row {
@@ -613,6 +731,174 @@
     border-left: 0.5px solid var(--structural-line);
   }
 
+  .food-tech-architecture-col {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .food-tech-architecture-col--restaurant .food-tech-architecture-diagram-anchor {
+    margin-top: 3px;
+  }
+
+  .food-tech-architecture-intro {
+    margin: 0 0 20px;
+  }
+
+  .food-tech-architecture-scenarios {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin: 0 0 12px;
+  }
+
+  .food-tech-architecture-scenarios--spread {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 0;
+    width: 100%;
+  }
+
+  .food-tech-architecture-diagram {
+    width: 100%;
+  }
+
+  .food-tech-architecture-diagram__svg-host {
+    width: 100%;
+    line-height: 0;
+  }
+
+  .food-tech-architecture-diagram__svg-host svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .food-tech-architecture-diagram-anchor {
+    width: 100%;
+  }
+
+  .food-tech-architecture-modal-anchor {
+    position: fixed;
+    z-index: 25;
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+
+  .food-tech-architecture-modal-anchor--client {
+    right: max(0px, calc((100vw - min(100vw, 1280px)) / 2));
+  }
+
+  .food-tech-architecture-modal-anchor .food-tech-architecture-modal {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    pointer-events: auto;
+  }
+
+  .food-tech-architecture-modal-anchor .modal-shell {
+    width: 100%;
+  }
+
+  .food-tech-architecture-modal-anchor .modal-content {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .food-tech-architecture-modal .modal-text {
+    white-space: pre-line;
+  }
+
+  .interface-system-diagram {
+    width: 100%;
+  }
+
+  .interface-system-diagram__svg-host,
+  .interface-system-diagram__fallback {
+    width: 100%;
+    line-height: 0;
+  }
+
+  .interface-system-diagram__svg-host svg,
+  .interface-system-diagram__fallback {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .interface-system-diagram__svg-host svg {
+    pointer-events: none;
+  }
+
+  .interface-system-diagram__svg-host [data-interface-label] {
+    pointer-events: none;
+  }
+
+  .interface-system-diagram__svg-host .interface-system-diagram__hit-rect {
+    pointer-events: all;
+    cursor: default;
+  }
+
+  .interface-system-diagram__svg-host .interface-system-diagram__hit-rect:focus {
+    outline: none;
+  }
+
+  .interface-system-diagram__svg-host
+    [data-interface-label].interface-system-diagram__label--hover
+    path {
+    fill: var(--structure-text);
+  }
+
+  /* dev: /projects/food-tech?debug-interface-labels — bbox зоны hover */
+  .interface-system-diagram--debug-labels .interface-system-diagram__hit-rect {
+    fill: rgba(255, 0, 128, 0.12);
+    stroke: rgba(255, 0, 128, 0.85);
+    stroke-width: 1;
+  }
+
+  .food-tech-interface-pattern-modal-anchor {
+    position: fixed;
+    z-index: 25;
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+
+  .food-tech-interface-pattern-modal-anchor .food-tech-interface-pattern-modal {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    pointer-events: auto;
+  }
+
+  .food-tech-interface-pattern-modal-anchor .modal-content {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .food-tech-interface-pattern-modal__heading {
+    margin: 0;
+  }
+
+  .food-tech-interface-pattern-modal__text {
+    margin: 0;
+    white-space: pre-line;
+  }
+
+  .food-tech-interface-pattern-modal__list {
+    margin: 0;
+    padding-left: 1.1em;
+    list-style: disc;
+  }
+
+  .food-tech-interface-pattern-modal__list li {
+    display: list-item;
+  }
+
+  .food-tech-interface-pattern-modal__list li + li {
+    margin-top: 0;
+  }
+
   .project-case-row > .ds-block,
   .project-case-top-cell > .ds-block {
     width: 100%;
@@ -857,6 +1143,74 @@
 
   .cookie-banner-text .link-btn-base .text-body-small {
     display: inline;
+  }
+
+  /* Modal: подложка как cookie-banner (480px, padding 20px, cookie-hatch-bg) */
+  .modal-shell {
+    box-sizing: border-box;
+    width: 480px;
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 16px;
+    background: var(--surface);
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .modal-title {
+    margin: 0;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .modal-close {
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+    margin-left: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .modal-close-icon {
+    display: block;
+    width: 18px;
+    height: 18px;
+  }
+
+  .modal-text {
+    margin: 12px 0 0;
+  }
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgb(244 246 248 / 72%);
+  }
+
+  .modal-overlay-inner {
+    display: inline-flex;
+    max-width: calc(100vw - 40px);
   }
 
   .tag-chip {

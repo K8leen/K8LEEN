@@ -1,6 +1,7 @@
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import AccordionStack from "./AccordionStack";
 import Block, { BlockSlot } from "./Block";
+import ExpertiseDiagram from "./ExpertiseDiagram";
 
 const SEC01_TITLE = "SEC-01_Междисциплинарная экспертиза";
 const SEC02_TITLE = "SEC-02_Навыки";
@@ -9,12 +10,7 @@ function Sec01Block({ onDiagramLoad }) {
   return (
     <Block title={SEC01_TITLE} borders={{ bottom: true }}>
       <BlockSlot>
-        <img
-          src="/img/1_01_01.svg"
-          alt="Диаграмма междисциплинарной экспертизы"
-          className="block h-auto w-full"
-          onLoad={onDiagramLoad}
-        />
+        <ExpertiseDiagram className="block w-full" onLoad={onDiagramLoad} />
       </BlockSlot>
     </Block>
   );
