@@ -1,3 +1,4 @@
+import ContactButton from "./ContactButton";
 import LinkButton from "./LinkButton";
 
 const RESUME_URL =
@@ -7,6 +8,17 @@ function FooterCell({ children, className = "", ...props }) {
   return (
     <div className={`site-footer-cell ${className}`.trim()} {...props}>
       {children}
+    </div>
+  );
+}
+
+function FooterContactButtons({ className }) {
+  return (
+    <div className={className}>
+      <ContactButton variant="telegram" href="https://t.me/K8leen" />
+      <ContactButton variant="behance" href="https://www.behance.net/quattrokate" />
+      <ContactButton variant="linkedin" href="https://www.linkedin.com/in/k8leen/" />
+      <ContactButton variant="email" href="mailto:quattrokate@gmail.com" />
     </div>
   );
 }
@@ -97,19 +109,9 @@ function Footer() {
           </span>
         </FooterCell>
 
-        <FooterCell className="site-footer-tablet__telegram">
-          <LinkButton variant="jump" href="https://t.me/K8leen">
-            Telegram
-          </LinkButton>
+        <FooterCell className="site-footer-tablet__contacts">
+          <FooterContactButtons className="site-footer-tablet__contact-buttons" />
         </FooterCell>
-
-        <FooterCell className="site-footer-tablet__email">
-          <LinkButton variant="jump" href="mailto:quattrokate@gmail.com">
-            E-mail
-          </LinkButton>
-        </FooterCell>
-
-        <FooterCell className="site-footer-tablet__empty" aria-hidden="true" />
 
         <div className="site-footer-tablet__info-legal">
           <FooterCell className="site-footer-tablet__copyright site-footer-cell--hug">
@@ -123,23 +125,43 @@ function Footer() {
           </FooterCell>
         </div>
 
-        <FooterCell className="site-footer-tablet__behance">
-          <LinkButton variant="jump" href="https://www.behance.net/quattrokate">
-            Behance
-          </LinkButton>
-        </FooterCell>
-
-        <FooterCell className="site-footer-tablet__linkedin">
-          <LinkButton variant="jump" href="https://www.linkedin.com/in/k8leen/">
-            LinkedIn
-          </LinkButton>
-        </FooterCell>
-
         <FooterCell className="site-footer-tablet__resume site-footer-cell--fill">
           <LinkButton variant="inline" href={RESUME_URL}>
             Скачать резюме (HH)
           </LinkButton>
         </FooterCell>
+      </div>
+
+      <div className="site-footer-mobile">
+        <FooterCell className="site-footer-mobile__name">
+          <span className="text-body-small text-primary-text">Екатерина Земцова</span>
+        </FooterCell>
+
+        <FooterCell className="site-footer-mobile__role">
+          <span className="text-body-small text-technical-info">Product &amp; System Designer</span>
+        </FooterCell>
+
+        <FooterCell className="site-footer-mobile__contacts">
+          <FooterContactButtons className="site-footer-mobile__contact-buttons" />
+        </FooterCell>
+
+        <FooterCell className="site-footer-mobile__resume">
+          <LinkButton variant="inline" href={RESUME_URL}>
+            Скачать резюме (HH)
+          </LinkButton>
+        </FooterCell>
+
+        <div className="site-footer-mobile__info-legal">
+          <FooterCell className="site-footer-mobile__copyright site-footer-cell--hug">
+            <span className="text-body-small text-primary-text">© 2026</span>
+          </FooterCell>
+
+          <FooterCell className="site-footer-mobile__legal">
+            <LinkButton variant="inline" to="/legal">
+              Правовая информация
+            </LinkButton>
+          </FooterCell>
+        </div>
       </div>
     </footer>
   );

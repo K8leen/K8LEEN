@@ -4,7 +4,7 @@ import TextBlock from "./TextBlock";
 import FoodTechClientArchitectureDiagram from "./FoodTechClientArchitectureDiagram";
 import FoodTechArchitectureScenarioModal from "./FoodTechArchitectureScenarioModal";
 import {
-  FOOD_TECH_ARCHITECTURE_SCENARIOS,
+  FOOD_TECH_ARCHITECTURE_NAV_SCENARIOS,
   getFoodTechArchitectureScenario,
 } from "../data/foodTechArchitectureScenarios";
 
@@ -27,7 +27,7 @@ function FoodTechArchitectureClientColumn({
       <TextBlock className="project-case-plain--440 food-tech-architecture-intro" variant="plain" text={plainText} />
 
       <nav className="food-tech-architecture-scenarios" aria-label="Сценарии клиентской архитектуры">
-        {FOOD_TECH_ARCHITECTURE_SCENARIOS.map((scenario) => (
+        {FOOD_TECH_ARCHITECTURE_NAV_SCENARIOS.map((scenario) => (
           <LinkButton
             key={scenario.id}
             type="button"

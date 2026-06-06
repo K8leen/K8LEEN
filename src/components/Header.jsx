@@ -9,7 +9,7 @@ function Header({ className = "" }) {
 
   return (
     <header className={`site-header ${className}`.trim()}>
-      <span className="text-body-small text-primary-text">Екатерина Земцова</span>
+      <span className="link-btn-text text-primary-text">Екатерина Земцова</span>
 
       <nav className="site-header-nav" aria-label="Основная навигация">
         <LinkButton

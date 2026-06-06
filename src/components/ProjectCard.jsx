@@ -9,6 +9,21 @@ function normalizeTag(tag) {
   return { label: tag, tone: "nda" };
 }
 
+function ProjectCardTags({ tags, className }) {
+  return (
+    <div className={className}>
+      {tags.map((tag, index) => {
+        const { label, tone } = normalizeTag(tag);
+        return (
+          <Tag key={`${label}-${index}`} tone={tone}>
+            {label}
+          </Tag>
+        );
+      })}
+    </div>
+  );
+}
+
 function ProjectCard({
   imageSrc = "/img/pattern.svg",
   imageAlt = "Project illustration",
@@ -23,58 +38,106 @@ function ProjectCard({
   showDetailLink = true,
   className = "",
 }) {
+  const normalizedTags = tags.map(normalizeTag);
+
   return (
     <article className={`project-card ${className}`.trim()}>
-      <img src={imageSrc} alt={imageAlt} className="project-card-visual" />
+      <div className="project-card__layout project-card__layout--desktop">
+        <img src={imageSrc} alt={imageAlt} className="project-card-visual" />
 
-      <div className="project-card-divider" aria-hidden="true" />
+        <div className="project-card-divider" aria-hidden="true" />
 
-      <div className="project-card-info">
-        <div className="project-card-topline">
-          <div className="project-card-tags">
-            {tags.map((tag, index) => {
-              const { label, tone } = normalizeTag(tag);
-              return (
-                <Tag key={`${label}-${index}`} tone={tone}>
-                  {label}
-                </Tag>
-              );
-            })}
+        <div className="project-card-info">
+          <div className="project-card-topline">
+            <ProjectCardTags tags={normalizedTags} className="project-card-tags" />
+            {showDetailLink ? (
+              <LinkButton variant="jump" to={detailTo} state={detailTo ? undefined : "default"}>
+                {linkLabel}
+              </LinkButton>
+            ) : null}
           </div>
+
+          <h3 className="project-card-title">
+            <LinkButton
+              variant="default"
+              to={detailTo}
+              state={detailTo ? undefined : "default"}
+            >
+              {title}
+            </LinkButton>
+          </h3>
+
+          <dl className="project-card-meta">
+            <div className="project-card-meta-row">
+              <dt className="text-body-small text-technical-info project-card-meta-key">
+                {roleLabel}
+              </dt>
+              <dd className="text-body-small text-structure-text">
+                <RoleText>{roleValue}</RoleText>
+              </dd>
+            </div>
+
+            <div className="project-card-meta-row">
+              <dt className="text-body-small text-technical-info project-card-meta-key">
+                {resultLabel}
+              </dt>
+              <dd className="text-body-small text-structure-text">{resultValue}</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      <div className="project-card__layout project-card__layout--mobile">
+        <div className="project-card-mobile__header">
+          <h3 className="project-card-mobile__title">
+            <LinkButton
+              variant="default"
+              to={detailTo}
+              state={detailTo ? undefined : "default"}
+            >
+              {title}
+            </LinkButton>
+          </h3>
           {showDetailLink ? (
-            <LinkButton variant="jump" to={detailTo} state={detailTo ? undefined : "default"}>
+            <LinkButton
+              variant="jump"
+              to={detailTo}
+              state={detailTo ? undefined : "default"}
+              className="project-card-mobile__expand"
+              aria-label={linkLabel}
+            >
               {linkLabel}
             </LinkButton>
           ) : null}
         </div>
 
-        <h3 className="project-card-title">
-          <LinkButton
-            variant="default"
-            to={detailTo}
-            state={detailTo ? undefined : "default"}
-          >
-            {title}
-          </LinkButton>
-        </h3>
+        <div className="project-card-mobile__body">
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            className="project-card-mobile__visual"
+          />
 
-        <dl className="project-card-meta">
-          <div className="project-card-meta-row">
-            <dt className="text-body-small text-technical-info project-card-meta-key">
-              {roleLabel}
-            </dt>
-            <dd className="text-body-small text-structure-text">
-              <RoleText>{roleValue}</RoleText>
-            </dd>
-          </div>
+          <div className="project-card-mobile__divider" aria-hidden="true" />
 
-          <div className="project-card-meta-row">
-            <dt className="text-body-small text-technical-info project-card-meta-key">
-              {resultLabel}
-            </dt>
-            <dd className="text-body-small text-structure-text">{resultValue}</dd>
+          <div className="project-card-mobile__aside">
+            <ProjectCardTags tags={normalizedTags} className="project-card-mobile__tags" />
+            <div className="project-card-mobile__role">
+              <div className="project-card-mobile__role-line" aria-hidden="true" />
+              <div className="project-card-mobile__role-copy">
+                <p className="text-body-small text-technical-info">{roleLabel}</p>
+                <p className="text-body-small text-structure-text">
+                  <RoleText>{roleValue}</RoleText>
+                </p>
+              </div>
+            </div>
           </div>
-        </dl>
+        </div>
+
+        <div className="project-card-mobile__result">
+          <p className="text-body-small text-technical-info">{resultLabel}</p>
+          <p className="text-body-small text-structure-text">{resultValue}</p>
+        </div>
       </div>
     </article>
   );

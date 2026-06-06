@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import FoodTechInterfacePatternModal from "./FoodTechInterfacePatternModal";
+import HorizontalScrollStrip from "./HorizontalScrollStrip";
 import {
   SMART_HOME_INTERFACE_ANNOTATIONS,
   SMART_HOME_INTERFACE_ANNOTATION_IDS,
@@ -132,55 +133,60 @@ function SmartHomeInterfaceSystemDiagramTablet() {
       : null;
 
   return (
-    <div className="interface-system-diagram interface-system-diagram--tablet interface-system-diagram--tablet-img interface-system-diagram--tablet-fixed">
-      <div className="project-case-interface-static__frame">
-        <img
-          src={smartHomeProjectImages.interfaceSystem.src}
-          alt={smartHomeProjectImages.interfaceSystem.alt}
-          className="project-case-interface-static__image"
-          draggable={false}
-          onLoad={() => window.dispatchEvent(new Event("resize"))}
-        />
-        <div className="interface-system-diagram__dot-overlay">
-          {SMART_HOME_INTERFACE_ANNOTATIONS.map((annotation) => {
-            const position = SMART_HOME_INTERFACE_CALLOUT_DOT_POSITIONS[annotation.id];
-            if (!position) return null;
+    <div className="interface-system-diagram interface-system-diagram--tablet interface-system-diagram--tablet-img">
+      <HorizontalScrollStrip
+        className="project-case-interface-scroll"
+        ariaLabel={smartHomeProjectImages.interfaceSystem.alt}
+      >
+        <div className="project-case-interface-scroll__frame">
+          <img
+            src={smartHomeProjectImages.interfaceSystem.src}
+            alt={smartHomeProjectImages.interfaceSystem.alt}
+            className="project-case-interface-scroll__image project-case-interface-scroll__image--smart-home"
+            draggable={false}
+            onLoad={() => window.dispatchEvent(new Event("resize"))}
+          />
+          <div className="interface-system-diagram__dot-overlay">
+            {SMART_HOME_INTERFACE_ANNOTATIONS.map((annotation) => {
+              const position = SMART_HOME_INTERFACE_CALLOUT_DOT_POSITIONS[annotation.id];
+              if (!position) return null;
 
-            const isActive = activeId === annotation.id;
+              const isActive = activeId === annotation.id;
 
-            return (
-              <button
-                key={`dot-${annotation.id}`}
-                type="button"
-                className={`interface-system-diagram__callout-dot-btn${isActive ? " interface-system-diagram__callout-dot-btn--active" : ""}`}
-                style={{ left: `${position.x}%`, top: `${position.y}%` }}
-                aria-label={annotation.label}
-                onClick={(event) => openFromTarget(event, annotation.id, openAnnotation)}
-              />
-            );
-          })}
-          {SMART_HOME_INTERFACE_ANNOTATIONS.map((annotation) => {
-            const area = labelHitAreas[annotation.id];
-            if (!area) return null;
+              return (
+                <button
+                  key={`dot-${annotation.id}`}
+                  type="button"
+                  className={`interface-system-diagram__callout-dot-btn${isActive ? " interface-system-diagram__callout-dot-btn--active" : ""}`}
+                  style={{ left: `${position.x}%`, top: `${position.y}%` }}
+                  aria-label={annotation.label}
+                  onClick={(event) => openFromTarget(event, annotation.id, openAnnotation)}
+                />
+              );
+            })}
+            {SMART_HOME_INTERFACE_ANNOTATIONS.map((annotation) => {
+              const area = labelHitAreas[annotation.id];
+              if (!area) return null;
 
-            return (
-              <button
-                key={`label-${annotation.id}`}
-                type="button"
-                className="interface-system-diagram__label-hit"
-                style={{
-                  left: `${area.x}%`,
-                  top: `${area.y}%`,
-                  width: `${area.w}%`,
-                  height: `${area.h}%`,
-                }}
-                aria-label={annotation.label}
-                onClick={(event) => openFromTarget(event, annotation.id, openAnnotation)}
-              />
-            );
-          })}
+              return (
+                <button
+                  key={`label-${annotation.id}`}
+                  type="button"
+                  className="interface-system-diagram__label-hit"
+                  style={{
+                    left: `${area.x}%`,
+                    top: `${area.y}%`,
+                    width: `${area.w}%`,
+                    height: `${area.h}%`,
+                  }}
+                  aria-label={annotation.label}
+                  onClick={(event) => openFromTarget(event, annotation.id, openAnnotation)}
+                />
+              );
+            })}
+          </div>
         </div>
-      </div>
+      </HorizontalScrollStrip>
       {modalPortal}
     </div>
   );

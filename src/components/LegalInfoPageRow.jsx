@@ -81,18 +81,23 @@ function LegalInfoPageRow({ sec01Width }) {
   );
 
   const [rowMinHeight, setRowMinHeight] = useState(null);
+  const [isTabletLayout, setIsTabletLayout] = useState(false);
   const sec01MeasureRef = useRef(null);
   const sec02MeasureRefs = useRef([]);
 
   const sec02Width =
     sec01Width != null ? ROW_WIDTH - sec01Width : ROW_WIDTH - 600;
 
-  const rowStyle = {
-    ...(sec01Width != null ? { "--legal-sec01-width": `${sec01Width}px` } : {}),
-    ...(rowMinHeight != null
-      ? { height: `${rowMinHeight}px`, minHeight: `${rowMinHeight}px` }
-      : {}),
-  };
+  const rowStyle = isTabletLayout
+    ? undefined
+    : {
+        ...(sec01Width != null ? { "--legal-sec01-width": `${sec01Width}px` } : {}),
+        ...(rowMinHeight != null
+          ? { height: `${rowMinHeight}px`, minHeight: `${rowMinHeight}px` }
+          : {}),
+      };
+
+  const blockStretchClass = isTabletLayout ? "" : "h-full";
 
   const measureRowHeight = useCallback(() => {
     const sec02Heights = sec02MeasureRefs.current
@@ -106,9 +111,10 @@ function LegalInfoPageRow({ sec01Width }) {
   }, [policyItems.length]);
 
   useLayoutEffect(() => {
-    const tabletMq = window.matchMedia("(min-width: 768px) and (max-width: 1279px)");
+    const tabletMq = window.matchMedia("(max-width: 1279px)");
 
     const onResize = () => {
+      setIsTabletLayout(tabletMq.matches);
       if (tabletMq.matches) {
         setRowMinHeight(null);
         return;
@@ -138,9 +144,9 @@ function LegalInfoPageRow({ sec01Width }) {
   return (
     <>
       <div className="legal-info-page-row" style={rowStyle}>
-        <LegalSec01Block className="legal-info-block--sec01 h-full" />
+        <LegalSec01Block className={`legal-info-block--sec01 ${blockStretchClass}`.trim()} />
         <LegalSec02Block
-          className="legal-info-block--sec02 h-full"
+          className={`legal-info-block--sec02 ${blockStretchClass}`.trim()}
           policyItems={policyItems}
           defaultOpenIndex={0}
         />

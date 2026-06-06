@@ -1,7 +1,7 @@
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import AccordionStack from "./AccordionStack";
 import Block, { BlockSlot } from "./Block";
-import ExpertiseDiagram from "./ExpertiseDiagram";
+import HomeExpertiseDiagram from "./HomeExpertiseDiagram";
 
 const SEC01_TITLE = "SEC-01_Междисциплинарная экспертиза";
 const SEC02_TITLE = "SEC-02_Навыки";
@@ -10,7 +10,7 @@ function Sec01Block({ onDiagramLoad }) {
   return (
     <Block title={SEC01_TITLE} borders={{ bottom: true }}>
       <BlockSlot>
-        <ExpertiseDiagram className="block w-full" onLoad={onDiagramLoad} />
+        <HomeExpertiseDiagram className="block w-full" onLoad={onDiagramLoad} />
       </BlockSlot>
     </Block>
   );
@@ -43,10 +43,10 @@ function HomeTopRow({ skillsItems }) {
   }, [skillsItems.length]);
 
   useLayoutEffect(() => {
-    const tabletMq = window.matchMedia("(min-width: 768px) and (max-width: 1279px)");
+    const stackedMq = window.matchMedia("(max-width: 1279px)");
 
     const onResize = () => {
-      if (tabletMq.matches) {
+      if (stackedMq.matches) {
         setRowMinHeight(null);
         return;
       }
@@ -54,10 +54,10 @@ function HomeTopRow({ skillsItems }) {
     };
 
     onResize();
-    tabletMq.addEventListener("change", onResize);
+    stackedMq.addEventListener("change", onResize);
     window.addEventListener("resize", onResize);
     return () => {
-      tabletMq.removeEventListener("change", onResize);
+      stackedMq.removeEventListener("change", onResize);
       window.removeEventListener("resize", onResize);
     };
   }, [skillsItems, measureRowHeight]);

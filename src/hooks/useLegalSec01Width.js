@@ -42,7 +42,7 @@ export function useLegalSec01Width() {
   const [width, setWidth] = useState(null);
 
   useLayoutEffect(() => {
-    const tabletMq = window.matchMedia("(min-width: 768px) and (max-width: 1279px)");
+    const tabletMq = window.matchMedia("(max-width: 1279px)");
 
     const update = () => {
       if (tabletMq.matches) {

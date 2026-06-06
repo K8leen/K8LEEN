@@ -85,6 +85,11 @@ function formatArchitectureScenario(scenario) {
 export const FOOD_TECH_ARCHITECTURE_SCENARIOS =
   FOOD_TECH_ARCHITECTURE_SCENARIOS_RAW.map(formatArchitectureScenario);
 
+/** Сценарии в навигации (без «Жизненный цикл» — подпись в диаграмме). */
+export const FOOD_TECH_ARCHITECTURE_NAV_SCENARIOS = FOOD_TECH_ARCHITECTURE_SCENARIOS.filter(
+  (item) => item.id !== "lifecycle",
+);
+
 export const FOOD_TECH_ARCHITECTURE_DEFAULT_SCENARIO_ID = "all";
 
 export const FOOD_TECH_ARCHITECTURE_LAYER_ID_PATTERN = /^0\d_/;

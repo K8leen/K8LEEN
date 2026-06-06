@@ -1,5 +1,5 @@
 ---
-description: Правила десктопной вёрстки и работы с блоками
+description: Правила вёрстки (desktop, tablet, mobile) и работы с блоками
 alwaysApply: true
 ---
 
@@ -29,12 +29,20 @@ alwaysApply: true
 
 Реализация: обёртка `.site-layout` (фон `base_bg`) → `.site-layout-inner` (1280px, `padding: 0 40px`, `surface`, тень на `@media (min-width: 1281px)`). Компоненты внутри — **1200px**, не растягивать.
 
-## Tablet (768–1279px)
+## Tablet (700–1279px)
 
-- Рабочая область: **768px** (`--layout-inner-width`)
-- **Margin 32px** слева и справа (`--layout-inner-margin`)
-- Контентная зона: **704px** (768 − 32 − 32)
-- Если viewport **> 768px** — «уши» как на desktop: центрирование, `shadow-soft`, фон вокруг `base_bg` (`@media (min-width: 769px) and (max-width: 1279px)`)
+- Брейкпоинт: **700–1279px**
+- **Контентная область: 700px** — ширина под компоненты
+- Остальные общие правила те же, что и на desktop: стыковка блоков, высота в линию, без кастомизации компонентов, Header pressed, scroll to top
+- Фон рабочей области — **surface**, «уши» при viewport шире контейнера — **base_bg** + **shadow-soft** + центрирование (по той же логике, что desktop)
+- Margin, gutter, сетка колонок и размеры компонентов на планшете — **уточним при внёрстке**; сейчас зафиксированы только брейкпоинт и ширина контентной области
+
+## Mobile (≤699px)
+
+- Брейкпоинт: **≤699px**
+- **Боковые отступы: 16px** — всегда от края экрана до контента (левый и правый)
+- Остальные общие правила те же: стыковка блоков, без кастомизации компонентов, Header pressed, scroll to top
+- Контентная ширина: `100vw − 32px` (экран минус 16px с каждой стороны)
 
 ## Блоки — без кастомизации
 
@@ -113,7 +121,7 @@ alwaysApply: true
 
 ## Типографика (responsive)
 
-Брейкпоинты: **mobile ≤767px**, **tablet 768–1279px**, **desktop ≥1280px**.
+Брейкпоинты layout: **mobile ≤699px**, **tablet 700–1279px**, **desktop ≥1280px**.
 
 Размеры задаются CSS-переменными `--type-*-size` в `index.css`; классы `text-hero`, `text-subhero`, `text-block`, `text-body-main`, `text-body-small`, `text-tech` подхватывают их автоматически.
 
