@@ -22,7 +22,11 @@ function ProjectCaseBackButton({ alignRef, fallbackTo = "/projects", label = "н
     if (!root || !anchor) return;
 
     const alignToHeadline = () => {
-      const headline = anchor.querySelector(".headline") ?? anchor;
+      const headlines = anchor.querySelectorAll(".headline");
+      const headline =
+        [...headlines].find((element) => element.getClientRects().length > 0) ??
+        headlines[0] ??
+        anchor;
       const headlineRect = headline.getBoundingClientRect();
       const floatRect = root.getBoundingClientRect();
       root.style.top = `${headlineRect.top + (headlineRect.height - floatRect.height) / 2}px`;

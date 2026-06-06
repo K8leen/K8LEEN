@@ -1,20 +1,10 @@
 import Block, { BlockSlot } from "../components/Block";
 import Headline from "../components/Headline";
+import ProgressiveDisclosureCard from "../components/ProgressiveDisclosureCard";
 import ProjectCard from "../components/ProjectCard";
+import ProjectsApproachBlocks from "../components/ProjectsApproachBlocks";
 import SiteLayout from "../components/SiteLayout";
-import TextBlock from "../components/TextBlock";
-import {
-  projectsPageHeadline,
-  projectsPagePrinciples,
-  projectsPageProjects,
-  projectsPageScopeClosing,
-  projectsPageScopeListItems,
-  projectsPageScopeListTitle,
-  projectsPageTypicalTasksListItems,
-  projectsPageAfterProjectIntro,
-  projectsPageAfterProjectListItems,
-  projectsPageAfterProjectListTitle,
-} from "../data/projectsPage";
+import { projectsPageHeadline, projectsPageProjects } from "../data/projectsPage";
 
 function ProjectsPage() {
   return (
@@ -25,64 +15,33 @@ function ProjectsPage() {
           subheader={projectsPageHeadline.subheader}
         />
 
-        <div className="projects-page-block-row">
+        <div className="projects-page-block-row projects-page-block-row--desktop">
           <div className="projects-page-col-left">
-            <Block title="SEC-01_Принципы" borders={{ bottom: true, right: true }}>
-              <BlockSlot>
-                <div className="stack">
-                  {projectsPagePrinciples.map((paragraph, index) => (
-                    <TextBlock
-                      key={paragraph}
-                      variant="plain"
-                      text={paragraph}
-                      textTone={index === 2 ? "technical-info" : "primary"}
-                    />
-                  ))}
-                </div>
-              </BlockSlot>
-            </Block>
-
-            <Block title="SEC-02_Область применения" borders={{ bottom: true, right: true }}>
-              <BlockSlot>
-                <div className="stack">
-                  <TextBlock
-                    variant="list"
-                    title={projectsPageScopeListTitle}
-                    listItems={projectsPageScopeListItems}
-                  />
-                  <TextBlock variant="plain" text={projectsPageScopeClosing} />
-                </div>
-              </BlockSlot>
-            </Block>
-
-            <Block title="SEC-03_Типовые задачи" borders={{ bottom: true, right: true }}>
-              <BlockSlot>
-                <TextBlock variant="list" listItems={projectsPageTypicalTasksListItems} />
-              </BlockSlot>
-            </Block>
-
-            <Block
-              className="projects-block--after-project"
-              title="SEC-04_Что остается после проекта"
-              borders={{ bottom: true, right: true }}
-            >
-              <BlockSlot>
-                <TextBlock variant="plain" text={projectsPageAfterProjectIntro} />
-              </BlockSlot>
-              <BlockSlot>
-                <TextBlock
-                  variant="list"
-                  title={projectsPageAfterProjectListTitle}
-                  listItems={projectsPageAfterProjectListItems}
-                />
-              </BlockSlot>
-            </Block>
+            <ProjectsApproachBlocks variant="desktop" />
           </div>
 
           <Block
             className="projects-block--list"
             title="SEC-05_Проекты"
             borders={{ bottom: true, left: true }}
+          >
+            {projectsPageProjects.map((project) => (
+              <BlockSlot key={project.imageSrc}>
+                <ProjectCard {...project} />
+              </BlockSlot>
+            ))}
+          </Block>
+        </div>
+
+        <div className="projects-page-tablet">
+          <ProgressiveDisclosureCard title="SEC-01...04_Мой подход">
+            <ProjectsApproachBlocks variant="tablet" />
+          </ProgressiveDisclosureCard>
+
+          <Block
+            className="projects-block--list"
+            title="SEC-05_Проекты"
+            borders={{ bottom: true }}
           >
             {projectsPageProjects.map((project) => (
               <BlockSlot key={project.imageSrc}>

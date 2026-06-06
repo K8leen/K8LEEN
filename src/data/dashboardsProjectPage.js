@@ -6,6 +6,11 @@ const headlineRaw = {
     "Масштабирование аналитических сценариев через модульную dashboard-систему",
 };
 
+const headlineTabletRaw = {
+  header: "Система дашбордов B2B SaaS",
+  subheader: "Масштабирование данных через модульную логику",
+};
+
 const resultPlainLinesRaw = [
   "Спроектирована система аналитических дашбордов для enterprise SaaS-платформы",
   "Разработана концепция модульной аналитики",
@@ -135,6 +140,11 @@ const summaryPlainLinesRaw = [
 export const dashboardsProjectHeadline = {
   header: typograph(headlineRaw.header),
   subheader: typograph(headlineRaw.subheader),
+};
+
+export const dashboardsProjectHeadlineTablet = {
+  header: typograph(headlineTabletRaw.header),
+  subheader: typograph(headlineTabletRaw.subheader),
 };
 
 export const dashboardsProjectResultLines = resultPlainLinesRaw;

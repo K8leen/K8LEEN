@@ -107,10 +107,14 @@ function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+function abbreviationPattern(key) {
+  return new RegExp(`(^|[^\\p{L}\\d])(${escapeRegExp(key)})(?=[^\\p{L}\\d]|$)`, "giu");
+}
+
 function applyTextBlockAbbreviations(text) {
   let result = text;
   for (const [key, canonical] of TEXT_BLOCK_ABBREVIATIONS) {
-    result = result.replace(new RegExp(escapeRegExp(key), "gi"), canonical);
+    result = result.replace(abbreviationPattern(key), `$1${canonical}`);
   }
   return result;
 }
@@ -134,6 +138,7 @@ function applyTextBlockProperNouns(text) {
 export function formatTextBlockPlain(text) {
   if (!text) return text;
   let result = text.toLocaleLowerCase("ru");
+  result = result.replace(DIGITAL_SCENARIO_PATTERN, DIGITAL_SCENARIO_CANONICAL);
   result = applyTextBlockProperNouns(result);
   result = result.replace(/(^|[.!?]\s+)(\p{L})/gu, (_match, prefix, letter) => {
     return `${prefix}${letter.toLocaleUpperCase("ru")}`;
@@ -171,6 +176,9 @@ export function formatTextBlockListItem(text) {
 }
 
 const NB_HYPHEN = "\u2011";
+
+const DIGITAL_SCENARIO_PATTERN = /digital-сценарию/giu;
+const DIGITAL_SCENARIO_CANONICAL = `digital${NB_HYPHEN}сценарию`;
 
 const FEDERAL_LAW_152FZ_PATTERN =
   /№\s*152\s*-\s*фз\s*«\s*о\s+персональных\s+данных\s*»/giu;
@@ -215,7 +223,7 @@ export function formatRoleText(text) {
   let result = normalizeYo(text).toLocaleLowerCase("ru");
 
   for (const [key, canonical] of ROLE_ABBREVIATIONS) {
-    result = result.replace(new RegExp(escapeRegExp(key), "gi"), canonical);
+    result = result.replace(abbreviationPattern(key), `$1${canonical}`);
   }
 
   return result;

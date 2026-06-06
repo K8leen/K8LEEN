@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import Block, { BlockSlot } from "../components/Block";
 import Headline from "../components/Headline";
+import PredictionsProjectTabletContent from "../components/PredictionsProjectTabletContent";
 import ProjectCaseBackButton from "../components/ProjectCaseBackButton";
 import PredictionsInterfaceSystemDiagram from "../components/PredictionsInterfaceSystemDiagram";
 import ProjectCaseTopRow from "../components/ProjectCaseTopRow";
@@ -18,6 +19,7 @@ import {
   predictionsProjectContextListTitle,
   predictionsProjectContextPlain,
   predictionsProjectHeadline,
+  predictionsProjectHeadlineTablet,
   predictionsProjectImages,
   predictionsProjectIntegrationLines,
   predictionsProjectInterfaceSystemPlain,
@@ -53,11 +55,18 @@ function PredictionsProjectPage() {
       <main className="project-case-page">
         <div ref={headlineAnchorRef} className="project-case-headline-anchor">
           <Headline
+            className="project-case-headline--desktop"
             header={predictionsProjectHeadline.header}
             subheader={predictionsProjectHeadline.subheader}
           />
+          <Headline
+            className="project-case-headline--tablet"
+            header={predictionsProjectHeadlineTablet.header}
+            subheader={predictionsProjectHeadlineTablet.subheader}
+          />
         </div>
 
+        <div className="project-case-page--desktop">
         <ProjectCaseTopRow
           rowHeight="column"
           sec00={
@@ -261,6 +270,11 @@ function PredictionsProjectPage() {
               />
             </BlockSlot>
           </Block>
+        </div>
+        </div>
+
+        <div className="project-case-page-tablet">
+          <PredictionsProjectTabletContent />
         </div>
       </main>
     </SiteLayout>

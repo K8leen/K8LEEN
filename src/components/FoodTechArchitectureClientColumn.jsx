@@ -15,6 +15,8 @@ function FoodTechArchitectureClientColumn({
   modalOpen,
   onScenarioSelect,
   onModalClose,
+  modalPlacement = "client",
+  suppressModal = false,
 }) {
   const diagramRef = useRef(null);
 
@@ -42,14 +44,16 @@ function FoodTechArchitectureClientColumn({
         <FoodTechClientArchitectureDiagram scenarioId={activeScenarioId} />
       </div>
 
-      <FoodTechArchitectureScenarioModal
-        open={modalOpen}
-        title={activeScenario?.modalTitle}
-        text={activeScenario?.modalText}
-        alignRef={diagramRef}
-        onClose={onModalClose}
-        placement="client"
-      />
+      {!suppressModal ? (
+        <FoodTechArchitectureScenarioModal
+          open={modalOpen}
+          title={activeScenario?.modalTitle}
+          text={activeScenario?.modalText}
+          alignRef={diagramRef}
+          onClose={onModalClose}
+          placement={modalPlacement}
+        />
+      ) : null}
     </div>
   );
 }

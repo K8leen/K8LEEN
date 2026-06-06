@@ -4,8 +4,12 @@ import predictionsInterfaceSystemImageUrl from "../../public/img/04_02_03.svg?ur
 
 const headlineRaw = {
   header: "Геймифицированный сервис прогнозов",
-  subheader:
-    "Вовлечение пользователей через игровые механики и структурирование событийных сценариев",
+  subheader: "Удержание и вовлечение через геймификацию событий",
+};
+
+const headlineTabletRaw = {
+  header: "Сервис прогнозов",
+  subheader: "Удержание через геймификацию событий",
 };
 
 const resultPlainLinesRaw = [
@@ -147,6 +151,11 @@ const summaryListItemsRaw = [
 export const predictionsProjectHeadline = {
   header: typograph(headlineRaw.header),
   subheader: typograph(headlineRaw.subheader),
+};
+
+export const predictionsProjectHeadlineTablet = {
+  header: typograph(headlineTabletRaw.header),
+  subheader: typograph(headlineTabletRaw.subheader),
 };
 
 export const predictionsProjectResultLines = resultPlainLinesRaw;

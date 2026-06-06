@@ -4,16 +4,20 @@ import LinkButton from "./LinkButton";
 
 const STORAGE_KEY = "k8leen-cookie-banner-dismissed";
 
-function CookieBanner({ fixed = false, className = "" }) {
-  const [visible, setVisible] = useState(null);
+function CookieBanner({ fixed = false, preview = false, onDismiss, className = "" }) {
+  const [visible, setVisible] = useState(preview ? true : null);
 
   useEffect(() => {
+    if (preview) return;
     setVisible(localStorage.getItem(STORAGE_KEY) !== "1");
-  }, []);
+  }, [preview]);
 
   const dismiss = () => {
-    localStorage.setItem(STORAGE_KEY, "1");
+    if (!preview) {
+      localStorage.setItem(STORAGE_KEY, "1");
+    }
     setVisible(false);
+    onDismiss?.();
   };
 
   if (visible !== true) return null;

@@ -6,6 +6,11 @@ const headlineRaw = {
     "управление через структурирование интерфейса и снижение когнитивной нагрузки",
 };
 
+const headlineTabletRaw = {
+  header: "Управление умным домом",
+  subheader: "Снижение когнитивной нагрузки через структуру",
+};
+
 const resultPlainLinesRaw = [
   "Реализована сквозная структура приложения как единой экосистемы",
   "Разработан полный реестр состояний устройств и интерактивных виджетов, обеспечивающих мгновенную обратную связь",
@@ -108,6 +113,11 @@ const summaryLinesRaw = [
 export const smartHomeProjectHeadline = {
   header: typograph(headlineRaw.header),
   subheader: typograph(headlineRaw.subheader),
+};
+
+export const smartHomeProjectHeadlineTablet = {
+  header: typograph(headlineTabletRaw.header),
+  subheader: typograph(headlineTabletRaw.subheader),
 };
 
 export const smartHomeProjectResultLines = resultPlainLinesRaw;

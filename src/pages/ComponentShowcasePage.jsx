@@ -9,9 +9,11 @@ import Tag from "../components/Tag";
 import ProjectCard from "../components/ProjectCard";
 import TextBlock from "../components/TextBlock";
 import Block, { BlockSlot } from "../components/Block";
+import ProgressiveDisclosureCard from "../components/ProgressiveDisclosureCard";
 import Header from "../components/Header";
 import Headline from "../components/Headline";
 import ExperienceBlock from "../components/ExperienceBlock";
+import ExperienceStack from "../components/ExperienceStack";
 import Footer from "../components/Footer";
 
 const palette = [
@@ -27,22 +29,62 @@ const palette = [
   ["technical_line", "#C2C2C2"],
 ];
 
-function ModalShowcaseDemo() {
-  const [open, setOpen] = useState(true);
+const experienceShowcaseItems = [
+  {
+    year: "YEAR",
+    company: "COMPANY",
+    role: "UX/UI дизайнер",
+    description: "DESCRIPTION",
+  },
+  {
+    year: "YEAR",
+    company: "COMPANY",
+    role: "product / UX/UI дизайнер",
+    description: "DESCRIPTION",
+  },
+];
+
+function ModalShowcaseDemo({ overlay = false, label }) {
+  const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex flex-col items-start gap-4">
+    <div className="stack items-start">
+      <p className="text-tech showcase-variant-label text-technical-info">{label}</p>
       <Modal
         open={open}
+        overlay={overlay}
         title="title"
         text="text"
         onClose={() => setOpen(false)}
       />
-      {!open ? (
+      {!open && (
         <FilledButton type="button" onClick={() => setOpen(true)}>
           Открыть modal
         </FilledButton>
-      ) : null}
+      )}
+    </div>
+  );
+}
+
+function CookieShowcaseDemo({ fixed = false, label }) {
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <div className="stack items-start">
+      <p className="text-tech showcase-variant-label text-technical-info">{label}</p>
+      {visible ? (
+        fixed ? (
+          <div className="showcase-fixed-host">
+            <CookieBanner fixed preview onDismiss={() => setVisible(false)} />
+          </div>
+        ) : (
+          <CookieBanner preview onDismiss={() => setVisible(false)} />
+        )
+      ) : (
+        <FilledButton type="button" onClick={() => setVisible(true)}>
+          Показать banner
+        </FilledButton>
+      )}
     </div>
   );
 }
@@ -69,18 +111,20 @@ function ComponentShowcasePage() {
         </p>
 
         <section className="shadow-soft rounded-2xl border border-structural-line bg-surface p-8">
-          <p className="text-tech text-technical-info">Design system baseline</p>
-          <h1 className="text-hero mt-6">RAG 123</h1>
-          <h2 className="text-subhero mt-4 text-dark-accent">Subhero example</h2>
-          <h3 className="text-block mt-5">Block headline</h3>
+          <p className="text-tech text-technical-info">Design system / песочница</p>
+          <h1 className="text-hero mt-6">COMPONENT SHOWCASE</h1>
           <p className="text-body-main mt-4 max-w-2xl">
-            Это стартовая страница портфолио. Дальше сюда можно добавить кейсы,
-            процесс работы, отзывы и контакты.
+            Все варианты компонентов дизайн-системы в одном месте. Responsive-варианты
+            (Footer, типографика) показаны явно — desktop и tablet рядом.
           </p>
-          <p className="text-body-small mt-3 max-w-2xl text-technical-info">
-            Базовые стили уже подключены через токены: цвета, типографика и
-            вспомогательные utility-классы.
-          </p>
+          <ul className="stack mt-5 text-tech text-technical-info">
+            <li>Header, Headline, Block, Text block, Experience block (stack)</li>
+            <li>Link Btn (default / inline / jump), Floating button, Filled button</li>
+            <li>
+              Accordion (stack), Progressive disclosure card, Cookie banner, Modal, Tag, Project
+              card, Footer
+            </li>
+          </ul>
         </section>
 
         <section className="rounded-2xl border border-structural-line bg-surface p-8">
@@ -106,17 +150,59 @@ function ComponentShowcasePage() {
 
         <section className="rounded-2xl border border-structural-line bg-surface p-8">
           <h2 className="text-block mb-5">Typography check</h2>
+          <p className="text-body-small text-technical-info mb-5">
+            Брейкпоинты: mobile ≤767px, tablet 768–1279px, desktop ≥1280px. Ниже — живой
+            превью (меняется при ресайзе окна) и таблицы по брейкпоинтам.
+          </p>
+
           <div className="rounded-xl border border-technical-line bg-base-bg p-6">
-            <p className="text-hero">Hero / Alumni Sans SC / 56</p>
-            <p className="text-subhero mt-4">Subhero / Alumni Sans SC / 32</p>
-            <p className="text-block mt-4">Block / Alumni Sans SC / 24</p>
-            <p className="text-body-main mt-4">Body main / Alumni Sans / 18</p>
-            <p className="text-body-small mt-3 text-technical-info">
-              Body small / Alumni Sans / 16
-            </p>
+            <p className="text-tech mb-4 text-technical-info">Live preview (responsive)</p>
+            <p className="text-hero">Hero / Alumni Sans SC</p>
+            <p className="text-subhero mt-4">Subhero / Alumni Sans SC</p>
+            <p className="text-block mt-4">Block / Alumni Sans SC</p>
+            <p className="text-body-main mt-4">Body main / Alumni Sans</p>
+            <p className="text-body-small mt-3 text-technical-info">Body small / Alumni Sans</p>
             <p className="text-tech mt-3 text-technical-info">
-              Tech / GOST Type AU / 14 / 130% / 5%
+              Tech / GOST Type AU / 130% / 5%
             </p>
+          </div>
+
+          <div className="mt-5 grid gap-4 lg:grid-cols-3">
+            <div className="rounded-xl border border-technical-line bg-base-bg p-5">
+              <p className="text-tech mb-3 text-technical-info">Desktop ≥1280px</p>
+              <ul className="stack text-tech text-technical-info">
+                <li>Hero / Alumni Sans SC / 56</li>
+                <li>Subhero / Alumni Sans SC / 32</li>
+                <li>Block / Alumni Sans SC / 24</li>
+                <li>Body main / Alumni Sans / 18</li>
+                <li>Body small / Alumni Sans / 16</li>
+                <li>Tech / GOST Type AU / 14 / 130% / 5%</li>
+              </ul>
+            </div>
+
+            <div className="rounded-xl border border-technical-line bg-base-bg p-5">
+              <p className="text-tech mb-3 text-technical-info">Tablet 768–1279px</p>
+              <ul className="stack text-tech text-technical-info">
+                <li>Hero / Alumni Sans SC / 48</li>
+                <li>Subhero / Alumni Sans SC / 28</li>
+                <li>Block / Alumni Sans SC / 20</li>
+                <li>Body main / Alumni Sans / 17</li>
+                <li>Body small / Alumni Sans / 15</li>
+                <li>Tech / GOST Type AU / 13 / 130% / 5%</li>
+              </ul>
+            </div>
+
+            <div className="rounded-xl border border-technical-line bg-base-bg p-5">
+              <p className="text-tech mb-3 text-technical-info">Mobile ≤767px</p>
+              <ul className="stack text-tech text-technical-info">
+                <li>Hero / Alumni Sans SC / 36</li>
+                <li>Subhero / Alumni Sans SC / 24</li>
+                <li>Block / Alumni Sans SC / 18</li>
+                <li>Body main / Alumni Sans / 16</li>
+                <li>Body small / Alumni Sans / 14</li>
+                <li>Tech / GOST Type AU / 12 / 130% / 5%</li>
+              </ul>
+            </div>
           </div>
 
           <div className="mt-5 grid gap-3 md:grid-cols-2">
@@ -177,6 +263,10 @@ function ComponentShowcasePage() {
 
         <section className="rounded-2xl border border-structural-line bg-surface p-8">
           <h2 className="text-block mb-5">Link button component</h2>
+          <p className="text-body-small text-technical-info mb-5">
+            Размер текста фиксированный — body small desktop (16px), не масштабируется по
+            брейкпоинтам.
+          </p>
           <div className="grid gap-4 lg:grid-cols-3">
             <div className="rounded-xl border border-technical-line bg-base-bg p-5">
               <p className="text-tech mb-4 text-technical-info">Link Btn</p>
@@ -215,7 +305,7 @@ function ComponentShowcasePage() {
 
         <section className="rounded-2xl border border-structural-line bg-surface p-8">
           <h2 className="text-block mb-5">Floating button component</h2>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <div className="rounded-xl border border-technical-line bg-base-bg p-4">
               <p className="text-tech mb-4 text-technical-info">default</p>
               <FloatingButton state="default">Btn</FloatingButton>
@@ -229,6 +319,13 @@ function ComponentShowcasePage() {
             <div className="rounded-xl border border-technical-line bg-base-bg p-4">
               <p className="text-tech mb-4 text-technical-info">disabled</p>
               <FloatingButton state="disabled">Btn</FloatingButton>
+            </div>
+
+            <div className="rounded-xl border border-technical-line bg-base-bg p-4">
+              <p className="text-tech mb-4 text-technical-info">interactive + icon</p>
+              <FloatingButton iconSrc="/icons/arrow-left.svg" onClick={() => {}}>
+                назад
+              </FloatingButton>
             </div>
           </div>
         </section>
@@ -250,6 +347,10 @@ function ComponentShowcasePage() {
 
         <section className="rounded-2xl border border-structural-line bg-surface p-8">
           <h2 className="text-block mb-5">Accordion component (stack)</h2>
+          <p className="text-body-small text-technical-info mb-5">
+            Tablet: стек gap 8px, дивайдеры 0.3px structural_line, закрытый 44px, открытый —
+            8px до/после контента, gap 4px внутри.
+          </p>
           <div className="rounded-xl border border-technical-line bg-base-bg p-6">
             <AccordionStack items={accordionItems} />
           </div>
@@ -257,22 +358,32 @@ function ComponentShowcasePage() {
 
         <section className="rounded-2xl border border-structural-line bg-surface p-8">
           <h2 className="text-block mb-5">Cookie banner component</h2>
-          <div className="rounded-xl border border-technical-line bg-base-bg p-6">
-            <CookieBanner />
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="showcase-panel">
+              <CookieShowcaseDemo label="inline (в потоке страницы)" />
+            </div>
+            <div className="showcase-panel">
+              <CookieShowcaseDemo fixed label="fixed (как на сайте, position: fixed)" />
+            </div>
           </div>
         </section>
 
         <section className="rounded-2xl border border-structural-line bg-surface p-8">
           <h2 className="text-block mb-5">Modal component</h2>
-          <div className="rounded-xl border border-technical-line bg-base-bg p-6">
-            <ModalShowcaseDemo />
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="showcase-panel">
+              <ModalShowcaseDemo label="inline (в потоке)" />
+            </div>
+            <div className="showcase-panel">
+              <ModalShowcaseDemo overlay label="overlay (поверх страницы)" />
+            </div>
           </div>
         </section>
 
         <section className="rounded-2xl border border-structural-line bg-surface p-8">
           <h2 className="text-block mb-5">Tag component</h2>
-          <div className="rounded-xl bg-base-bg p-6">
-            <div className="flex flex-col items-start gap-4">
+          <div className="showcase-panel">
+            <div className="stack items-start">
               <Tag tone="nda">NDA</Tag>
               <Tag tone="web">web</Tag>
               <Tag tone="webMobile">web+mobile</Tag>
@@ -285,9 +396,13 @@ function ComponentShowcasePage() {
 
         <section className="rounded-2xl border border-structural-line bg-surface p-8">
           <h2 className="text-block mb-5">Project card component</h2>
-          <div className="rounded-xl border border-technical-line bg-base-bg p-6">
+          <div className="showcase-panel">
             <ProjectCard
-              tags={["NDA", "NDA"]}
+              tags={[
+                { label: "NDA", tone: "nda" },
+                { label: "web", tone: "web" },
+                { label: "UX/UI design", tone: "uxUi" },
+              ]}
               title="TITLE"
               roleLabel="Моя роль"
               roleValue="UX/UI дизайнер"
@@ -299,15 +414,40 @@ function ComponentShowcasePage() {
 
         <section className="rounded-2xl border border-structural-line bg-surface p-8">
           <h2 className="text-block mb-5">Footer component</h2>
-          <div className="overflow-x-auto rounded-xl border border-technical-line bg-base-bg p-6">
-            <Footer />
+          <p className="text-body-small text-technical-info mb-5">
+            Desktop ≥1280px (padding 80/60, ячейки 20px) и tablet 768–1279px (инфо-колонка
+            326px, link jump 114px, padding 60/40, ячейки 16px).
+          </p>
+          <div className="stack">
+            <div>
+              <p className="text-tech showcase-variant-label text-technical-info">desktop</p>
+              <div className="showcase-footer--desktop showcase-panel">
+                <Footer />
+              </div>
+            </div>
+            <div>
+              <p className="text-tech showcase-variant-label text-technical-info">tablet</p>
+              <div className="showcase-tablet-shell showcase-footer--tablet showcase-panel">
+                <Footer />
+              </div>
+            </div>
           </div>
         </section>
 
         <section className="rounded-2xl border border-structural-line bg-surface p-8">
           <h2 className="text-block mb-5">Experience block component</h2>
-          <div className="rounded-xl border border-technical-line bg-base-bg p-6">
-            <ExperienceBlock />
+          <p className="text-body-small text-technical-info mb-5">
+            Tablet: YEAR + COMPANY (128px, gap 4px) → 8px → ROLE + DESCRIPTION (до края области).
+          </p>
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="showcase-panel">
+              <p className="text-tech showcase-variant-label text-technical-info">single</p>
+              <ExperienceBlock />
+            </div>
+            <div className="showcase-panel">
+              <p className="text-tech showcase-variant-label text-technical-info">stack</p>
+              <ExperienceStack items={experienceShowcaseItems} />
+            </div>
           </div>
         </section>
 
@@ -320,54 +460,86 @@ function ComponentShowcasePage() {
 
         <section className="rounded-2xl border border-structural-line bg-surface p-8">
           <h2 className="text-block mb-5">Header component</h2>
-          <div className="rounded-xl border border-technical-line bg-base-bg p-6">
-            <Header />
-          </div>
-        </section>
-
-        <section className="rounded-2xl border border-structural-line bg-surface p-8">
-          <h2 className="text-block mb-5">Block component</h2>
-          <div className="rounded-xl border border-technical-line bg-surface p-6">
-            <div className="flex flex-col gap-8">
-              <div>
-                <p className="text-tech mb-3 text-technical-info">with link</p>
-                <Block title="BLOCK HEADER" linkLabel="Посмотреть все" borders={{ top: true, bottom: true }}>
-                  <BlockSlot className="ds-block-slot--demo">Слот 1</BlockSlot>
-                  <BlockSlot className="ds-block-slot--demo">Слот 2</BlockSlot>
-                  <BlockSlot className="ds-block-slot--demo">Слот 3</BlockSlot>
-                  {Array.from({ length: 5 }, (_, index) => (
-                    <BlockSlot key={index} className="ds-block-slot--demo">
-                      Слот
-                    </BlockSlot>
-                  ))}
-                </Block>
+          <p className="text-body-small text-technical-info mb-5">
+            Desktop ≥1280px (1200px, padding 20px) и tablet 768–1279px (768px shell, margin 32px,
+            padding header 16px).
+          </p>
+          <div className="stack">
+            <div>
+              <p className="text-tech showcase-variant-label text-technical-info">desktop</p>
+              <div className="showcase-header--desktop showcase-panel">
+                <Header />
               </div>
-
-              <div>
-                <p className="text-tech mb-3 text-technical-info">without link</p>
-                <Block title="BLOCK HEADER" borders={{ left: true, right: true }}>
-                  {Array.from({ length: 8 }, (_, index) => (
-                    <BlockSlot key={index} className="ds-block-slot--demo">
-                      Слот
-                    </BlockSlot>
-                  ))}
-                </Block>
+            </div>
+            <div>
+              <p className="text-tech showcase-variant-label text-technical-info">tablet</p>
+              <div className="showcase-tablet-shell showcase-header--tablet showcase-panel">
+                <Header />
               </div>
             </div>
           </div>
         </section>
 
         <section className="rounded-2xl border border-structural-line bg-surface p-8">
+          <h2 className="text-block mb-5">Progressive disclosure card</h2>
+          <p className="text-body-small text-technical-info mb-5">
+            Tablet-компонент: подложка как у Floating button, headline — text-block /
+            structure_text. Surface → контент 20px; HEADLINE → Block 16px; стек — стандартный
+            stack-gap; Block — padding сверху/снизу 20px, без боковых.
+          </p>
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="showcase-panel">
+              <p className="text-tech showcase-variant-label text-technical-info">collapsed</p>
+              <ProgressiveDisclosureCard title="HEADLINE" open={false} onToggle={() => {}}>
+                <Block title="BLOCK COMPONENT" />
+                <Block title="BLOCK COMPONENT" />
+              </ProgressiveDisclosureCard>
+            </div>
+            <div className="showcase-panel">
+              <p className="text-tech showcase-variant-label text-technical-info">expanded</p>
+              <ProgressiveDisclosureCard title="HEADLINE" open onToggle={() => {}}>
+                <Block title="BLOCK COMPONENT" />
+                <Block title="BLOCK COMPONENT" />
+              </ProgressiveDisclosureCard>
+            </div>
+          </div>
+        </section>
+
+        <section className="rounded-2xl border border-structural-line bg-surface p-8">
+          <h2 className="text-block mb-5">Block component</h2>
+          <div className="showcase-panel">
+            <Block title="BLOCK HEADER" linkLabel="Посмотреть все" borders={{ top: true, bottom: true }}>
+              <BlockSlot className="ds-block-slot--demo">Слот 1</BlockSlot>
+              <BlockSlot className="ds-block-slot--demo">Слот 2</BlockSlot>
+              <BlockSlot className="ds-block-slot--demo">Слот 3</BlockSlot>
+            </Block>
+          </div>
+        </section>
+
+        <section className="rounded-2xl border border-structural-line bg-surface p-8">
           <h2 className="text-block mb-5">Text block component</h2>
-          <div className="rounded-xl border border-technical-line bg-base-bg p-6">
-            <div className="flex flex-col items-start gap-8">
+          <div className="showcase-panel">
+            <div className="stack items-start">
               <div>
-                <p className="text-tech mb-3 text-technical-info">plain</p>
+                <p className="text-tech showcase-variant-label text-technical-info">
+                  plain / primary_text
+                </p>
                 <TextBlock variant="plain" text="текстовая строка с аббревиатурой B2B SaaS" />
               </div>
 
               <div>
-                <p className="text-tech mb-3 text-technical-info">list</p>
+                <p className="text-tech showcase-variant-label text-technical-info">
+                  plain / technical_info
+                </p>
+                <TextBlock
+                  variant="plain"
+                  textTone="technical-info"
+                  text="второй абзац с техническим цветом текста"
+                />
+              </div>
+
+              <div>
+                <p className="text-tech showcase-variant-label text-technical-info">list</p>
                 <TextBlock
                   variant="list"
                   title="заголовок списка"
@@ -376,7 +548,9 @@ function ComponentShowcasePage() {
               </div>
 
               <div>
-                <p className="text-tech mb-3 text-technical-info">description</p>
+                <p className="text-tech showcase-variant-label text-technical-info">
+                  description
+                </p>
                 <TextBlock
                   variant="description"
                   title="заголовок блока"

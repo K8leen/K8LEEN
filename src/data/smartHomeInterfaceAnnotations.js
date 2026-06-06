@@ -27,6 +27,20 @@ function patternAnnotation(id, fields) {
   };
 }
 
+export const SMART_HOME_INTERFACE_ANNOTATION_IDS = new Set([
+  "navigation_system",
+  "data_visualization",
+  "system_overview",
+  "filter_pattern",
+  "list_pattern",
+  "device_grid",
+  "device_setup_pattern",
+  "control_panel",
+  "bottom_sheet_pattern",
+  "scenario_card",
+  "scenario_builder",
+]);
+
 export const SMART_HOME_INTERFACE_ANNOTATIONS = [
   patternAnnotation("navigation_system", {
     list: ["system_overview", "filter_pattern", "scenario_builder"],

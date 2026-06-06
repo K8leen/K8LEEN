@@ -42,7 +42,13 @@ export function useLegalSec01Width() {
   const [width, setWidth] = useState(null);
 
   useLayoutEffect(() => {
+    const tabletMq = window.matchMedia("(min-width: 768px) and (max-width: 1279px)");
+
     const update = () => {
+      if (tabletMq.matches) {
+        setWidth(null);
+        return;
+      }
       const next = resolveSec01Width();
       if (next > 0) setWidth((prev) => (prev === next ? prev : next));
     };
@@ -54,11 +60,13 @@ export function useLegalSec01Width() {
       typeof ResizeObserver !== "undefined" ? new ResizeObserver(update) : null;
     if (row) observer?.observe(row);
 
+    tabletMq.addEventListener("change", update);
     window.addEventListener("resize", update);
     document.fonts?.ready?.then(update);
 
     return () => {
       observer?.disconnect();
+      tabletMq.removeEventListener("change", update);
       window.removeEventListener("resize", update);
     };
   }, []);

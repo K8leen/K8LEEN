@@ -1,8 +1,13 @@
 import { typograph } from "../utils/typography";
 
 const headlineRaw = {
-  header: "Дизайн-система для B2B SaaS-продукта",
-  subheader: "Унификация интерфейсов и ускорение разработки через компонентный подход",
+  header: "Дизайн-система B2B SaaS-продукта",
+  subheader: "Унификация интерфейсов и ускорение разработки",
+};
+
+const headlineTabletRaw = {
+  header: "Дизайн-система B2B SaaS",
+  subheader: "Унификация интерфейсов и ускорение разработки",
 };
 
 const resultPlainLinesRaw = [
@@ -91,6 +96,11 @@ const summaryPlainLinesRaw = [
 export const designSystemProjectHeadline = {
   header: typograph(headlineRaw.header),
   subheader: typograph(headlineRaw.subheader),
+};
+
+export const designSystemProjectHeadlineTablet = {
+  header: typograph(headlineTabletRaw.header),
+  subheader: typograph(headlineTabletRaw.subheader),
 };
 
 export const designSystemProjectResultLines = resultPlainLinesRaw;

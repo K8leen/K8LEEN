@@ -25,7 +25,7 @@ function LinkContent({ variant, children }) {
   if (variant === "jump") {
     return (
       <span className="follow-link-shell">
-        <span className="text-body-small follow-link-text">{children}</span>
+        <span className="link-btn-text follow-link-text">{children}</span>
         <svg
           aria-hidden="true"
           viewBox="0 0 17 17"
@@ -46,7 +46,7 @@ function LinkContent({ variant, children }) {
     );
   }
 
-  return <span className="text-body-small">{children}</span>;
+  return <span className="link-btn-text">{children}</span>;
 }
 
 function LinkButton({

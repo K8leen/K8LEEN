@@ -14,7 +14,7 @@ function FooterCell({ children, className = "", ...props }) {
 function Footer() {
   return (
     <footer className="site-footer">
-      <div className="site-footer-columns">
+      <div className="site-footer-columns site-footer-columns--desktop">
         <div className="site-footer-col site-footer-col--left">
           <FooterCell>
             <span className="text-body-small text-primary-text">Екатерина Земцова</span>
@@ -80,6 +80,66 @@ function Footer() {
             </FooterCell>
           </div>
         </div>
+      </div>
+
+      <div className="site-footer-tablet">
+        <FooterCell className="site-footer-tablet__name">
+          <span className="text-body-small text-primary-text">Екатерина Земцова</span>
+        </FooterCell>
+
+        <FooterCell className="site-footer-tablet__role">
+          <span className="text-body-small text-technical-info">Product &amp; System Designer</span>
+        </FooterCell>
+
+        <FooterCell className="site-footer-tablet__tagline">
+          <span className="text-tech text-technical-info">
+            Product systems / Dashboard UX / Design systems
+          </span>
+        </FooterCell>
+
+        <FooterCell className="site-footer-tablet__telegram">
+          <LinkButton variant="jump" href="https://t.me/K8leen">
+            Telegram
+          </LinkButton>
+        </FooterCell>
+
+        <FooterCell className="site-footer-tablet__email">
+          <LinkButton variant="jump" href="mailto:quattrokate@gmail.com">
+            E-mail
+          </LinkButton>
+        </FooterCell>
+
+        <FooterCell className="site-footer-tablet__empty" aria-hidden="true" />
+
+        <div className="site-footer-tablet__info-legal">
+          <FooterCell className="site-footer-tablet__copyright site-footer-cell--hug">
+            <span className="text-body-small text-primary-text">© 2026</span>
+          </FooterCell>
+
+          <FooterCell className="site-footer-tablet__legal">
+            <LinkButton variant="inline" to="/legal">
+              Правовая информация
+            </LinkButton>
+          </FooterCell>
+        </div>
+
+        <FooterCell className="site-footer-tablet__behance">
+          <LinkButton variant="jump" href="https://www.behance.net/quattrokate">
+            Behance
+          </LinkButton>
+        </FooterCell>
+
+        <FooterCell className="site-footer-tablet__linkedin">
+          <LinkButton variant="jump" href="https://www.linkedin.com/in/k8leen/">
+            LinkedIn
+          </LinkButton>
+        </FooterCell>
+
+        <FooterCell className="site-footer-tablet__resume site-footer-cell--fill">
+          <LinkButton variant="inline" href={RESUME_URL}>
+            Скачать резюме (HH)
+          </LinkButton>
+        </FooterCell>
       </div>
     </footer>
   );

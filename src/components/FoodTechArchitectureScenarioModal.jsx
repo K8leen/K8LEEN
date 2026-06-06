@@ -61,20 +61,36 @@ function FoodTechArchitectureScenarioModal({
 
   if (!open || !title || !text) return null;
 
-  const anchorClass =
+  const modal = (
+    <Modal
+      open
+      title={title}
+      text={text}
+      onClose={onClose}
+      className="food-tech-architecture-modal"
+    />
+  );
+
+  if (placement === "client-tablet") {
+    return <div className="food-tech-architecture-modal-inset">{modal}</div>;
+  }
+
+  if (placement === "restaurant-tablet") {
+    return <div className="food-tech-architecture-modal-side">{modal}</div>;
+  }
+
+  const anchorClass = [
+    "food-tech-architecture-modal-anchor",
     placement === "restaurant"
-      ? "food-tech-architecture-modal-anchor food-tech-architecture-modal-anchor--restaurant"
-      : "food-tech-architecture-modal-anchor food-tech-architecture-modal-anchor--client";
+      ? "food-tech-architecture-modal-anchor--restaurant"
+      : "food-tech-architecture-modal-anchor--client",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return createPortal(
     <div ref={anchorRef} className={anchorClass}>
-      <Modal
-        open
-        title={title}
-        text={text}
-        onClose={onClose}
-        className="food-tech-architecture-modal"
-      />
+      {modal}
     </div>,
     document.body,
   );

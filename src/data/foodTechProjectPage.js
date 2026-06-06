@@ -2,8 +2,12 @@ import { typograph } from "../utils/typography";
 
 const headlineRaw = {
   header: "Локальный food-tech продукт",
-  subheader:
-    "от хаотичных заказов к структурированному сервису через системный UX",
+  subheader: "От хаоса заказов к сервису через системный UX",
+};
+
+const headlineTabletRaw = {
+  header: "Локальный food-tech",
+  subheader: "От хаоса заказов к системному UX",
 };
 
 const resultPlainLinesRaw = [
@@ -122,6 +126,11 @@ export const foodTechProjectHeadline = {
   subheader: typograph(headlineRaw.subheader),
 };
 
+export const foodTechProjectHeadlineTablet = {
+  header: typograph(headlineTabletRaw.header),
+  subheader: typograph(headlineTabletRaw.subheader),
+};
+
 export const foodTechProjectResultLines = resultPlainLinesRaw;
 export const foodTechProjectContextPlain = contextPlainRaw;
 export const foodTechProjectContextListTitle = contextListTitleRaw;
@@ -154,7 +163,8 @@ export const foodTechProjectImages = {
     alt: typograph("Схема ресторанной операционной панели"),
   },
   interfaceSystem: {
-    src: "/img/04_04_03.svg",
+    clientSrc: "/img/04_04_03_01.svg",
+    restaurantSrc: "/img/04_04_03_02.svg",
     alt: "Система интерфейса мобильного приложения",
   },
 };

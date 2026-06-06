@@ -43,9 +43,23 @@ function HomeTopRow({ skillsItems }) {
   }, [skillsItems.length]);
 
   useLayoutEffect(() => {
-    measureRowHeight();
-    window.addEventListener("resize", measureRowHeight);
-    return () => window.removeEventListener("resize", measureRowHeight);
+    const tabletMq = window.matchMedia("(min-width: 768px) and (max-width: 1279px)");
+
+    const onResize = () => {
+      if (tabletMq.matches) {
+        setRowMinHeight(null);
+        return;
+      }
+      measureRowHeight();
+    };
+
+    onResize();
+    tabletMq.addEventListener("change", onResize);
+    window.addEventListener("resize", onResize);
+    return () => {
+      tabletMq.removeEventListener("change", onResize);
+      window.removeEventListener("resize", onResize);
+    };
   }, [skillsItems, measureRowHeight]);
 
   return (

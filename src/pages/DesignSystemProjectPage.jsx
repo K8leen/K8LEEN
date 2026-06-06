@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import Block, { BlockSlot } from "../components/Block";
+import DesignSystemProjectTabletContent from "../components/DesignSystemProjectTabletContent";
 import Headline from "../components/Headline";
 import ProjectCaseBackButton from "../components/ProjectCaseBackButton";
 import ProjectCaseTopRow from "../components/ProjectCaseTopRow";
@@ -14,6 +15,7 @@ import {
   designSystemProjectContextListTitle,
   designSystemProjectContextPlain,
   designSystemProjectHeadline,
+  designSystemProjectHeadlineTablet,
   designSystemProjectImages,
   designSystemProjectIntegrationLines,
   designSystemProjectProblemListItems,
@@ -42,11 +44,18 @@ function DesignSystemProjectPage() {
       <main className="project-case-page">
         <div ref={headlineAnchorRef} className="project-case-headline-anchor">
           <Headline
+            className="project-case-headline--desktop"
             header={designSystemProjectHeadline.header}
             subheader={designSystemProjectHeadline.subheader}
           />
+          <Headline
+            className="project-case-headline--tablet"
+            header={designSystemProjectHeadlineTablet.header}
+            subheader={designSystemProjectHeadlineTablet.subheader}
+          />
         </div>
 
+        <div className="project-case-page--desktop">
         <ProjectCaseTopRow
           sec00={
             <Block
@@ -199,6 +208,11 @@ function DesignSystemProjectPage() {
               <TextStack lines={designSystemProjectSummaryLines} />
             </BlockSlot>
           </Block>
+        </div>
+        </div>
+
+        <div className="project-case-page-tablet">
+          <DesignSystemProjectTabletContent />
         </div>
       </main>
     </SiteLayout>

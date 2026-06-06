@@ -4,6 +4,7 @@ import Headline from "../components/Headline";
 import ProjectCaseBackButton from "../components/ProjectCaseBackButton";
 import ProjectCaseTopRow from "../components/ProjectCaseTopRow";
 import SmartHomeInterfaceSystemDiagram from "../components/SmartHomeInterfaceSystemDiagram";
+import SmartHomeProjectTabletContent from "../components/SmartHomeProjectTabletContent";
 import SiteLayout from "../components/SiteLayout";
 import TextBlock from "../components/TextBlock";
 import {
@@ -15,6 +16,7 @@ import {
   smartHomeProjectContextFeaturesListTitle,
   smartHomeProjectContextRoleDescription,
   smartHomeProjectHeadline,
+  smartHomeProjectHeadlineTablet,
   smartHomeProjectImages,
   smartHomeProjectIntegrationPlain,
   smartHomeProjectInterfaceSystemPlain,
@@ -46,11 +48,18 @@ function SmartHomeProjectPage() {
       <main className="project-case-page">
         <div ref={headlineAnchorRef} className="project-case-headline-anchor">
           <Headline
+            className="project-case-headline--desktop"
             header={smartHomeProjectHeadline.header}
             subheader={smartHomeProjectHeadline.subheader}
           />
+          <Headline
+            className="project-case-headline--tablet"
+            header={smartHomeProjectHeadlineTablet.header}
+            subheader={smartHomeProjectHeadlineTablet.subheader}
+          />
         </div>
 
+        <div className="project-case-page--desktop">
         <ProjectCaseTopRow
           rowHeight="sec00"
           sec00={
@@ -216,6 +225,11 @@ function SmartHomeProjectPage() {
               <TextStack lines={smartHomeProjectSummaryLines} />
             </BlockSlot>
           </Block>
+        </div>
+        </div>
+
+        <div className="project-case-page-tablet">
+          <SmartHomeProjectTabletContent />
         </div>
       </main>
     </SiteLayout>

@@ -36,9 +36,11 @@ function FloatingButton({
   const shellClass = [tone.shell, className]
     .filter(Boolean)
     .join(" ");
+  const showLabel = children != null && String(children).trim() !== "";
 
   const contentClass = [
-    "floating-btn-content py-2 pl-2 pr-4 text-body-small",
+    "floating-btn-content",
+    showLabel ? "py-2 pl-2 pr-4 text-body-small" : "floating-btn-content--icon-only py-2 px-2",
     isInteractive && !isDisabled
       ? "bg-surface text-structure-text shadow-soft hover:bg-light-accent hover:text-dark-accent active:text-primary-accent"
       : tone.button,
@@ -68,13 +70,15 @@ function FloatingButton({
     <span aria-hidden="true" className="floating-icon-placeholder" />
   );
 
-  const inner = (
+  const inner = showLabel ? (
     <>
       {icon}
       <span className="floating-btn-label">
         {typeof children === "string" ? toSentenceCase(children) : children}
       </span>
     </>
+  ) : (
+    icon
   );
 
   return (

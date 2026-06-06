@@ -6,6 +6,7 @@ import ProjectCaseTopRow from "../components/ProjectCaseTopRow";
 import SiteLayout from "../components/SiteLayout";
 import FoodTechArchitectureSection from "../components/FoodTechArchitectureSection";
 import FoodTechInterfaceSystemDiagram from "../components/FoodTechInterfaceSystemDiagram";
+import FoodTechProjectTabletContent from "../components/FoodTechProjectTabletContent";
 import TextBlock from "../components/TextBlock";
 import {
   foodTechProjectApproachLists,
@@ -17,6 +18,7 @@ import {
   foodTechProjectContextPlain,
   foodTechProjectContextRoleDescription,
   foodTechProjectHeadline,
+  foodTechProjectHeadlineTablet,
   foodTechProjectImages,
   foodTechProjectIntegrationLines,
   foodTechProjectInterfaceSystemPlain,
@@ -48,11 +50,18 @@ function FoodTechProjectPage() {
       <main className="project-case-page">
         <div ref={headlineAnchorRef} className="project-case-headline-anchor">
           <Headline
+            className="project-case-headline--desktop"
             header={foodTechProjectHeadline.header}
             subheader={foodTechProjectHeadline.subheader}
           />
+          <Headline
+            className="project-case-headline--tablet"
+            header={foodTechProjectHeadlineTablet.header}
+            subheader={foodTechProjectHeadlineTablet.subheader}
+          />
         </div>
 
+        <div className="project-case-page--desktop">
         <ProjectCaseTopRow
           rowHeight="sec00"
           rowClassName="project-case-row--food-tech-top"
@@ -215,6 +224,11 @@ function FoodTechProjectPage() {
               <TextStack lines={foodTechProjectSummaryLines} />
             </BlockSlot>
           </Block>
+        </div>
+        </div>
+
+        <div className="project-case-page-tablet">
+          <FoodTechProjectTabletContent />
         </div>
       </main>
     </SiteLayout>

@@ -3,7 +3,9 @@ description: Правила десктопной вёрстки и работы 
 alwaysApply: true
 ---
 
-# Desktop layout (≥ desktop)
+# Layout
+
+## Desktop (≥1280px)
 
 ## Рабочая область
 
@@ -26,6 +28,13 @@ alwaysApply: true
 - Свободное пространство вокруг — **base_bg** (`--base-bg` / `bg-base-bg`)
 
 Реализация: обёртка `.site-layout` (фон `base_bg`) → `.site-layout-inner` (1280px, `padding: 0 40px`, `surface`, тень на `@media (min-width: 1281px)`). Компоненты внутри — **1200px**, не растягивать.
+
+## Tablet (768–1279px)
+
+- Рабочая область: **768px** (`--layout-inner-width`)
+- **Margin 32px** слева и справа (`--layout-inner-margin`)
+- Контентная зона: **704px** (768 − 32 − 32)
+- Если viewport **> 768px** — «уши» как на desktop: центрирование, `shadow-soft`, фон вокруг `base_bg` (`@media (min-width: 769px) and (max-width: 1279px)`)
 
 ## Блоки — без кастомизации
 
@@ -101,6 +110,23 @@ alwaysApply: true
 При переходе на **любую внутреннюю страницу** сайта (любым способом: ссылка, кнопка, программный `navigate`) страница открывается **с самого верха** — не сохраняем позицию прокрутки с предыдущей страницы.
 
 Реализация: `ScrollToTop` в `App.jsx`, сброс `window.scrollTo(0, 0)` при смене `pathname`.
+
+## Типографика (responsive)
+
+Брейкпоинты: **mobile ≤767px**, **tablet 768–1279px**, **desktop ≥1280px**.
+
+Размеры задаются CSS-переменными `--type-*-size` в `index.css`; классы `text-hero`, `text-subhero`, `text-block`, `text-body-main`, `text-body-small`, `text-tech` подхватывают их автоматически.
+
+**Link Btn** не масштабируется: класс `.link-btn-text` — всегда body small desktop (16px).
+
+| Стиль | Desktop | Tablet | Mobile |
+|-------|---------|--------|--------|
+| Hero (SC) | 56 | 48 | 36 |
+| Subhero (SC) | 32 | 28 | 24 |
+| Block (SC) | 24 | 20 | 18 |
+| Body main | 18 | 17 | 16 |
+| Body small | 16 | 15 | 14 |
+| Tech | 14 / 130% / 5% | 13 / 130% / 5% | 12 / 130% / 5% |
 
 ## Токены
 

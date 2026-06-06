@@ -1,7 +1,7 @@
-/** Подписи на схеме SEC-06 — `id` группы в /public/img/04_04_03.svg */
+/** Подписи на схеме SEC-06 — `id` группы в /public/img/04_04_03_01.svg и 04_04_03_02.svg */
 
 /** Клиентская часть схемы — в «Связи» не показываем паттерн сам на себя */
-const FOOD_TECH_CLIENT_INTERFACE_PATTERN_IDS = new Set([
+export const FOOD_TECH_CLIENT_INTERFACE_PATTERN_IDS = new Set([
   "continuous_feed_structure",
   "content_category_navigation",
   "contextual_entity_header",
@@ -18,6 +18,33 @@ const FOOD_TECH_CLIENT_INTERFACE_PATTERN_IDS = new Set([
   "repeat_order_pattern",
   "post_order_feedback_loop",
 ]);
+
+export const FOOD_TECH_RESTAURANT_INTERFACE_PATTERN_IDS = new Set([
+  "product_card_pattern_rest",
+  "navigation_shell",
+  "global_search",
+  "category_filter_system",
+  "dense_grid_layout",
+  "bulk_management_entry",
+  "dashboard_summary_pattern",
+  "visual_data_grouping",
+  "time_filter_pattern",
+  "feedback_integration",
+  "status_management_system",
+  "order_queue_pattern",
+  "priority_visualization",
+]);
+
+export const FOOD_TECH_INTERFACE_SYSTEM_PARTS = [
+  {
+    src: "/img/04_04_03_01.svg",
+    annotationIds: FOOD_TECH_CLIENT_INTERFACE_PATTERN_IDS,
+  },
+  {
+    src: "/img/04_04_03_02.svg",
+    annotationIds: FOOD_TECH_RESTAURANT_INTERFACE_PATTERN_IDS,
+  },
+];
 
 function patternSections({ list, problem, solution, why, role }) {
   const sections = [];

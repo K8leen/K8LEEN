@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import Block, { BlockSlot } from "../components/Block";
+import DashboardsProjectTabletContent from "../components/DashboardsProjectTabletContent";
 import Headline from "../components/Headline";
 import ProjectCaseBackButton from "../components/ProjectCaseBackButton";
 import DashboardsFlowDiagram from "../components/DashboardsFlowDiagram";
@@ -14,6 +15,7 @@ import {
   dashboardsProjectContextListTitle,
   dashboardsProjectContextPlain,
   dashboardsProjectHeadline,
+  dashboardsProjectHeadlineTablet,
   dashboardsProjectImages,
   dashboardsProjectIntegrationDescriptions,
   dashboardsProjectPrinciplesDescriptions,
@@ -60,11 +62,18 @@ function DashboardsProjectPage() {
       <main className="project-case-page">
         <div ref={headlineAnchorRef} className="project-case-headline-anchor">
           <Headline
+            className="project-case-headline--desktop"
             header={dashboardsProjectHeadline.header}
             subheader={dashboardsProjectHeadline.subheader}
           />
+          <Headline
+            className="project-case-headline--tablet"
+            header={dashboardsProjectHeadlineTablet.header}
+            subheader={dashboardsProjectHeadlineTablet.subheader}
+          />
         </div>
 
+        <div className="project-case-page--desktop">
         <ProjectCaseTopRow
           rowHeight="column"
           sec00={
@@ -217,6 +226,11 @@ function DashboardsProjectPage() {
               <TextStack lines={dashboardsProjectSummaryLines} />
             </BlockSlot>
           </Block>
+        </div>
+        </div>
+
+        <div className="project-case-page-tablet">
+          <DashboardsProjectTabletContent />
         </div>
       </main>
     </SiteLayout>

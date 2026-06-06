@@ -106,20 +106,32 @@ function LegalInfoPageRow({ sec01Width }) {
   }, [policyItems.length]);
 
   useLayoutEffect(() => {
-    measureRowHeight();
+    const tabletMq = window.matchMedia("(min-width: 768px) and (max-width: 1279px)");
+
+    const onResize = () => {
+      if (tabletMq.matches) {
+        setRowMinHeight(null);
+        return;
+      }
+      measureRowHeight();
+    };
+
+    onResize();
 
     const observer =
-      typeof ResizeObserver !== "undefined" ? new ResizeObserver(measureRowHeight) : null;
+      typeof ResizeObserver !== "undefined" ? new ResizeObserver(onResize) : null;
     if (sec01MeasureRef.current) observer?.observe(sec01MeasureRef.current);
     sec02MeasureRefs.current.forEach((el) => {
       if (el) observer?.observe(el);
     });
 
-    window.addEventListener("resize", measureRowHeight);
+    tabletMq.addEventListener("change", onResize);
+    window.addEventListener("resize", onResize);
 
     return () => {
       observer?.disconnect();
-      window.removeEventListener("resize", measureRowHeight);
+      tabletMq.removeEventListener("change", onResize);
+      window.removeEventListener("resize", onResize);
     };
   }, [policyItems, sec01Width, measureRowHeight]);
 

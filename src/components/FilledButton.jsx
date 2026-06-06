@@ -17,10 +17,10 @@ function FilledButton({
   return (
     <button
       type="button"
-      className={`inline-flex cursor-pointer items-center justify-center rounded-[4px] px-4 py-1 text-body-small disabled:cursor-not-allowed ${tone} ${className}`.trim()}
+      className={`filled-btn filled-btn-text inline-flex cursor-pointer items-center justify-center rounded-[4px] px-4 py-1 disabled:cursor-not-allowed ${tone} ${className}`.trim()}
       {...props}
     >
-      <span className="text-body-small">{children}</span>
+      <span className="filled-btn-text">{children}</span>
     </button>
   );
 }

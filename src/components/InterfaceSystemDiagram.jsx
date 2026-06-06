@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { getFoodTechScenarioModalWidth } from "../utils/foodTechScenarioModalWidth";
 import {
@@ -35,17 +35,70 @@ function installInterfaceLabelHitArea(group) {
   return hit;
 }
 
+function wireInterfaceLabel(svg, annotation, { openAnnotation, scheduleClose }) {
+  const group = svg.getElementById(annotation.id);
+  if (!group) return null;
+
+  group.setAttribute("data-interface-label", annotation.id);
+
+  const hit = installInterfaceLabelHitArea(group);
+  if (!hit) return null;
+
+  hit.setAttribute("aria-label", annotation.label);
+  hit.setAttribute("tabindex", "0");
+
+  const onEnter = (event) => {
+    group.classList.add("interface-system-diagram__label--hover");
+    openAnnotation(annotation.id, event.clientX, event.clientY);
+  };
+  const onLeave = () => {
+    group.classList.remove("interface-system-diagram__label--hover");
+    scheduleClose();
+  };
+  const onFocus = (event) => {
+    group.classList.add("interface-system-diagram__label--hover");
+    openAnnotation(annotation.id, event.clientX, event.clientY);
+  };
+  const onBlur = () => {
+    group.classList.remove("interface-system-diagram__label--hover");
+    scheduleClose();
+  };
+
+  hit.addEventListener("mouseenter", onEnter);
+  hit.addEventListener("mouseleave", onLeave);
+  hit.addEventListener("focus", onFocus);
+  hit.addEventListener("blur", onBlur);
+
+  return () => {
+    hit.removeEventListener("mouseenter", onEnter);
+    hit.removeEventListener("mouseleave", onLeave);
+    hit.removeEventListener("focus", onFocus);
+    hit.removeEventListener("blur", onBlur);
+    hit.remove();
+  };
+}
+
 function InterfaceSystemDiagram({
   svgSrc,
+  parts,
   svgAlt,
   annotations,
   modalAnchorClassName = "food-tech-interface-pattern-modal-anchor",
   className = "",
 }) {
-  const hostRef = useRef(null);
+  const resolvedParts = useMemo(
+    () => parts ?? (svgSrc ? [{ src: svgSrc, annotationIds: null }] : []),
+    [parts, svgSrc],
+  );
+  const partSrcKey = useMemo(
+    () => resolvedParts.map((part) => part.src).join("\0"),
+    [resolvedParts],
+  );
+
+  const hostRefs = useRef([]);
   const anchorRef = useRef(null);
   const closeTimerRef = useRef(null);
-  const [svgMarkup, setSvgMarkup] = useState("");
+  const [markups, setMarkups] = useState(() => resolvedParts.map(() => ""));
   const [loadError, setLoadError] = useState(false);
   const [activeId, setActiveId] = useState(null);
   const [anchorPoint, setAnchorPoint] = useState(null);
@@ -56,6 +109,7 @@ function InterfaceSystemDiagram({
     new URLSearchParams(window.location.search).has("debug-interface-labels");
 
   const activeAnnotation = annotations.find((item) => item.id === activeId);
+  const allLoaded = markups.length === resolvedParts.length && markups.every(Boolean);
 
   const cancelClose = useCallback(() => {
     if (closeTimerRef.current) {
@@ -86,14 +140,25 @@ function InterfaceSystemDiagram({
   useEffect(() => {
     let cancelled = false;
 
-    fetch(svgSrc, { cache: "no-store" })
-      .then((response) => {
-        if (!response.ok) throw new Error("interface svg fetch failed");
-        return response.text();
-      })
-      .then((markup) => {
+    if (!resolvedParts.length) {
+      setMarkups([]);
+      setLoadError(false);
+      return undefined;
+    }
+
+    setMarkups(resolvedParts.map(() => ""));
+
+    Promise.all(
+      resolvedParts.map((part) =>
+        fetch(part.src, { cache: "no-store" }).then((response) => {
+          if (!response.ok) throw new Error("interface svg fetch failed");
+          return response.text();
+        }),
+      ),
+    )
+      .then((loadedMarkups) => {
         if (!cancelled) {
-          setSvgMarkup(markup);
+          setMarkups(loadedMarkups);
           setLoadError(false);
         }
       })
@@ -104,63 +169,29 @@ function InterfaceSystemDiagram({
     return () => {
       cancelled = true;
     };
-  }, [svgSrc]);
+  }, [partSrcKey, resolvedParts]);
 
   useLayoutEffect(() => {
-    const svg = hostRef.current?.querySelector("svg");
-    if (!svg || !svgMarkup) return;
+    if (!allLoaded) return undefined;
 
     const cleanups = [];
 
-    const wireLabel = (annotation) => {
-      const group = svg.getElementById(annotation.id);
-      if (!group) return;
+    resolvedParts.forEach((part, index) => {
+      const svg = hostRefs.current[index]?.querySelector("svg");
+      if (!svg) return;
 
-      group.setAttribute("data-interface-label", annotation.id);
+      const annotationsToWire = part.annotationIds
+        ? annotations.filter((annotation) => part.annotationIds.has(annotation.id))
+        : annotations;
 
-      const hit = installInterfaceLabelHitArea(group);
-      if (!hit) return;
-
-      hit.setAttribute("aria-label", annotation.label);
-      hit.setAttribute("tabindex", "0");
-
-      const onEnter = (event) => {
-        group.classList.add("interface-system-diagram__label--hover");
-        openAnnotation(annotation.id, event.clientX, event.clientY);
-      };
-      const onLeave = () => {
-        group.classList.remove("interface-system-diagram__label--hover");
-        scheduleClose();
-      };
-      const onFocus = (event) => {
-        group.classList.add("interface-system-diagram__label--hover");
-        openAnnotation(annotation.id, event.clientX, event.clientY);
-      };
-      const onBlur = () => {
-        group.classList.remove("interface-system-diagram__label--hover");
-        scheduleClose();
-      };
-
-      hit.addEventListener("mouseenter", onEnter);
-      hit.addEventListener("mouseleave", onLeave);
-      hit.addEventListener("focus", onFocus);
-      hit.addEventListener("blur", onBlur);
-
-      cleanups.push(() => {
-        hit.removeEventListener("mouseenter", onEnter);
-        hit.removeEventListener("mouseleave", onLeave);
-        hit.removeEventListener("focus", onFocus);
-        hit.removeEventListener("blur", onBlur);
-        hit.remove();
-      });
-    };
-
-    for (const annotation of annotations) {
-      wireLabel(annotation);
-    }
+      for (const annotation of annotationsToWire) {
+        const cleanup = wireInterfaceLabel(svg, annotation, { openAnnotation, scheduleClose });
+        if (cleanup) cleanups.push(cleanup);
+      }
+    });
 
     return () => cleanups.forEach((cleanup) => cleanup());
-  }, [annotations, svgMarkup, openAnnotation, scheduleClose]);
+  }, [allLoaded, annotations, markups, openAnnotation, resolvedParts, scheduleClose]);
 
   useLayoutEffect(() => {
     const anchor = anchorRef.current;
@@ -174,12 +205,16 @@ function InterfaceSystemDiagram({
 
       anchor.style.width = `${modalWidth}px`;
 
-      positionFloatingNearPointer(anchor, anchorPoint, {
+      const placedWidth = positionFloatingNearPointer(anchor, anchorPoint, {
         width: modalWidth,
         height: anchor.offsetHeight,
         offset: FLOATING_POINTER_OFFSET,
         bounds: siteRect,
       });
+
+      if (placedWidth !== modalWidth) {
+        anchor.style.width = `${placedWidth}px`;
+      }
     };
 
     positionModal();
@@ -198,8 +233,8 @@ function InterfaceSystemDiagram({
   }, [activeAnnotation?.modal, anchorPoint]);
 
   useEffect(() => {
-    if (svgMarkup) window.dispatchEvent(new Event("resize"));
-  }, [svgMarkup]);
+    if (allLoaded) window.dispatchEvent(new Event("resize"));
+  }, [allLoaded]);
 
   const modalPortal =
     activeAnnotation?.modal && anchorPoint
@@ -219,18 +254,35 @@ function InterfaceSystemDiagram({
   return (
     <div
       className={`interface-system-diagram ${debugLabels ? "interface-system-diagram--debug-labels" : ""} ${className}`.trim()}
-      aria-busy={!svgMarkup && !loadError}
+      aria-busy={!allLoaded && !loadError}
     >
       {loadError ? (
-        <img src={svgSrc} alt={svgAlt} className="interface-system-diagram__fallback" />
+        <div className="interface-system-diagram__stack">
+          {resolvedParts.map((part) => (
+            <img
+              key={part.src}
+              src={part.src}
+              alt={svgAlt}
+              className="interface-system-diagram__fallback"
+            />
+          ))}
+        </div>
       ) : (
-        <div
-          ref={hostRef}
-          className="interface-system-diagram__svg-host"
-          dangerouslySetInnerHTML={svgMarkup ? { __html: svgMarkup } : undefined}
-          role="img"
-          aria-label={svgAlt}
-        />
+        <div className="interface-system-diagram__stack">
+          {resolvedParts.map((part, index) => (
+            <div
+              key={part.src}
+              ref={(element) => {
+                hostRefs.current[index] = element;
+              }}
+              className="interface-system-diagram__svg-host"
+              dangerouslySetInnerHTML={markups[index] ? { __html: markups[index] } : undefined}
+              role={index === 0 ? "img" : undefined}
+              aria-label={index === 0 ? svgAlt : undefined}
+              aria-hidden={index > 0 ? true : undefined}
+            />
+          ))}
+        </div>
       )}
 
       {modalPortal}

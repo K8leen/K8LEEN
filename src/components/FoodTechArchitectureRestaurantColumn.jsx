@@ -15,6 +15,7 @@ function FoodTechArchitectureRestaurantColumn({
   modalOpen,
   onScenarioSelect,
   onModalClose,
+  modalPlacement = "restaurant",
 }) {
   const diagramRef = useRef(null);
 
@@ -41,18 +42,37 @@ function FoodTechArchitectureRestaurantColumn({
         ))}
       </nav>
 
-      <div ref={diagramRef} className="food-tech-architecture-diagram-anchor">
-        <FoodTechRestaurantArchitectureDiagram scenarioId={activeScenarioId} />
-      </div>
+      {modalPlacement === "restaurant-tablet" ? (
+        <div className="food-tech-architecture-tablet-diagram-row">
+          <div ref={diagramRef} className="food-tech-architecture-diagram-anchor">
+            <FoodTechRestaurantArchitectureDiagram scenarioId={activeScenarioId} />
+          </div>
 
-      <FoodTechArchitectureScenarioModal
-        open={modalOpen}
-        title={activeScenario?.modalTitle}
-        text={activeScenario?.modalText}
-        alignRef={diagramRef}
-        onClose={onModalClose}
-        placement="restaurant"
-      />
+          <FoodTechArchitectureScenarioModal
+            open={modalOpen}
+            title={activeScenario?.modalTitle}
+            text={activeScenario?.modalText}
+            alignRef={diagramRef}
+            onClose={onModalClose}
+            placement={modalPlacement}
+          />
+        </div>
+      ) : (
+        <>
+          <div ref={diagramRef} className="food-tech-architecture-diagram-anchor">
+            <FoodTechRestaurantArchitectureDiagram scenarioId={activeScenarioId} />
+          </div>
+
+          <FoodTechArchitectureScenarioModal
+            open={modalOpen}
+            title={activeScenario?.modalTitle}
+            text={activeScenario?.modalText}
+            alignRef={diagramRef}
+            onClose={onModalClose}
+            placement={modalPlacement}
+          />
+        </>
+      )}
     </div>
   );
 }
