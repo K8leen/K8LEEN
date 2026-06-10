@@ -10,7 +10,10 @@ import {
   predictionsProjectImages,
   predictionsProjectInterfaceSystemPlain,
 } from "../data/predictionsProjectPage";
-import { getFoodTechScenarioModalWidth } from "../utils/foodTechScenarioModalWidth";
+import {
+  getInterfacePatternModalWidth,
+  getModalPositionBounds,
+} from "../utils/foodTechScenarioModalWidth";
 import { wireInterfaceLabelTap } from "../utils/interfaceDiagramTapWiring";
 import {
   FLOATING_POINTER_OFFSET,
@@ -50,15 +53,8 @@ function installCalloutDotHitArea(dot, annotationId) {
   return { hit, pulse };
 }
 
-function getViewportAnnotationModalWidth(bounds) {
-  if (!bounds) return 320;
-
-  return Math.min(Math.max(bounds.width - 32, 280), 380);
-}
-
 function PredictionsInterfaceDiagramInteractive({
   className = "",
-  portalRootRef = null,
   positionBoundsRef = null,
 }) {
   const hostRef = useRef(null);
@@ -162,13 +158,10 @@ function PredictionsInterfaceDiagramInteractive({
     if (!anchor || !anchorPoint || !activeAnnotation?.modal) return;
 
     const boundsEl = positionBoundsRef?.current ?? document.querySelector(".site-layout-inner");
-    const inViewport = Boolean(positionBoundsRef?.current);
 
     const positionModal = () => {
-      const boundsRect = boundsEl?.getBoundingClientRect() ?? null;
-      const modalWidth = inViewport
-        ? getViewportAnnotationModalWidth(boundsRect)
-        : getFoodTechScenarioModalWidth(boundsRect);
+      const boundsRect = getModalPositionBounds(boundsEl);
+      const modalWidth = getInterfacePatternModalWidth(boundsRect);
 
       anchor.style.width = `${modalWidth}px`;
 
@@ -225,8 +218,6 @@ function PredictionsInterfaceDiagramInteractive({
     if (svgMarkup) window.dispatchEvent(new Event("resize"));
   }, [svgMarkup]);
 
-  const portalTarget = portalRootRef?.current ?? document.body;
-
   const modalPortal =
     activeAnnotation?.modal && anchorPoint
       ? createPortal(
@@ -236,7 +227,7 @@ function PredictionsInterfaceDiagramInteractive({
           >
             <FoodTechInterfacePatternModal modal={activeAnnotation.modal} />
           </div>,
-          portalTarget,
+          document.body,
         )
       : null;
 
@@ -314,10 +305,7 @@ function PredictionsInterfaceSystemDiagramTablet() {
           >
             <Block className="project-case-application-viewport-block" title="Схема" borders={{}}>
               <BlockSlot>
-                <PredictionsInterfaceDiagramInteractive
-                  portalRootRef={overlayShellRef}
-                  positionBoundsRef={overlayShellRef}
-                />
+                <PredictionsInterfaceDiagramInteractive positionBoundsRef={overlayShellRef} />
               </BlockSlot>
             </Block>
           </ProgressiveDisclosureCard>

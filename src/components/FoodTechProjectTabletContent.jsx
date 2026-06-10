@@ -1,4 +1,5 @@
 import Block, { BlockSlot } from "./Block";
+import ProjectCaseResultVisual from "./ProjectCaseResultVisual";
 import FoodTechArchitectureSectionTablet from "./FoodTechArchitectureSectionTablet";
 import FoodTechInterfaceSystemDiagramTablet from "./FoodTechInterfaceSystemDiagramTablet";
 import ProgressiveDisclosureCard from "./ProgressiveDisclosureCard";
@@ -44,7 +45,7 @@ function FoodTechProjectTabletContent() {
           <TextStack lines={foodTechProjectResultLines} />
         </BlockSlot>
         <BlockSlot>
-          <img
+          <ProjectCaseResultVisual
             src={foodTechProjectImages.result.src}
             alt={foodTechProjectImages.result.alt}
             className="block h-auto w-full project-case-result-visual"

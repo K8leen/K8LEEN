@@ -1357,6 +1357,45 @@
     min-width: 0;
   }
 
+  .project-case-result-callout-modal-anchor {
+    position: fixed;
+    z-index: 25;
+    box-sizing: border-box;
+    width: max-content;
+    max-width: calc(100vw - 24px);
+    pointer-events: none;
+  }
+
+  .project-case-result-callout-modal.modal-shell {
+    box-sizing: border-box;
+    width: max-content;
+    max-width: 100%;
+    padding: 8px;
+    pointer-events: auto;
+  }
+
+  .project-case-result-callout-modal .modal-content {
+    width: max-content;
+    max-width: 100%;
+    min-width: 0;
+    padding: 4px 8px;
+  }
+
+  .project-case-result-callout-modal__label {
+    line-height: 0;
+  }
+
+  .project-case-result-callout-modal__label svg {
+    display: block;
+    height: var(--type-tech-size);
+    width: auto;
+    max-width: 100%;
+  }
+
+  .project-case-result-callout-modal__label svg :is(path, rect) {
+    fill: var(--technical-info);
+  }
+
   .food-tech-interface-pattern-modal__heading {
     margin: 0;
   }
@@ -1966,8 +2005,8 @@
     margin: auto 0;
   }
 
-  .project-case-application-viewport .food-tech-interface-pattern-modal-anchor--viewport {
-    z-index: 10;
+  .food-tech-interface-pattern-modal-anchor--viewport {
+    z-index: 60;
   }
 
   .project-case-application-viewport-pdc.floating-shell {
@@ -2415,6 +2454,8 @@
   }
 
   .site-header {
+    position: relative;
+    z-index: 30;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -2443,6 +2484,10 @@
 
     .project-case-back-float {
       top: calc(38px + 20px);
+      left: auto;
+      right: 0;
+      transform: none;
+      z-index: 20;
     }
 
     .project-case-back-float .floating-shell {
@@ -2611,6 +2656,10 @@
       width: calc(100% + 2 * var(--mobile-inner-padding-x));
     }
 
+    .project-case-result-visual.interface-system-diagram {
+      width: 100%;
+    }
+
     /* Проекты / правовая / кейсы — mobile (≤699px): планшетный стек + мобильные отступы */
     .projects-page > .projects-page-tablet,
     .project-case-page > .project-case-page-tablet,
@@ -2663,16 +2712,78 @@
       height: calc(162px * 1.1);
     }
 
+    .project-case-page-tablet .project-case-interface-scroll__frame {
+      min-width: 700px;
+    }
+
     .project-case-page-tablet .project-case-interface-scroll__image--part-1 {
-      height: min(360px, 62vw);
+      height: 360px;
     }
 
     .project-case-page-tablet .project-case-interface-scroll__image--part-2 {
-      height: min(458px, 78vw);
+      height: 458px;
     }
 
     .project-case-page-tablet .project-case-interface-scroll__image--smart-home {
-      height: min(514px, 88vw);
+      height: 514px;
+    }
+
+    .project-case-application-viewport {
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    .project-case-application-viewport__shell {
+      width: max-content;
+      min-width: 100vw;
+    }
+
+    .project-case-application-viewport-pdc.floating-shell {
+      width: 700px;
+      min-width: 700px;
+      max-width: none;
+    }
+
+    .project-case-application-viewport .interface-system-diagram {
+      width: 700px;
+      min-width: 700px;
+    }
+
+    .project-case-application-viewport .interface-system-diagram__svg-host,
+    .project-case-application-viewport .interface-system-diagram__fallback {
+      width: 700px;
+      max-width: none;
+    }
+
+    .project-case-application-viewport
+      .interface-system-diagram--tablet
+      .interface-system-diagram__svg-host
+      svg {
+      width: 700px;
+      max-width: none;
+      height: auto;
+    }
+
+    .project-case-application-viewport-block .ds-block-slot img {
+      display: block;
+      width: 700px;
+      max-width: none;
+      height: auto;
+    }
+
+    .food-tech-interface-pattern-modal-anchor {
+      max-width: calc(100vw - 24px);
+    }
+
+    .food-tech-interface-pattern-modal-anchor .food-tech-interface-pattern-modal,
+    .food-tech-interface-pattern-modal-anchor .modal-shell {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .modal-shell {
+      width: 100%;
+      max-width: calc(100vw - 24px);
     }
   }
 

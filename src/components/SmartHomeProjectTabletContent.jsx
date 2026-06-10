@@ -1,4 +1,5 @@
 import Block, { BlockSlot } from "./Block";
+import ProjectCaseResultVisual from "./ProjectCaseResultVisual";
 import ProgressiveDisclosureCard from "./ProgressiveDisclosureCard";
 import SmartHomeInterfaceSystemDiagramTablet from "./SmartHomeInterfaceSystemDiagramTablet";
 import TextBlock from "./TextBlock";
@@ -42,10 +43,10 @@ function SmartHomeProjectTabletContent() {
           <TextStack lines={smartHomeProjectResultLines} />
         </BlockSlot>
         <BlockSlot>
-          <img
+          <ProjectCaseResultVisual
             src={smartHomeProjectImages.result.src}
             alt={smartHomeProjectImages.result.alt}
-            className="block h-auto w-full"
+            className="block h-auto w-full project-case-result-visual"
             onLoad={() => window.dispatchEvent(new Event("resize"))}
           />
         </BlockSlot>

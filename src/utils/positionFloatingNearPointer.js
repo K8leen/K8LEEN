@@ -59,3 +59,40 @@ export function positionFloatingNearPointer(
 
   return safeWidth;
 }
+
+const CALLOUT_DOT_HIT_RADIUS = 14;
+
+/**
+ * Плашка подписи SEC-00: по центру под точкой, ниже hit-area.
+ */
+export function positionResultCalloutModal(
+  anchor,
+  point,
+  { width, height, bounds = null },
+) {
+  const pad = VIEWPORT_PADDING;
+  const boxLeft = bounds?.left ?? 0;
+  const boxRight = bounds?.right ?? window.innerWidth;
+  const minLeft = boxLeft + pad;
+  const maxRight = boxRight - pad;
+  const minTop = pad;
+  const maxBottom = window.innerHeight - pad;
+
+  const maxAvailableWidth = Math.max(0, maxRight - minLeft);
+  const safeWidth = Math.max(0, Math.min(width, maxAvailableWidth));
+  const safeHeight = Math.max(0, Math.min(height, maxBottom - minTop));
+
+  let left = point.x - safeWidth / 2;
+  let top = point.y + CALLOUT_DOT_HIT_RADIUS + FLOATING_POINTER_OFFSET;
+
+  if (left < minLeft) left = minLeft;
+  if (left + safeWidth > maxRight) left = maxRight - safeWidth;
+  if (top + safeHeight > maxBottom) top = point.y - safeHeight - FLOATING_POINTER_OFFSET;
+  if (top < minTop) top = minTop;
+  if (top + safeHeight > maxBottom) top = maxBottom - safeHeight;
+
+  anchor.style.left = `${left}px`;
+  anchor.style.top = `${top}px`;
+
+  return safeWidth;
+}

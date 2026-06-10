@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { getFoodTechScenarioModalWidth } from "../utils/foodTechScenarioModalWidth";
+import {
+  getInterfacePatternModalWidth,
+  getModalPositionBounds,
+} from "../utils/foodTechScenarioModalWidth";
 import {
   FLOATING_POINTER_OFFSET,
   positionFloatingNearPointer,
@@ -200,8 +203,8 @@ function InterfaceSystemDiagram({
     const siteInner = document.querySelector(".site-layout-inner");
 
     const positionModal = () => {
-      const siteRect = siteInner?.getBoundingClientRect();
-      const modalWidth = getFoodTechScenarioModalWidth(siteRect);
+      const siteRect = getModalPositionBounds(siteInner);
+      const modalWidth = getInterfacePatternModalWidth(siteRect);
 
       anchor.style.width = `${modalWidth}px`;
 

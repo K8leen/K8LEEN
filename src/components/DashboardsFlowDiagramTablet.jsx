@@ -7,7 +7,10 @@ import ProgressiveDisclosureCard from "./ProgressiveDisclosureCard";
 import { DASHBOARDS_FLOW_ANNOTATIONS } from "../data/dashboardsFlowAnnotations";
 import { DASHBOARDS_FLOW_CALLOUT_DOTS } from "../data/dashboardsFlowCalloutDots";
 import { dashboardsProjectImages } from "../data/dashboardsProjectPage";
-import { getFoodTechScenarioModalWidth } from "../utils/foodTechScenarioModalWidth";
+import {
+  getInterfacePatternModalWidth,
+  getModalPositionBounds,
+} from "../utils/foodTechScenarioModalWidth";
 import { wireInterfaceLabelTap } from "../utils/interfaceDiagramTapWiring";
 import {
   FLOATING_POINTER_OFFSET,
@@ -47,15 +50,8 @@ function installCalloutDotHitArea(dot, annotationId) {
   return { hit, pulse };
 }
 
-function getViewportAnnotationModalWidth(bounds) {
-  if (!bounds) return 320;
-
-  return Math.min(Math.max(bounds.width - 32, 280), 380);
-}
-
 function DashboardsFlowDiagramInteractive({
   className = "",
-  portalRootRef = null,
   positionBoundsRef = null,
 }) {
   const hostRef = useRef(null);
@@ -159,13 +155,10 @@ function DashboardsFlowDiagramInteractive({
     if (!anchor || !anchorPoint || !activeAnnotation?.modal) return;
 
     const boundsEl = positionBoundsRef?.current ?? document.querySelector(".site-layout-inner");
-    const inViewport = Boolean(positionBoundsRef?.current);
 
     const positionModal = () => {
-      const boundsRect = boundsEl?.getBoundingClientRect() ?? null;
-      const modalWidth = inViewport
-        ? getViewportAnnotationModalWidth(boundsRect)
-        : getFoodTechScenarioModalWidth(boundsRect);
+      const boundsRect = getModalPositionBounds(boundsEl);
+      const modalWidth = getInterfacePatternModalWidth(boundsRect);
 
       anchor.style.width = `${modalWidth}px`;
 
@@ -222,8 +215,6 @@ function DashboardsFlowDiagramInteractive({
     if (svgMarkup) window.dispatchEvent(new Event("resize"));
   }, [svgMarkup]);
 
-  const portalTarget = portalRootRef?.current ?? document.body;
-
   const modalPortal =
     activeAnnotation?.modal && anchorPoint
       ? createPortal(
@@ -233,7 +224,7 @@ function DashboardsFlowDiagramInteractive({
           >
             <FoodTechInterfacePatternModal modal={activeAnnotation.modal} />
           </div>,
-          portalTarget,
+          document.body,
         )
       : null;
 
@@ -311,10 +302,7 @@ function DashboardsFlowDiagramTablet() {
           >
             <Block className="project-case-application-viewport-block" title="Схема" borders={{}}>
               <BlockSlot>
-                <DashboardsFlowDiagramInteractive
-                  portalRootRef={overlayShellRef}
-                  positionBoundsRef={overlayShellRef}
-                />
+                <DashboardsFlowDiagramInteractive positionBoundsRef={overlayShellRef} />
               </BlockSlot>
             </Block>
           </ProgressiveDisclosureCard>

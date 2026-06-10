@@ -1,4 +1,5 @@
 import Block, { BlockSlot } from "./Block";
+import ProjectCaseResultVisual from "./ProjectCaseResultVisual";
 import PredictionsInterfaceSystemDiagramTablet from "./PredictionsInterfaceSystemDiagramTablet";
 import ProgressiveDisclosureCard from "./ProgressiveDisclosureCard";
 import TextBlock from "./TextBlock";
@@ -49,10 +50,10 @@ function PredictionsProjectTabletContent() {
           <TextStack lines={predictionsProjectResultLines} />
         </BlockSlot>
         <BlockSlot>
-          <img
+          <ProjectCaseResultVisual
             src={predictionsProjectImages.result.src}
             alt={predictionsProjectImages.result.alt}
-            className="block h-auto w-full"
+            className="block h-auto w-full project-case-result-visual"
           />
         </BlockSlot>
       </Block>

@@ -8,7 +8,10 @@ import {
 } from "../data/foodTechInterfaceAnnotations";
 import { FOOD_TECH_INTERFACE_PART_DOT_POSITIONS } from "../data/foodTechInterfaceCalloutDotPositions";
 import { foodTechProjectImages } from "../data/foodTechProjectPage";
-import { getFoodTechScenarioModalWidth } from "../utils/foodTechScenarioModalWidth";
+import {
+  getInterfacePatternModalWidth,
+  getModalPositionBounds,
+} from "../utils/foodTechScenarioModalWidth";
 import { measureInterfaceLabelHitAreas } from "../utils/measureInterfaceLabelHitAreas";
 import {
   FLOATING_POINTER_OFFSET,
@@ -146,8 +149,8 @@ function FoodTechInterfaceSystemDiagramTablet() {
     const siteInner = document.querySelector(".site-layout-inner");
 
     const positionModal = () => {
-      const siteRect = siteInner?.getBoundingClientRect();
-      const modalWidth = getFoodTechScenarioModalWidth(siteRect);
+      const siteRect = getModalPositionBounds(siteInner);
+      const modalWidth = getInterfacePatternModalWidth(siteRect);
 
       anchor.style.width = `${modalWidth}px`;
 

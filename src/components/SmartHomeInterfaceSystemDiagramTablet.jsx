@@ -8,7 +8,10 @@ import {
 } from "../data/smartHomeInterfaceAnnotations";
 import { SMART_HOME_INTERFACE_CALLOUT_DOT_POSITIONS } from "../data/smartHomeInterfaceCalloutDotPositions";
 import { smartHomeProjectImages } from "../data/smartHomeProjectPage";
-import { getFoodTechScenarioModalWidth } from "../utils/foodTechScenarioModalWidth";
+import {
+  getInterfacePatternModalWidth,
+  getModalPositionBounds,
+} from "../utils/foodTechScenarioModalWidth";
 import { measureInterfaceLabelHitAreas } from "../utils/measureInterfaceLabelHitAreas";
 import {
   FLOATING_POINTER_OFFSET,
@@ -67,8 +70,8 @@ function SmartHomeInterfaceSystemDiagramTablet() {
     const siteInner = document.querySelector(".site-layout-inner");
 
     const positionModal = () => {
-      const siteRect = siteInner?.getBoundingClientRect();
-      const modalWidth = getFoodTechScenarioModalWidth(siteRect);
+      const siteRect = getModalPositionBounds(siteInner);
+      const modalWidth = getInterfacePatternModalWidth(siteRect);
 
       anchor.style.width = `${modalWidth}px`;
 

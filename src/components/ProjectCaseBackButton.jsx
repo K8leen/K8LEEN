@@ -21,6 +21,8 @@ function ProjectCaseBackButton({ alignRef, fallbackTo = "/projects", label = "н
     const anchor = alignRef?.current;
     if (!root || !anchor) return;
 
+    const header = document.querySelector(".site-header");
+
     const alignToHeadline = () => {
       const headlines = anchor.querySelectorAll(".headline");
       const headline =
@@ -29,18 +31,26 @@ function ProjectCaseBackButton({ alignRef, fallbackTo = "/projects", label = "н
         anchor;
       const headlineRect = headline.getBoundingClientRect();
       const floatRect = root.getBoundingClientRect();
-      root.style.top = `${headlineRect.top + (headlineRect.height - floatRect.height) / 2}px`;
+      const alignedTop =
+        headlineRect.top + (headlineRect.height - floatRect.height) / 2;
+      const headerBottom = header?.getBoundingClientRect().bottom ?? 0;
+      const minTop = Math.max(0, headerBottom);
+      root.style.top = `${Math.max(minTop, alignedTop)}px`;
     };
 
     alignToHeadline();
 
     const resizeObserver = new ResizeObserver(alignToHeadline);
     resizeObserver.observe(anchor);
+    resizeObserver.observe(root);
+    if (header) resizeObserver.observe(header);
     window.addEventListener("resize", alignToHeadline);
+    window.addEventListener("scroll", alignToHeadline, { passive: true });
 
     return () => {
       resizeObserver.disconnect();
       window.removeEventListener("resize", alignToHeadline);
+      window.removeEventListener("scroll", alignToHeadline);
     };
   }, [alignRef]);
 

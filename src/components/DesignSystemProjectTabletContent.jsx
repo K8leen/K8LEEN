@@ -1,4 +1,5 @@
 import Block, { BlockSlot } from "./Block";
+import ProjectCaseResultVisual from "./ProjectCaseResultVisual";
 import DesignSystemApplicationDiagram from "./DesignSystemApplicationDiagram";
 import HorizontalScrollStrip from "./HorizontalScrollStrip";
 import ProgressiveDisclosureCard from "./ProgressiveDisclosureCard";
@@ -40,10 +41,10 @@ function DesignSystemProjectTabletContent() {
           <TextStack lines={designSystemProjectResultLines} />
         </BlockSlot>
         <BlockSlot>
-          <img
+          <ProjectCaseResultVisual
             src={designSystemProjectImages.result.src}
             alt={designSystemProjectImages.result.alt}
-            className="block h-auto w-full"
+            className="block h-auto w-full project-case-result-visual"
           />
         </BlockSlot>
       </Block>

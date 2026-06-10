@@ -1,4 +1,5 @@
 import Block, { BlockSlot } from "./Block";
+import ProjectCaseResultVisual from "./ProjectCaseResultVisual";
 import DashboardsFlowDiagramTablet from "./DashboardsFlowDiagramTablet";
 import HorizontalScrollStrip from "./HorizontalScrollStrip";
 import ProgressiveDisclosureCard from "./ProgressiveDisclosureCard";
@@ -57,10 +58,10 @@ function DashboardsProjectTabletContent() {
           <TextStack lines={dashboardsProjectResultLines} />
         </BlockSlot>
         <BlockSlot>
-          <img
+          <ProjectCaseResultVisual
             src={dashboardsProjectImages.result.src}
             alt={dashboardsProjectImages.result.alt}
-            className="block h-auto w-full"
+            className="block h-auto w-full project-case-result-visual"
           />
         </BlockSlot>
       </Block>
