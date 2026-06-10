@@ -23,6 +23,54 @@ function FooterContactButtons({ className }) {
   );
 }
 
+function FooterMobileIntro() {
+  return (
+    <>
+      <FooterCell className="site-footer-mobile__name">
+        <span className="text-body-small text-primary-text">Екатерина Земцова</span>
+      </FooterCell>
+
+      <FooterCell className="site-footer-mobile__role">
+        <span className="text-body-small text-technical-info">Product &amp; System Designer</span>
+      </FooterCell>
+    </>
+  );
+}
+
+function FooterMobileInfoLegal() {
+  return (
+    <div className="site-footer-mobile__info-legal">
+      <FooterCell className="site-footer-mobile__copyright site-footer-cell--hug">
+        <span className="text-body-small text-primary-text">© 2026</span>
+      </FooterCell>
+
+      <FooterCell className="site-footer-mobile__legal">
+        <LinkButton variant="inline" to="/legal">
+          Правовая информация
+        </LinkButton>
+      </FooterCell>
+    </div>
+  );
+}
+
+function FooterMobileResume() {
+  return (
+    <FooterCell className="site-footer-mobile__resume">
+      <LinkButton variant="inline" href={RESUME_URL}>
+        Скачать резюме (HH)
+      </LinkButton>
+    </FooterCell>
+  );
+}
+
+function FooterMobileContacts() {
+  return (
+    <FooterCell className="site-footer-mobile__contacts">
+      <FooterContactButtons className="site-footer-mobile__contact-buttons" />
+    </FooterCell>
+  );
+}
+
 function Footer() {
   return (
     <footer className="site-footer">
@@ -132,36 +180,18 @@ function Footer() {
         </FooterCell>
       </div>
 
-      <div className="site-footer-mobile">
-        <FooterCell className="site-footer-mobile__name">
-          <span className="text-body-small text-primary-text">Екатерина Земцова</span>
-        </FooterCell>
+      <div className="site-footer-mobile site-footer-mobile--narrow">
+        <FooterMobileIntro />
+        <FooterMobileContacts />
+        <FooterMobileResume />
+        <FooterMobileInfoLegal />
+      </div>
 
-        <FooterCell className="site-footer-mobile__role">
-          <span className="text-body-small text-technical-info">Product &amp; System Designer</span>
-        </FooterCell>
-
-        <FooterCell className="site-footer-mobile__contacts">
-          <FooterContactButtons className="site-footer-mobile__contact-buttons" />
-        </FooterCell>
-
-        <FooterCell className="site-footer-mobile__resume">
-          <LinkButton variant="inline" href={RESUME_URL}>
-            Скачать резюме (HH)
-          </LinkButton>
-        </FooterCell>
-
-        <div className="site-footer-mobile__info-legal">
-          <FooterCell className="site-footer-mobile__copyright site-footer-cell--hug">
-            <span className="text-body-small text-primary-text">© 2026</span>
-          </FooterCell>
-
-          <FooterCell className="site-footer-mobile__legal">
-            <LinkButton variant="inline" to="/legal">
-              Правовая информация
-            </LinkButton>
-          </FooterCell>
-        </div>
+      <div className="site-footer-mobile site-footer-mobile--wide">
+        <FooterMobileIntro />
+        <FooterMobileResume />
+        <FooterMobileContacts />
+        <FooterMobileInfoLegal />
       </div>
     </footer>
   );

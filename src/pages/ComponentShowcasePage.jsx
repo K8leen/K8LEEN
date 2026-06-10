@@ -5,6 +5,7 @@ import FloatingButton from "../components/FloatingButton";
 import FilledButton from "../components/FilledButton";
 import AccordionStack from "../components/AccordionStack";
 import CookieBanner from "../components/CookieBanner";
+import CookieBannerMobile from "../components/CookieBannerMobile";
 import Modal from "../components/Modal";
 import Tag from "../components/Tag";
 import ProjectCard from "../components/ProjectCard";
@@ -67,19 +68,20 @@ function ModalShowcaseDemo({ overlay = false, label }) {
   );
 }
 
-function CookieShowcaseDemo({ fixed = false, label }) {
+function CookieShowcaseDemo({ fixed = false, mobile = false, label }) {
   const [visible, setVisible] = useState(false);
+  const Banner = mobile ? CookieBannerMobile : CookieBanner;
 
   return (
     <div className="stack items-start">
       <p className="text-tech showcase-variant-label text-technical-info">{label}</p>
       {visible ? (
         fixed ? (
-          <div className="showcase-fixed-host">
-            <CookieBanner fixed preview onDismiss={() => setVisible(false)} />
+          <div className={`showcase-fixed-host${mobile ? " showcase-fixed-host--cookie-mobile" : ""}`}>
+            <Banner fixed preview onDismiss={() => setVisible(false)} />
           </div>
         ) : (
-          <CookieBanner preview onDismiss={() => setVisible(false)} />
+          <Banner preview onDismiss={() => setVisible(false)} />
         )
       ) : (
         <FilledButton type="button" onClick={() => setVisible(true)}>
@@ -459,6 +461,13 @@ function ComponentShowcasePage() {
             <div className="showcase-panel">
               <CookieShowcaseDemo fixed label="fixed (как на сайте, position: fixed)" />
             </div>
+            <div className="showcase-panel md:col-span-2">
+              <CookieShowcaseDemo
+                fixed
+                mobile
+                label="mobile fixed (≤699px: на всю ширину, к низу экрана)"
+              />
+            </div>
           </div>
         </section>
 
@@ -589,7 +598,7 @@ function ComponentShowcasePage() {
             </p>
             <p>
               <span className="text-tech">mobile</span> 320–699px — как tablet, высота 38px,
-              padding по горизонтали 16px.
+              внутренний padding 8px (от края экрана 16px на layout).
             </p>
           </div>
           <div className="stack">
@@ -674,8 +683,8 @@ function ComponentShowcasePage() {
               padding 20px сверху/снизу.
             </p>
             <p>
-              <span className="text-tech">mobile</span> 320–699px — заголовок + jump-иконка,
-              padding 16/16/20, картинка 148×148, теги gap 8px, role/name и результат gap 4px,
+              <span className="text-tech">mobile</span> 320–699px — заголовок + icon-only maximize (как у схем),
+              padding 16/8/20, картинка 148×148, теги gap 8px, role/name и результат gap 4px,
               типографика mobile.
             </p>
           </div>
@@ -734,8 +743,11 @@ function ComponentShowcasePage() {
               padding 60/40, ячейки 16px, contact-кнопки.
             </p>
             <p>
-              <span className="text-tech">mobile</span> 320–699px — на всю ширину экрана, 5
-              строк × 52px, padding 60/40, ячейки 16px, contact-кнопки.
+              <span className="text-tech">mobile narrow</span> 320–464px — 5 строк × 52px.
+            </p>
+            <p>
+              <span className="text-tech">mobile wide</span> 465–699px — 4 строки × 52px,
+              резюме и contact-кнопки в одном ряду (от края экрана 16px, внутри ячеек 8px).
             </p>
           </div>
           <div className="stack">
@@ -752,8 +764,18 @@ function ComponentShowcasePage() {
               </div>
             </div>
             <div>
-              <p className="text-tech showcase-variant-label text-technical-info">mobile</p>
-              <div className="showcase-mobile-shell showcase-footer--mobile showcase-panel">
+              <p className="text-tech showcase-variant-label text-technical-info">
+                mobile narrow (320–464)
+              </p>
+              <div className="showcase-mobile-shell showcase-footer--mobile-narrow showcase-panel">
+                <Footer />
+              </div>
+            </div>
+            <div>
+              <p className="text-tech showcase-variant-label text-technical-info">
+                mobile wide (465–699)
+              </p>
+              <div className="showcase-mobile-shell showcase-mobile-shell--wide showcase-footer--mobile-wide showcase-panel">
                 <Footer />
               </div>
             </div>

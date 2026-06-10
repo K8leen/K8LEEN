@@ -1,4 +1,4 @@
-import { normalizeYo } from "../utils/typography";
+import { normalizeYo, typograph } from "../utils/typography";
 
 function Headline({
   header = "HEADER",
@@ -7,8 +7,8 @@ function Headline({
 }) {
   // Стандартизируем регистр отображаемого текста независимо от того,
   // как строка была введена на странице.
-  const headerText = normalizeYo(String(header)).toLocaleUpperCase("ru");
-  const subheaderText = normalizeYo(String(subheader)).toLocaleLowerCase("ru");
+  const headerText = typograph(normalizeYo(String(header))).toLocaleUpperCase("ru");
+  const subheaderText = typograph(normalizeYo(String(subheader))).toLocaleLowerCase("ru");
   const hasSubheader = String(subheader).trim() !== "";
 
   return (

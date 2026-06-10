@@ -1,5 +1,6 @@
 import { useEffect, useId } from "react";
 import { createPortal } from "react-dom";
+import { typograph } from "../utils/typography";
 
 function Modal({
   open = true,
@@ -33,7 +34,7 @@ function Modal({
       <div className="modal-content shadow-soft">
         <div className="modal-header">
           <h2 id={titleId} className="modal-title text-tech text-primary-text">
-            {title}
+            {typograph(title)}
           </h2>
           <button
             type="button"
@@ -50,7 +51,9 @@ function Modal({
             />
           </button>
         </div>
-        {text ? <p className="modal-text text-tech text-technical-info">{text}</p> : null}
+        {text ? (
+          <p className="modal-text text-tech text-technical-info">{typograph(text)}</p>
+        ) : null}
       </div>
     </div>
   );

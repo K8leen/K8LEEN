@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import FilledButton from "../components/FilledButton";
 import Footer from "../components/Footer";
+import { typograph } from "../utils/typography";
 
 function NotFoundPage() {
   const navigate = useNavigate();
@@ -36,10 +37,10 @@ function NotFoundPage() {
 
               <div className="stack not-found-page__copy">
                 <h1 id="not-found-title" className="text-subhero text-structure-text">
-                  Страница не найдена
+                  {typograph("Страница не найдена")}
                 </h1>
                 <p className="text-body-main text-technical-info">
-                  Запрашиваемый адрес не&nbsp;существует или был перемещен
+                  {typograph("Запрашиваемый адрес не существует или был перемещен")}
                 </p>
               </div>
 

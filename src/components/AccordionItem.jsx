@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { typograph, typographIfString } from "../utils/typography";
 
 function AccordionItem({
   label = "LABEL",
@@ -31,7 +32,7 @@ function AccordionItem({
         onClick={handleToggle}
         aria-expanded={open}
       >
-        <h3 className="text-body-main text-primary-text">{label}</h3>
+        <h3 className="text-body-main text-primary-text">{typograph(label)}</h3>
         <img src={iconSrc} alt={iconAlt} className="accordion-item-icon h-7 w-7 shrink-0" />
       </button>
 
@@ -41,7 +42,7 @@ function AccordionItem({
             {lines.map((line, index) =>
               typeof line === "string" ? (
                 <p key={index} className="text-body-small text-technical-info">
-                  {line}
+                  {typographIfString(line)}
                 </p>
               ) : (
                 <div key={index} className="text-body-small text-technical-info">

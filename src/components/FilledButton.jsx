@@ -1,3 +1,5 @@
+import { typographIfString } from "../utils/typography";
+
 const tonesByState = {
   default: "bg-primary-accent text-surface",
   hover: "bg-primary-text text-surface",
@@ -20,7 +22,7 @@ function FilledButton({
       className={`filled-btn filled-btn-text inline-flex cursor-pointer items-center justify-center rounded-[4px] px-4 py-1 disabled:cursor-not-allowed ${tone} ${className}`.trim()}
       {...props}
     >
-      <span className="filled-btn-text">{children}</span>
+      <span className="filled-btn-text">{typographIfString(children)}</span>
     </button>
   );
 }

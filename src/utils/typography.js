@@ -12,32 +12,49 @@ export function normalizeYo(text) {
 
 /** Короткие слова, после которых в русской верстке ставят неразрывный пробел */
 const NBSP_AFTER = [
+  "из-под",
+  "из-за",
+  "через",
+  "также",
+  "либо",
   "без",
-  "в",
-  "во",
+  "вне",
   "для",
   "до",
   "за",
   "из",
-  "к",
   "ко",
   "на",
   "над",
   "но",
-  "о",
   "об",
   "от",
   "по",
   "под",
   "при",
   "про",
-  "с",
   "со",
   "у",
-  "через",
+  "во",
   "а",
+  "в",
   "и",
-];
+  "к",
+  "о",
+  "с",
+  "да",
+  "или",
+  "как",
+  "что",
+  "не",
+  "ни",
+  "то",
+  "же",
+  "ли",
+  "бы",
+  "ещё",
+  "уже",
+].sort((a, b) => b.length - a.length);
 
 const NBSP_AFTER_PATTERN = new RegExp(
   `(^|[\\s(,«"—])(${NBSP_AFTER.join("|")}) (?=[\\p{L}\\d])`,
@@ -51,6 +68,10 @@ const HYPHEN_AND_PATTERN = /(\p{L}+)- и /giu;
  * Базовая русская типографика для UI-текстов: NBSP после предлогов/союзов,
  * тире вокруг «—», связки через дефис с «и».
  */
+export function typographIfString(value) {
+  return typeof value === "string" ? typograph(value) : value;
+}
+
 export function typograph(text) {
   if (!text) return text;
 

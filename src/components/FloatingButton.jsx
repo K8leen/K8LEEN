@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { typographIfString } from "../utils/typography";
 
 function toSentenceCase(text) {
   if (!text) return text;
@@ -74,7 +75,9 @@ function FloatingButton({
     <>
       {icon}
       <span className="floating-btn-label">
-        {typeof children === "string" ? toSentenceCase(children) : children}
+        {typeof children === "string"
+          ? typographIfString(toSentenceCase(children))
+          : children}
       </span>
     </>
   ) : (

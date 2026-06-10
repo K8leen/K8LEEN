@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { typograph } from "../utils/typography";
 
 function ProgressiveDisclosureCard({
   title = "HEADLINE",
@@ -39,7 +40,7 @@ function ProgressiveDisclosureCard({
             <h2
               className={`pdc-card-title text-block ${open ? "text-technical-info" : "text-structure-text"}`}
             >
-              {title}
+              {typograph(title)}
             </h2>
           ) : null}
           <img

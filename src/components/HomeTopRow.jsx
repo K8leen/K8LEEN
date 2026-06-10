@@ -1,17 +1,28 @@
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import AccordionStack from "./AccordionStack";
 import Block, { BlockSlot } from "./Block";
-import HomeExpertiseDiagram from "./HomeExpertiseDiagram";
+import ExpertiseDiagram from "./ExpertiseDiagram";
+import HomeSec01Mobile from "./HomeSec01Mobile";
+import useMediaQuery from "../hooks/useMediaQuery";
 
 const SEC01_TITLE = "SEC-01_Междисциплинарная экспертиза";
 const SEC02_TITLE = "SEC-02_Навыки";
+const MOBILE_MQ = "(max-width: 699px)";
 
 function Sec01Block({ onDiagramLoad }) {
+  const isMobile = useMediaQuery(MOBILE_MQ);
+
   return (
-    <Block title={SEC01_TITLE} borders={{ bottom: true }}>
-      <BlockSlot>
-        <HomeExpertiseDiagram className="block w-full" onLoad={onDiagramLoad} />
-      </BlockSlot>
+    <Block className="home-block--sec01" title={SEC01_TITLE} borders={{ bottom: true }}>
+      {isMobile ? (
+        <BlockSlot>
+          <HomeSec01Mobile onLoad={onDiagramLoad} />
+        </BlockSlot>
+      ) : (
+        <BlockSlot>
+          <ExpertiseDiagram className="block w-full" onLoad={onDiagramLoad} />
+        </BlockSlot>
+      )}
     </Block>
   );
 }

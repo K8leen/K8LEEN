@@ -1,4 +1,5 @@
 import LinkButton from "./LinkButton";
+import { typograph } from "../utils/typography";
 
 function Block({
   title = "BLOCK HEADER",
@@ -22,7 +23,7 @@ function Block({
   return (
     <section className={`ds-block ${borderClass} ${className}`.trim()}>
       <header className="ds-block-header">
-        <h2 className="text-block text-primary-text">{title}</h2>
+        <h2 className="text-block text-primary-text">{typograph(title)}</h2>
         {linkLabel ? (
           <LinkButton
             variant="inline"

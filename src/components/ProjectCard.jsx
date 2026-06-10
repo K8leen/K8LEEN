@@ -1,3 +1,4 @@
+import FloatingButton from "./FloatingButton";
 import LinkButton from "./LinkButton";
 import RoleText from "./RoleText";
 import Tag from "./Tag";
@@ -99,15 +100,15 @@ function ProjectCard({
             </LinkButton>
           </h3>
           {showDetailLink ? (
-            <LinkButton
-              variant="jump"
+            <FloatingButton
+              iconSrc="/icons/maximize-01.svg"
               to={detailTo}
               state={detailTo ? undefined : "default"}
-              className="project-card-mobile__expand"
-              aria-label={linkLabel}
+              className="project-card-mobile__maximize"
+              aria-label="Максимизировать"
             >
-              {linkLabel}
-            </LinkButton>
+              {""}
+            </FloatingButton>
           ) : null}
         </div>
 
@@ -123,7 +124,6 @@ function ProjectCard({
           <div className="project-card-mobile__aside">
             <ProjectCardTags tags={normalizedTags} className="project-card-mobile__tags" />
             <div className="project-card-mobile__role">
-              <div className="project-card-mobile__role-line" aria-hidden="true" />
               <div className="project-card-mobile__role-copy">
                 <p className="text-body-small text-technical-info">{roleLabel}</p>
                 <p className="text-body-small text-structure-text">

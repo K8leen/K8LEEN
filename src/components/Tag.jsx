@@ -1,3 +1,5 @@
+import { typographIfString } from "../utils/typography";
+
 const toneMap = {
   nda: {
     text: "#5A89B1",
@@ -37,7 +39,7 @@ function Tag({ children, tone = "nda", className = "" }) {
         border: "none",
       }}
     >
-      {children}
+      {typographIfString(children)}
     </span>
   );
 }

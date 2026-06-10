@@ -1,5 +1,6 @@
 import { Component } from "react";
 import LinkButton from "./LinkButton";
+import { typograph } from "../utils/typography";
 
 class RouteErrorBoundary extends Component {
   constructor(props) {
@@ -15,7 +16,9 @@ class RouteErrorBoundary extends Component {
     if (this.state.error) {
       return (
         <main className="legal-page-content mx-auto max-w-xl p-8">
-          <h1 className="text-block text-primary-text">Не удалось показать страницу</h1>
+          <h1 className="text-block text-primary-text">
+            {typograph("Не удалось показать страницу")}
+          </h1>
           <p className="text-body-main text-technical-info mt-4">
             {this.state.error.message}
           </p>

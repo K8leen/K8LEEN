@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { typographIfString } from "../utils/typography";
 
 const toneByVariant = {
   default: {
@@ -22,10 +23,12 @@ const toneByVariant = {
 };
 
 function LinkContent({ variant, children }) {
+  const label = typographIfString(children);
+
   if (variant === "jump") {
     return (
       <span className="follow-link-shell">
-        <span className="link-btn-text follow-link-text">{children}</span>
+        <span className="link-btn-text follow-link-text">{label}</span>
         <svg
           aria-hidden="true"
           viewBox="0 0 17 17"
@@ -46,7 +49,7 @@ function LinkContent({ variant, children }) {
     );
   }
 
-  return <span className="link-btn-text">{children}</span>;
+  return <span className="link-btn-text">{label}</span>;
 }
 
 function LinkButton({
