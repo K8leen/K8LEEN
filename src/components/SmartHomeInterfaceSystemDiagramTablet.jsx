@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import FoodTechInterfacePatternModal from "./FoodTechInterfacePatternModal";
+import DeferredImage from "./DeferredImage";
 import HorizontalScrollStrip from "./HorizontalScrollStrip";
 import {
   SMART_HOME_INTERFACE_ANNOTATIONS,
@@ -142,7 +143,7 @@ function SmartHomeInterfaceSystemDiagramTablet() {
         ariaLabel={smartHomeProjectImages.interfaceSystem.alt}
       >
         <div className="project-case-interface-scroll__frame">
-          <img
+          <DeferredImage
             src={smartHomeProjectImages.interfaceSystem.src}
             alt={smartHomeProjectImages.interfaceSystem.alt}
             className="project-case-interface-scroll__image project-case-interface-scroll__image--smart-home"

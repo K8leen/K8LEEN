@@ -1,4 +1,5 @@
 import Block, { BlockSlot } from "./Block";
+import DeferredImage from "./DeferredImage";
 import ProjectCaseResultVisual from "./ProjectCaseResultVisual";
 import ProgressiveDisclosureCard from "./ProgressiveDisclosureCard";
 import SmartHomeInterfaceSystemDiagramTablet from "./SmartHomeInterfaceSystemDiagramTablet";
@@ -112,7 +113,7 @@ function SmartHomeProjectTabletContent() {
           <TextBlock variant="plain" text={smartHomeProjectArchitecturePlain} />
         </BlockSlot>
         <BlockSlot>
-          <img
+          <DeferredImage
             src={smartHomeProjectImages.architecture.src}
             alt={smartHomeProjectImages.architecture.alt}
             className="project-case-architecture-full block h-auto w-full"

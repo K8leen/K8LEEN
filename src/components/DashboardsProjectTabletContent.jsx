@@ -1,4 +1,5 @@
 import Block, { BlockSlot } from "./Block";
+import DeferredImage from "./DeferredImage";
 import ProjectCaseResultVisual from "./ProjectCaseResultVisual";
 import DashboardsFlowDiagramTablet from "./DashboardsFlowDiagramTablet";
 import HorizontalScrollStrip from "./HorizontalScrollStrip";
@@ -133,7 +134,7 @@ function DashboardsProjectTabletContent() {
             className="project-case-architecture-scroll"
             ariaLabel={dashboardsProjectImages.widgets.alt}
           >
-            <img
+            <DeferredImage
               src={dashboardsProjectImages.widgets.src}
               alt={dashboardsProjectImages.widgets.alt}
               className="project-case-architecture-scroll__image project-case-dashboards-widgets-scroll__image"

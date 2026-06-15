@@ -1,5 +1,6 @@
 import FloatingButton from "./FloatingButton";
 import LinkButton from "./LinkButton";
+import DeferredImage from "./DeferredImage";
 import RoleText from "./RoleText";
 import Tag from "./Tag";
 
@@ -44,7 +45,7 @@ function ProjectCard({
   return (
     <article className={`project-card ${className}`.trim()}>
       <div className="project-card__layout project-card__layout--desktop">
-        <img src={imageSrc} alt={imageAlt} className="project-card-visual" />
+        <DeferredImage src={imageSrc} alt={imageAlt} className="project-card-visual" />
 
         <div className="project-card-divider" aria-hidden="true" />
 
@@ -113,7 +114,7 @@ function ProjectCard({
         </div>
 
         <div className="project-card-mobile__body">
-          <img
+          <DeferredImage
             src={imageSrc}
             alt={imageAlt}
             className="project-card-mobile__visual"

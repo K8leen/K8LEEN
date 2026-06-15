@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import Block, { BlockSlot } from "../components/Block";
 import Headline from "../components/Headline";
+import DeferredImage from "../components/DeferredImage";
 import PredictionsProjectTabletContent from "../components/PredictionsProjectTabletContent";
 import ProjectCaseBackButton from "../components/ProjectCaseBackButton";
 import PredictionsInterfaceSystemDiagram from "../components/PredictionsInterfaceSystemDiagram";
@@ -79,7 +80,7 @@ function PredictionsProjectPage() {
                 <TextStack lines={predictionsProjectResultLines} />
               </BlockSlot>
               <BlockSlot>
-                <img
+                <DeferredImage
                   src={predictionsProjectImages.result.src}
                   alt={predictionsProjectImages.result.alt}
                   className="block h-auto w-full"
@@ -196,7 +197,7 @@ function PredictionsProjectPage() {
               <div className="project-case-architecture-slot-main">
                 <div className="stack">
                   <TextBlock variant="plain" text={predictionsProjectArchitecturePlain} />
-                  <img
+                  <DeferredImage
                     src={predictionsProjectImages.architecture.src}
                     alt={predictionsProjectImages.architecture.alt}
                     className="block h-auto w-full"

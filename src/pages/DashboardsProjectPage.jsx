@@ -2,6 +2,7 @@ import { useRef } from "react";
 import Block, { BlockSlot } from "../components/Block";
 import DashboardsProjectTabletContent from "../components/DashboardsProjectTabletContent";
 import Headline from "../components/Headline";
+import DeferredImage from "../components/DeferredImage";
 import ProjectCaseBackButton from "../components/ProjectCaseBackButton";
 import DashboardsFlowDiagram from "../components/DashboardsFlowDiagram";
 import ProjectCaseTopRow from "../components/ProjectCaseTopRow";
@@ -86,7 +87,7 @@ function DashboardsProjectPage() {
                 <TextStack lines={dashboardsProjectResultLines} />
               </BlockSlot>
               <BlockSlot>
-                <img
+                <DeferredImage
                   src={dashboardsProjectImages.result.src}
                   alt={dashboardsProjectImages.result.alt}
                   className="block h-auto w-full"
@@ -185,7 +186,7 @@ function DashboardsProjectPage() {
             />
           </BlockSlot>
           <BlockSlot>
-            <img
+            <DeferredImage
               src={dashboardsProjectImages.widgets.src}
               alt={dashboardsProjectImages.widgets.alt}
               className="block h-auto w-full"

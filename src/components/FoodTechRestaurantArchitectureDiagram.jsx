@@ -4,6 +4,8 @@ import {
   FOOD_TECH_ARCHITECTURE_RESTAURANT_LAYER_ID_PATTERN,
   getFoodTechArchitectureRestaurantScenario,
 } from "../data/foodTechArchitectureRestaurantScenarios";
+import DeferredImage from "./DeferredImage";
+import LoadingHost from "./LoadingHost";
 
 function getScenarioLayerId(scenarioId) {
   return getFoodTechArchitectureRestaurantScenario(scenarioId)?.layerId ?? null;
@@ -71,12 +73,12 @@ function FoodTechRestaurantArchitectureDiagram({ scenarioId = "all", className =
   }, [scenarioId, svgMarkup]);
 
   return (
-    <div
+    <LoadingHost
+      loading={!svgMarkup && !loadError}
       className={`food-tech-architecture-diagram ${className}`.trim()}
-      aria-busy={!svgMarkup && !loadError}
     >
       {loadError ? (
-        <img
+        <DeferredImage
           src={foodTechProjectImages.architectureRestaurant.src}
           alt={foodTechProjectImages.architectureRestaurant.alt}
           className="block h-auto w-full"
@@ -90,7 +92,7 @@ function FoodTechRestaurantArchitectureDiagram({ scenarioId = "all", className =
           aria-label={foodTechProjectImages.architectureRestaurant.alt}
         />
       )}
-    </div>
+    </LoadingHost>
   );
 }
 

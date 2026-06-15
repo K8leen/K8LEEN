@@ -1,7 +1,9 @@
 import { useRef } from "react";
 import Block, { BlockSlot } from "../components/Block";
+import DesignSystemApplicationDiagram from "../components/DesignSystemApplicationDiagram";
 import DesignSystemProjectTabletContent from "../components/DesignSystemProjectTabletContent";
 import Headline from "../components/Headline";
+import DeferredImage from "../components/DeferredImage";
 import ProjectCaseBackButton from "../components/ProjectCaseBackButton";
 import ProjectCaseTopRow from "../components/ProjectCaseTopRow";
 import SiteLayout from "../components/SiteLayout";
@@ -67,7 +69,7 @@ function DesignSystemProjectPage() {
                 <TextStack lines={designSystemProjectResultLines} />
               </BlockSlot>
               <BlockSlot>
-                <img
+                <DeferredImage
                   src={designSystemProjectImages.result.src}
                   alt={designSystemProjectImages.result.alt}
                   className="block h-auto w-full"
@@ -159,7 +161,7 @@ function DesignSystemProjectPage() {
             />
           </BlockSlot>
           <BlockSlot>
-            <img
+            <DeferredImage
               src={designSystemProjectImages.architecture.src}
               alt={designSystemProjectImages.architecture.alt}
               className="block h-auto w-full"
@@ -180,10 +182,9 @@ function DesignSystemProjectPage() {
             />
           </BlockSlot>
           <BlockSlot>
-            <img
+            <DesignSystemApplicationDiagram
               src={designSystemProjectImages.application.src}
               alt={designSystemProjectImages.application.alt}
-              className="block h-auto w-full"
             />
           </BlockSlot>
         </Block>

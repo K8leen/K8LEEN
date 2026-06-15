@@ -1,4 +1,5 @@
 import Block, { BlockSlot } from "./Block";
+import DeferredImage from "./DeferredImage";
 import ProjectCaseResultVisual from "./ProjectCaseResultVisual";
 import PredictionsInterfaceSystemDiagramTablet from "./PredictionsInterfaceSystemDiagramTablet";
 import ProgressiveDisclosureCard from "./ProgressiveDisclosureCard";
@@ -139,7 +140,7 @@ function PredictionsProjectTabletContent() {
           <TextBlock variant="plain" text={predictionsProjectArchitecturePlain} />
         </BlockSlot>
         <BlockSlot>
-          <img
+          <DeferredImage
             src={predictionsProjectImages.architecture.src}
             alt={predictionsProjectImages.architecture.alt}
             className="project-case-architecture-full block h-auto"

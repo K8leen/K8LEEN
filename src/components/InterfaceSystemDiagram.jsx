@@ -9,6 +9,8 @@ import {
   positionFloatingNearPointer,
 } from "../utils/positionFloatingNearPointer";
 import FoodTechInterfacePatternModal from "./FoodTechInterfacePatternModal";
+import DeferredImage from "./DeferredImage";
+import LoadingHost from "./LoadingHost";
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 const LABEL_HIT_PAD = 4;
@@ -255,14 +257,14 @@ function InterfaceSystemDiagram({
       : null;
 
   return (
-    <div
+    <LoadingHost
+      loading={!allLoaded && !loadError}
       className={`interface-system-diagram ${debugLabels ? "interface-system-diagram--debug-labels" : ""} ${className}`.trim()}
-      aria-busy={!allLoaded && !loadError}
     >
       {loadError ? (
         <div className="interface-system-diagram__stack">
           {resolvedParts.map((part) => (
-            <img
+            <DeferredImage
               key={part.src}
               src={part.src}
               alt={svgAlt}
@@ -289,7 +291,7 @@ function InterfaceSystemDiagram({
       )}
 
       {modalPortal}
-    </div>
+    </LoadingHost>
   );
 }
 

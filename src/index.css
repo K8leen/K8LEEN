@@ -3863,6 +3863,111 @@
     height: 15px;
     flex: 0 0 15px;
   }
+
+  /* Image loader — Apple-like arc, light_accent */
+  .image-loader {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .image-loader__svg {
+    display: block;
+    animation: image-loader-spin 0.8s linear infinite;
+    transform-origin: center;
+  }
+
+  @keyframes image-loader-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .image-loader__svg {
+      animation: none;
+    }
+  }
+
+  .deferred-image {
+    position: relative;
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    line-height: 0;
+  }
+
+  .deferred-image:has(.w-full),
+  .deferred-image:has(.project-case-architecture-full),
+  .deferred-image:has(.project-case-interface-static__image),
+  .deferred-image:has(.project-case-interface-scroll__image),
+  .deferred-image:has(.interface-system-diagram__fallback) {
+    width: 100%;
+  }
+
+  .deferred-image__img {
+    display: block;
+    max-width: 100%;
+    transition: opacity 180ms ease;
+  }
+
+  .deferred-image--loading .deferred-image__img {
+    opacity: 0;
+  }
+
+  .deferred-image__loader,
+  .loading-host__loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    background: var(--surface);
+  }
+
+  .loading-host {
+    position: relative;
+    display: block;
+    width: 100%;
+    line-height: 0;
+  }
+
+  .loading-host--loading {
+    min-height: 120px;
+  }
+
+  .loading-host--loading > :not(.loading-host__loader) {
+    opacity: 0;
+  }
+
+  .deferred-image.project-card-visual,
+  .deferred-image.project-card-mobile__visual {
+    width: 148px;
+    height: 148px;
+    background: var(--light-accent);
+  }
+
+  .project-case-interface-scroll__frame {
+    position: relative;
+  }
+
+  .project-case-interface-scroll__frame .deferred-image {
+    width: 100%;
+  }
+
+  .home-sec01-mobile__visual .deferred-image {
+    width: 100%;
+  }
+
+  .deferred-image.project-card-visual .deferred-image__img,
+  .deferred-image.project-card-mobile__visual .deferred-image__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
 }
 
 /* Layout variants — единый переключатель: tablet ≤1279px, desktop ≥1280px */

@@ -2,7 +2,9 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import { createPortal } from "react-dom";
 import Block, { BlockSlot } from "./Block";
 import FloatingButton from "./FloatingButton";
+import DeferredImage from "./DeferredImage";
 import FoodTechInterfacePatternModal from "./FoodTechInterfacePatternModal";
+import LoadingHost from "./LoadingHost";
 import ProgressiveDisclosureCard from "./ProgressiveDisclosureCard";
 import { DASHBOARDS_FLOW_ANNOTATIONS } from "../data/dashboardsFlowAnnotations";
 import { DASHBOARDS_FLOW_CALLOUT_DOTS } from "../data/dashboardsFlowCalloutDots";
@@ -232,12 +234,12 @@ function DashboardsFlowDiagramInteractive({
 
   return (
     <>
-      <div
+      <LoadingHost
+        loading={!svgMarkup && !loadError}
         className={`interface-system-diagram interface-system-diagram--tablet ${className}`.trim()}
-        aria-busy={!svgMarkup && !loadError}
       >
         {loadError ? (
-          <img
+          <DeferredImage
             src={dashboardsProjectImages.flow.src}
             alt={dashboardsProjectImages.flow.alt}
             className="interface-system-diagram__fallback"
@@ -251,7 +253,7 @@ function DashboardsFlowDiagramInteractive({
             aria-label={dashboardsProjectImages.flow.alt}
           />
         )}
-      </div>
+      </LoadingHost>
       {modalPortal}
     </>
   );
@@ -316,7 +318,7 @@ function DashboardsFlowDiagramTablet() {
   return (
     <>
       <div className="project-case-application-diagram">
-        <img
+        <DeferredImage
           src={dashboardsProjectImages.flow.src}
           alt={dashboardsProjectImages.flow.alt}
           className="block h-auto w-full"

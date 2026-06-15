@@ -1,4 +1,5 @@
 import Block, { BlockSlot } from "./Block";
+import DeferredImage from "./DeferredImage";
 import ProjectCaseResultVisual from "./ProjectCaseResultVisual";
 import DesignSystemApplicationDiagram from "./DesignSystemApplicationDiagram";
 import HorizontalScrollStrip from "./HorizontalScrollStrip";
@@ -113,7 +114,7 @@ function DesignSystemProjectTabletContent() {
             className="project-case-architecture-scroll"
             ariaLabel={designSystemProjectImages.architecture.alt}
           >
-            <img
+            <DeferredImage
               src={designSystemProjectImages.architecture.src}
               alt={designSystemProjectImages.architecture.alt}
               className="project-case-architecture-scroll__image"

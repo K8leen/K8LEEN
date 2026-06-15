@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import useMediaQuery from "../hooks/useMediaQuery";
+import DeferredImage from "./DeferredImage";
+import LoadingHost from "./LoadingHost";
 import ProjectCaseResultCalloutModal from "./ProjectCaseResultCalloutModal";
 import { installInterfaceCalloutDotHitArea } from "../utils/installInterfaceCalloutDotHitArea";
 import { prepareProjectCaseResultSvg } from "../utils/prepareProjectCaseResultSvg";
@@ -199,7 +201,7 @@ function ProjectCaseResultVisual({ src, alt, className = "", onLoad }) {
 
   if (!isMobile || loadError) {
     return (
-      <img
+      <DeferredImage
         src={src}
         alt={alt}
         className={className}
@@ -220,9 +222,9 @@ function ProjectCaseResultVisual({ src, alt, className = "", onLoad }) {
 
   return (
     <>
-      <div
+      <LoadingHost
+        loading={!svgMarkup}
         className={`interface-system-diagram interface-system-diagram--tablet project-case-result-visual${className ? ` ${className}` : ""}`}
-        aria-busy={!svgMarkup}
       >
         <div
           ref={hostRef}
@@ -231,7 +233,7 @@ function ProjectCaseResultVisual({ src, alt, className = "", onLoad }) {
           role="img"
           aria-label={alt}
         />
-      </div>
+      </LoadingHost>
       {modalPortal}
     </>
   );

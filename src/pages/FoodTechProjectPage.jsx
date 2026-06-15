@@ -2,6 +2,7 @@ import { useRef } from "react";
 import Block, { BlockSlot } from "../components/Block";
 import Headline from "../components/Headline";
 import ProjectCaseBackButton from "../components/ProjectCaseBackButton";
+import ProjectCaseResultVisual from "../components/ProjectCaseResultVisual";
 import ProjectCaseTopRow from "../components/ProjectCaseTopRow";
 import SiteLayout from "../components/SiteLayout";
 import FoodTechArchitectureSection from "../components/FoodTechArchitectureSection";
@@ -75,7 +76,7 @@ function FoodTechProjectPage() {
                 <TextStack lines={foodTechProjectResultLines} />
               </BlockSlot>
               <BlockSlot className="project-case-result-visual-slot">
-                <img
+                <ProjectCaseResultVisual
                   src={foodTechProjectImages.result.src}
                   alt={foodTechProjectImages.result.alt}
                   className="project-case-result-visual"

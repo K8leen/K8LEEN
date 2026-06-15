@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Block, { BlockSlot } from "./Block";
+import DeferredImage from "./DeferredImage";
 import FloatingButton from "./FloatingButton";
 import ProgressiveDisclosureCard from "./ProgressiveDisclosureCard";
 
@@ -50,7 +51,7 @@ function DesignSystemApplicationDiagram({ src, alt }) {
           >
             <Block className="project-case-application-viewport-block" title="Схема" borders={{}}>
               <BlockSlot>
-                <img src={src} alt={alt} className="block h-auto w-full" draggable={false} />
+                <DeferredImage src={src} alt={alt} className="block h-auto w-full" draggable={false} />
               </BlockSlot>
             </Block>
           </ProgressiveDisclosureCard>
@@ -62,7 +63,7 @@ function DesignSystemApplicationDiagram({ src, alt }) {
   return (
     <>
       <div className="project-case-application-diagram">
-        <img src={src} alt={alt} className="block h-auto w-full" draggable={false} />
+        <DeferredImage src={src} alt={alt} className="block h-auto w-full" draggable={false} />
         <FloatingButton
           iconSrc="/icons/maximize-01.svg"
           className="project-case-application-diagram__expand"

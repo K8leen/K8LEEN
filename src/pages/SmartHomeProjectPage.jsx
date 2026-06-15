@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import Block, { BlockSlot } from "../components/Block";
 import Headline from "../components/Headline";
+import DeferredImage from "../components/DeferredImage";
 import ProjectCaseBackButton from "../components/ProjectCaseBackButton";
 import ProjectCaseTopRow from "../components/ProjectCaseTopRow";
 import SmartHomeInterfaceSystemDiagram from "../components/SmartHomeInterfaceSystemDiagram";
@@ -72,7 +73,7 @@ function SmartHomeProjectPage() {
                 <TextStack lines={smartHomeProjectResultLines} />
               </BlockSlot>
               <BlockSlot>
-                <img
+                <DeferredImage
                   src={smartHomeProjectImages.result.src}
                   alt={smartHomeProjectImages.result.alt}
                   className="block h-auto w-full"
@@ -164,7 +165,7 @@ function SmartHomeProjectPage() {
             <BlockSlot>
               <div className="stack">
                 <TextBlock variant="plain" text={smartHomeProjectArchitecturePlain} />
-                <img
+                <DeferredImage
                   src={smartHomeProjectImages.architecture.src}
                   alt={smartHomeProjectImages.architecture.alt}
                   className="block h-auto w-full"

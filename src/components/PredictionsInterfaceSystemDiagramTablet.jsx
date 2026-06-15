@@ -2,7 +2,9 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import { createPortal } from "react-dom";
 import Block, { BlockSlot } from "./Block";
 import FloatingButton from "./FloatingButton";
+import DeferredImage from "./DeferredImage";
 import FoodTechInterfacePatternModal from "./FoodTechInterfacePatternModal";
+import LoadingHost from "./LoadingHost";
 import ProgressiveDisclosureCard from "./ProgressiveDisclosureCard";
 import { PREDICTIONS_INTERFACE_ANNOTATIONS } from "../data/predictionsInterfaceAnnotations";
 import { PREDICTIONS_INTERFACE_CALLOUT_DOTS } from "../data/predictionsInterfaceCalloutDots";
@@ -235,12 +237,12 @@ function PredictionsInterfaceDiagramInteractive({
 
   return (
     <>
-      <div
+      <LoadingHost
+        loading={!svgMarkup && !loadError}
         className={`interface-system-diagram interface-system-diagram--tablet ${className}`.trim()}
-        aria-busy={!svgMarkup && !loadError}
       >
         {loadError ? (
-          <img
+          <DeferredImage
             src={predictionsProjectImages.interfaceSystem.src}
             alt={predictionsProjectImages.interfaceSystem.alt}
             className="interface-system-diagram__fallback"
@@ -254,7 +256,7 @@ function PredictionsInterfaceDiagramInteractive({
             aria-label={predictionsProjectImages.interfaceSystem.alt}
           />
         )}
-      </div>
+      </LoadingHost>
       {modalPortal}
     </>
   );
@@ -319,7 +321,7 @@ function PredictionsInterfaceSystemDiagramTablet() {
   return (
     <>
       <div className="project-case-application-diagram">
-        <img
+        <DeferredImage
           src={predictionsProjectImages.interfaceSystem.src}
           alt={predictionsProjectImages.interfaceSystem.alt}
           className="block h-auto w-full"

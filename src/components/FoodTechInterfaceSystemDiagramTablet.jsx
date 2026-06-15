@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import FoodTechInterfacePatternModal from "./FoodTechInterfacePatternModal";
+import DeferredImage from "./DeferredImage";
 import HorizontalScrollStrip from "./HorizontalScrollStrip";
 import {
   FOOD_TECH_INTERFACE_ANNOTATIONS,
@@ -70,7 +71,7 @@ function FoodTechInterfaceDiagramPart({
       }
     >
       <div className="project-case-interface-scroll__frame">
-        <img
+        <DeferredImage
           src={src}
           alt={
             isFirstPart
