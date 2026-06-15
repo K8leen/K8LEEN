@@ -23,9 +23,19 @@ function loadMetrikaScript() {
   })(window, document, "script", METRIKA_SCRIPT_SRC, "ym");
 }
 
+export function isYandexMetrikaInitialized(counterId) {
+  const id = Number(counterId);
+  return Boolean(id && (initializedCounterId === id || window.__k8leenMetrikaInitialized));
+}
+
 export function initYandexMetrika(counterId) {
   const id = Number(counterId);
-  if (!id || initializedCounterId === id) return;
+  if (!id) return;
+
+  if (window.__k8leenMetrikaInitialized || initializedCounterId === id) {
+    initializedCounterId = id;
+    return;
+  }
 
   loadMetrikaScript();
 
@@ -38,11 +48,12 @@ export function initYandexMetrika(counterId) {
   });
 
   initializedCounterId = id;
+  window.__k8leenMetrikaInitialized = true;
 }
 
 export function hitYandexMetrika(counterId, url) {
   const id = Number(counterId);
-  if (!id || initializedCounterId !== id || typeof window.ym !== "function") return;
+  if (!id || !isYandexMetrikaInitialized(id) || typeof window.ym !== "function") return;
 
   window.ym(id, "hit", url);
 }

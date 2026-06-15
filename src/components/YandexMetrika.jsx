@@ -16,30 +16,21 @@ function YandexMetrika() {
   useEffect(() => {
     if (!COUNTER_ID) return undefined;
 
-    const maybeInit = () => {
-      if (hasAnalyticsConsent()) {
-        initYandexMetrika(COUNTER_ID);
-      }
-    };
-
-    maybeInit();
-
-    const onConsentGranted = () => {
+    const syncMetrika = () => {
+      if (!hasAnalyticsConsent()) return;
       initYandexMetrika(COUNTER_ID);
       hitYandexMetrika(COUNTER_ID, `${pathname}${search}`);
     };
 
-    window.addEventListener("cookie-consent-granted", onConsentGranted);
+    syncMetrika();
+
+    window.addEventListener("cookie-consent-granted", syncMetrika);
+    window.addEventListener("pageshow", syncMetrika);
 
     return () => {
-      window.removeEventListener("cookie-consent-granted", onConsentGranted);
+      window.removeEventListener("cookie-consent-granted", syncMetrika);
+      window.removeEventListener("pageshow", syncMetrika);
     };
-  }, []);
-
-  useEffect(() => {
-    if (!COUNTER_ID || !hasAnalyticsConsent()) return;
-
-    hitYandexMetrika(COUNTER_ID, `${pathname}${search}`);
   }, [pathname, search]);
 
   return null;
