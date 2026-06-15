@@ -13,6 +13,7 @@ export default function useCookieBanner({ preview = false, onDismiss } = {}) {
   const dismiss = () => {
     if (!preview) {
       localStorage.setItem(COOKIE_BANNER_STORAGE_KEY, "1");
+      window.dispatchEvent(new CustomEvent("cookie-consent-granted"));
     }
     setVisible(false);
     onDismiss?.();

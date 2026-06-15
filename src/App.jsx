@@ -1,5 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
+import YandexMetrika from "./components/YandexMetrika";
+import ProjectCaseContentAnalytics from "./components/ProjectCaseContentAnalytics";
 import ComponentShowcasePage from "./pages/ComponentShowcasePage";
 import DashboardsProjectPage from "./pages/DashboardsProjectPage";
 import DesignSystemProjectPage from "./pages/DesignSystemProjectPage";
@@ -16,6 +18,8 @@ function App() {
   return (
     <>
       <ScrollToTop />
+      <YandexMetrika />
+      <ProjectCaseContentAnalytics />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/projects" element={<ProjectsPage />} />
