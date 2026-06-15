@@ -14,7 +14,7 @@ import {
   getInterfacePatternModalWidth,
   getModalPositionBounds,
 } from "../utils/foodTechScenarioModalWidth";
-import { wireInterfaceLabelTap } from "../utils/interfaceDiagramTapWiring";
+import { syncInterfaceLabelActiveState, wireInterfaceLabelTap } from "../utils/interfaceDiagramTapWiring";
 import {
   FLOATING_POINTER_OFFSET,
   positionFloatingNearPointer,
@@ -151,6 +151,8 @@ function PredictionsInterfaceDiagramInteractive({
       const isActive = hit.getAttribute("data-interface-dot") === activeId;
       hit.classList.toggle("interface-system-diagram__callout-dot-hit--active", Boolean(isActive));
     }
+
+    syncInterfaceLabelActiveState(svg, PREDICTIONS_INTERFACE_ANNOTATIONS, activeId);
   }, [activeId, svgMarkup]);
 
   useLayoutEffect(() => {
@@ -325,7 +327,7 @@ function PredictionsInterfaceSystemDiagramTablet() {
         />
         <FloatingButton
           iconSrc="/icons/maximize-01.svg"
-          className="project-case-application-diagram__expand project-case-application-diagram__expand--bottom"
+          className="project-case-application-diagram__expand"
           onClick={() => setExpanded(true)}
           aria-label="Развернуть схему"
         >

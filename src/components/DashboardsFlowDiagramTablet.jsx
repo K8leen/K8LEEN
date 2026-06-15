@@ -11,7 +11,7 @@ import {
   getInterfacePatternModalWidth,
   getModalPositionBounds,
 } from "../utils/foodTechScenarioModalWidth";
-import { wireInterfaceLabelTap } from "../utils/interfaceDiagramTapWiring";
+import { syncInterfaceLabelActiveState, wireInterfaceLabelTap } from "../utils/interfaceDiagramTapWiring";
 import {
   FLOATING_POINTER_OFFSET,
   positionFloatingNearPointer,
@@ -148,6 +148,8 @@ function DashboardsFlowDiagramInteractive({
       const isActive = hit.getAttribute("data-interface-dot") === activeId;
       hit.classList.toggle("interface-system-diagram__callout-dot-hit--active", Boolean(isActive));
     }
+
+    syncInterfaceLabelActiveState(svg, DASHBOARDS_FLOW_ANNOTATIONS, activeId);
   }, [activeId, svgMarkup]);
 
   useLayoutEffect(() => {

@@ -57,3 +57,15 @@ export function wireInterfaceLabelTap(svg, annotation, { openAnnotation }) {
     hit.remove();
   };
 }
+
+/** Подсветка подписи выноски, пока открыта модалка (как hover на desktop). */
+export function syncInterfaceLabelActiveState(svg, annotations, activeId) {
+  for (const annotation of annotations) {
+    const group = svg.getElementById(annotation.id);
+    if (!group) continue;
+    group.classList.toggle(
+      "interface-system-diagram__label--hover",
+      activeId === annotation.id,
+    );
+  }
+}

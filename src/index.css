@@ -720,6 +720,29 @@
       min-width: 0;
     }
 
+    .project-case-page-tablet img.project-case-result-visual,
+    .project-case-page-tablet .project-case-result-visual {
+      box-sizing: border-box;
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
+    .project-case-page-tablet
+      .project-case-result-visual.interface-system-diagram
+      .interface-system-diagram__svg-host,
+    .project-case-page-tablet
+      .project-case-result-visual.interface-system-diagram
+      .interface-system-diagram__svg-host
+      svg {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
     .project-case-page-tablet .pdc-card-body.stack {
       gap: 0;
     }
@@ -1271,6 +1294,7 @@
 
   .interface-system-diagram__svg-host svg {
     pointer-events: none;
+    overflow: visible;
   }
 
   .interface-system-diagram__svg-host [data-interface-label] {
@@ -1387,9 +1411,12 @@
 
   .project-case-result-callout-modal__label svg {
     display: block;
-    height: var(--type-tech-size);
     width: auto;
-    max-width: 100%;
+    height: var(--type-tech-size);
+    min-width: max-content;
+    max-width: none;
+    overflow: visible;
+    shape-rendering: geometricPrecision;
   }
 
   .project-case-result-callout-modal__label svg :is(path, rect) {
@@ -1967,13 +1994,8 @@
 
   .project-case-application-diagram__expand {
     position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  .project-case-application-diagram__expand--bottom {
-    top: auto;
     bottom: 0;
+    left: 0;
   }
 
   .project-case-application-viewport {
@@ -1985,6 +2007,25 @@
     justify-content: center;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .project-case-application-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .project-case-application-viewport .project-case-application-viewport-block .ds-block-slot,
+  .project-case-application-viewport .interface-system-diagram__svg-host,
+  .project-case-application-viewport .interface-system-diagram__fallback {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .project-case-application-viewport .project-case-application-viewport-block .ds-block-slot::-webkit-scrollbar,
+  .project-case-application-viewport .interface-system-diagram__svg-host::-webkit-scrollbar,
+  .project-case-application-viewport .interface-system-diagram__fallback::-webkit-scrollbar {
+    display: none;
   }
 
   .project-case-application-viewport__backdrop {
@@ -2180,34 +2221,6 @@
       flex-shrink: 0;
     }
 
-    .project-card-mobile__maximize.floating-shell {
-      box-sizing: border-box;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      padding: 7.5px;
-    }
-
-    .project-card-mobile__maximize .floating-btn-content.floating-btn-content--icon-only {
-      box-sizing: border-box;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 25px;
-      height: 25px;
-      min-width: 25px;
-      min-height: 25px;
-      padding: 5px;
-    }
-
-    .project-card-mobile__maximize .floating-btn-icon {
-      width: 15px;
-      height: 15px;
-      flex: 0 0 15px;
-    }
-
     .project-card-mobile__body {
       display: grid;
       grid-template-columns: 148px 0.3px minmax(0, 1fr);
@@ -2385,6 +2398,10 @@
     border-left: 0.5px solid var(--structural-line);
   }
 
+  .home-sec01-expertise-text .content-text-block-section {
+    gap: 0;
+  }
+
   .home-sec01-expertise-text .content-text-block-section > h3,
   .home-sec01-expertise-text .content-text-block-section > p {
     margin: 0;
@@ -2492,6 +2509,10 @@
 
     .project-case-back-float .floating-shell {
       padding: 8px;
+    }
+
+    .project-case-page .project-case-headline-anchor .headline {
+      padding-right: 88px;
     }
   }
 
@@ -2656,8 +2677,33 @@
       width: calc(100% + 2 * var(--mobile-inner-padding-x));
     }
 
-    .project-case-result-visual.interface-system-diagram {
+    .project-case-page-tablet img.project-case-result-visual,
+    .project-case-page-tablet .project-case-result-visual {
+      box-sizing: border-box;
+      display: block;
+      margin-left: calc(-1 * var(--mobile-inner-padding-x));
+      margin-right: calc(-1 * var(--mobile-inner-padding-x));
+      width: calc(100% + 2 * var(--mobile-inner-padding-x));
+      min-width: 0;
+      max-width: none;
+      height: auto;
+      overflow: visible;
+    }
+
+    .project-case-page-tablet
+      .project-case-result-visual.interface-system-diagram
+      .interface-system-diagram__svg-host
+      svg {
       width: 100%;
+      max-width: none;
+      height: auto;
+      overflow: visible;
+    }
+
+    .project-case-page-tablet
+      .project-case-result-visual.interface-system-diagram--tablet
+      .interface-system-diagram__callout-dot-pulse {
+      fill: color-mix(in srgb, var(--primary-accent) 40%, var(--light-accent));
     }
 
     /* Проекты / правовая / кейсы — mobile (≤699px): планшетный стек + мобильные отступы */
@@ -2708,24 +2754,47 @@
       gap: 8px;
     }
 
-    .project-case-page-tablet .project-case-dashboards-widgets-scroll__image {
-      height: calc(162px * 1.1);
+    .project-case-page-tablet .project-case-dashboards-widgets-scroll__image,
+    .project-case-page-tablet .project-case-architecture-scroll__image {
+      width: auto;
+      max-width: none;
+      height: auto;
+    }
+
+    .project-case-page-tablet .horizontal-scroll-strip {
+      overflow-y: visible;
     }
 
     .project-case-page-tablet .project-case-interface-scroll__frame {
-      min-width: 700px;
+      min-width: 0;
+      width: max-content;
+      max-width: none;
     }
 
-    .project-case-page-tablet .project-case-interface-scroll__image--part-1 {
-      height: 360px;
-    }
-
-    .project-case-page-tablet .project-case-interface-scroll__image--part-2 {
-      height: 458px;
-    }
-
+    .project-case-page-tablet .project-case-interface-scroll__image,
+    .project-case-page-tablet .project-case-interface-scroll__image--part-1,
+    .project-case-page-tablet .project-case-interface-scroll__image--part-2,
     .project-case-page-tablet .project-case-interface-scroll__image--smart-home {
-      height: 514px;
+      width: auto;
+      max-width: none;
+      height: auto;
+    }
+
+    .project-case-application-diagram {
+      margin-left: calc(-1 * var(--mobile-inner-padding-x));
+      margin-right: calc(-1 * var(--mobile-inner-padding-x));
+      width: calc(100% + 2 * var(--mobile-inner-padding-x));
+      overflow-x: auto;
+      overflow-y: visible;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .project-case-application-diagram > img {
+      display: block;
+      width: auto;
+      min-width: 100%;
+      max-width: none;
+      height: auto;
     }
 
     .project-case-application-viewport {
@@ -2734,41 +2803,57 @@
     }
 
     .project-case-application-viewport__shell {
-      width: max-content;
-      min-width: 100vw;
+      box-sizing: border-box;
+      width: 100%;
+      min-width: 0;
+      max-width: 100vw;
+      padding: 16px;
     }
 
     .project-case-application-viewport-pdc.floating-shell {
-      width: 700px;
-      min-width: 700px;
-      max-width: none;
+      box-sizing: border-box;
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
     }
 
     .project-case-application-viewport .interface-system-diagram {
-      width: 700px;
-      min-width: 700px;
+      width: 100%;
+      min-width: 0;
     }
 
     .project-case-application-viewport .interface-system-diagram__svg-host,
     .project-case-application-viewport .interface-system-diagram__fallback {
-      width: 700px;
+      width: 100%;
       max-width: none;
+      overflow-x: auto;
     }
 
     .project-case-application-viewport
       .interface-system-diagram--tablet
       .interface-system-diagram__svg-host
       svg {
-      width: 700px;
+      width: auto;
+      min-width: 700px;
       max-width: none;
       height: auto;
     }
 
+    .project-case-application-viewport-block .ds-block-slot {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
     .project-case-application-viewport-block .ds-block-slot img {
       display: block;
-      width: 700px;
+      width: auto;
+      min-width: 700px;
       max-width: none;
       height: auto;
+    }
+
+    .project-case-result-callout-modal__label svg {
+      max-width: calc(100vw - 48px);
     }
 
     .food-tech-interface-pattern-modal-anchor {
@@ -3744,8 +3829,9 @@
   white-space: inherit;
 }
 
-/* Кнопка «Развернуть схему» — mobile (≤699px): 40×40px, пропорции как desktop (64×64) */
-@media (max-width: 699px) {
+/* Icon-only maximize — компактный размер (40×40 shell), как SEC-05 «Проекты» mobile */
+@media (max-width: 1279px) {
+  .project-card-mobile__maximize.floating-shell,
   .project-case-application-diagram__expand.floating-shell {
     box-sizing: border-box;
     display: inline-flex;
@@ -3756,6 +3842,7 @@
     padding: 7.5px;
   }
 
+  .project-card-mobile__maximize .floating-btn-content.floating-btn-content--icon-only,
   .project-case-application-diagram__expand .floating-btn-content.floating-btn-content--icon-only {
     box-sizing: border-box;
     display: inline-flex;
@@ -3770,6 +3857,7 @@
     padding-inline: 5px;
   }
 
+  .project-card-mobile__maximize .floating-btn-icon,
   .project-case-application-diagram__expand .floating-btn-icon {
     width: 15px;
     height: 15px;
